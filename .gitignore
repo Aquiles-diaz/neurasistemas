@@ -1,0 +1,14 @@
+/node_modules
+/.next/
+/out/
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+.env*
+!.env.example
+
+# local tooling / assistant config — keep out of the repo
+.claude/
+.mcp.json
+*.local.json
+skills.md
