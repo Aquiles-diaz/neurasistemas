@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useMemo, useState, type ReactNode } from "react";
+import {
+  useMemo,
+  useState,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
   CalendarDays,
-  Check,
   ChevronLeft,
   ChevronRight,
   Lock,
@@ -13,11 +17,11 @@ import {
   Phone,
 } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
+import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/reveal";
-import { Container, SecondaryButton } from "@/components/sections/primitives";
+import { Container } from "@/components/sections/primitives";
+import { EMAIL } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const EMAIL = "aquilesdiaz335@gmail.com";
 
 /** Projects take more than 10 days, so the first 10 days are never selectable. */
 const LEAD_DAYS = 10;
@@ -57,6 +61,10 @@ const MESES = [
   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",
 ];
 const DOW = ["lun", "mar", "mié", "jue", "vie", "sáb", "dom"];
+
+// Stable no-op subscription: lets useSyncExternalStore act as a hydration-safe
+// "is mounted" flag (false in the build-time HTML, true on the client).
+const subscribeNoop = () => () => {};
 
 const formatLong = (d: Date) =>
   new Intl.DateTimeFormat("es-AR", {
@@ -254,10 +262,15 @@ export function ProjectBrief() {
 
   // Compute "today" on the client only: this is a static export, so the
   // server HTML is baked at build time and would otherwise disagree.
-  const [minDate, setMinDate] = useState<Date | null>(null);
-  useEffect(() => {
-    setMinDate(addDays(startOfDay(new Date()), LEAD_DAYS));
-  }, []);
+  const mounted = useSyncExternalStore(
+    subscribeNoop,
+    () => true,
+    () => false
+  );
+  const minDate = useMemo(
+    () => (mounted ? addDays(startOfDay(new Date()), LEAD_DAYS) : null),
+    [mounted]
+  );
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -304,42 +317,7 @@ export function ProjectBrief() {
       <Container>
         <Reveal delay={d(1)} className="mx-auto w-full max-w-[760px]">
           <div className="rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-6 [box-shadow:var(--shadow-md),var(--edge-hi)] sm:p-8">
-            <AnimatePresence mode="wait">
-              {sent ? (
-                <motion.div
-                  key="ok"
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="py-6 text-center"
-                >
-                  <div className="mx-auto mb-4 flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[rgba(52,165,116,0.4)] bg-[rgba(52,165,116,0.14)] text-[color:var(--success)]">
-                    <Check size={26} strokeWidth={2} />
-                  </div>
-                  <h3 className="mb-2 text-xl font-bold text-[color:var(--text-strong)]">
-                    ¡Casi listo!
-                  </h3>
-                  <p className="mx-auto max-w-[42ch] text-sm leading-[1.6] text-[color:var(--text-muted)]">
-                    Abrimos tu correo con el brief prellenado — solo tenés que
-                    darle{" "}
-                    <span className="text-[color:var(--text-body)]">Enviar</span>.
-                    Te respondemos en menos de 24 h.
-                  </p>
-                  <div className="mt-5.5">
-                    <SecondaryButton size="sm" onClick={reset}>
-                      Empezar otro
-                    </SecondaryButton>
-                  </div>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col gap-6"
-                  onSubmit={handleSubmit}
-                >
+            <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                   <div className="flex flex-col gap-3">
                     <ChipGroup
                       label="¿Qué necesitás?"
@@ -472,17 +450,22 @@ export function ProjectBrief() {
                     <ArrowRight size={18} strokeWidth={1.8} />
                   </MetalButton>
 
-                  <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
-                    <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                    Tus datos están seguros — el formulario abre tu correo y los
-                    envías vos.
-                  </p>
-                </motion.form>
-              )}
-            </AnimatePresence>
+              <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
+                <Lock size={12} strokeWidth={1.8} className="flex-none" />
+                Tus datos están seguros — el formulario abre tu correo y los
+                envías vos.
+              </p>
+            </form>
           </div>
         </Reveal>
       </Container>
+
+      <SentModal
+        open={sent}
+        onClose={reset}
+        title="¡Brief enviado!"
+        message="Abrimos tu correo con el brief prellenado — solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+      />
     </section>
   );
 }

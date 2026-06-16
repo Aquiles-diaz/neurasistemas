@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Link from "next/link";
 import { Container } from "@/components/sections/primitives";
 
 /**
@@ -35,12 +36,12 @@ export default function Error({
           >
             Reintentar
           </button>
-          <a
+          <Link
             href="/"
             className="rounded-[var(--radius-pill)] px-5 py-2.5 text-sm font-medium text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-strong)]"
           >
             Volver al inicio
-          </a>
+          </Link>
         </div>
       </Container>
     </main>

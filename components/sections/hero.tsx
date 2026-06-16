@@ -49,16 +49,6 @@ export function Hero() {
             scrub: true,
           },
         });
-        gsap.to("[data-parallax='visual']", {
-          yPercent: -9,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
       });
     },
     { scope: root }
@@ -68,10 +58,12 @@ export function Hero() {
     <section
       ref={root}
       id="top"
-      className="relative overflow-hidden pb-[var(--section-y)] pt-[clamp(104px,13vh,150px)]"
+      className="relative flex min-h-[88vh] items-center overflow-hidden pb-[var(--section-y)] pt-[clamp(104px,13vh,150px)]"
     >
       {/* monochrome dithered backdrop (no WebGL) — the hero's signature texture */}
       <DitherBackground className="z-0" />
+      {/* full-bleed n8n flow drifting behind everything */}
+      <DeviceMockup />
       {/* radial glow: platinum / white metal — monochrome */}
       <div
         aria-hidden
@@ -93,8 +85,8 @@ export function Hero() {
       />
 
       <Container className="relative z-[1]">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-10">
-          {/* left: copy */}
+        <div>
+          {/* copy — the flow drifts full-bleed behind it */}
           <div className="max-w-[640px]">
             <div data-hero>
               <Badge dot>Disponibles para nuevos proyectos</Badge>
@@ -143,11 +135,6 @@ export function Hero() {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* right: animated device mockup */}
-          <div data-parallax="visual" className="relative">
-            <DeviceMockup />
           </div>
         </div>
       </Container>
