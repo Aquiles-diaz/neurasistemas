@@ -1,11 +1,9 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "motion/react";
 import {
   ArrowRight,
-  Check,
   Handshake,
   Lock,
   Mail,
@@ -14,13 +12,11 @@ import {
   Zap,
 } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
+import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/reveal";
-import { Container, Eyebrow, SecondaryButton } from "@/components/sections/primitives";
+import { Container, Eyebrow } from "@/components/sections/primitives";
+import { EMAIL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
 import { cn } from "@/lib/utils";
-
-const EMAIL = "aquilesdiaz335@gmail.com";
-const PHONE_DISPLAY = "+54 9 3402 507879";
-const WHATSAPP = "https://wa.me/5493402507879";
 
 const CONTACTS: { Icon: typeof Mail; text: string; href?: string }[] = [
   { Icon: Mail, text: EMAIL, href: `mailto:${EMAIL}` },
@@ -36,19 +32,27 @@ const TRUST: { Icon: typeof Lock; text: string }[] = [
   { Icon: Handshake, text: "Sin compromiso ni costos ocultos. Hablás directo con quien construye tu proyecto." },
 ];
 
+// text-base (16px) evita el zoom automático de iOS al enfocar un input en mobile.
 const inputBase =
-  "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3 text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-500)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
+  "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3.5 text-base text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-500)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
+
+// helper para el delay escalonado de la animación de entrada
+const ai = (i: number) => ({ ["--i" as string]: i } as CSSProperties);
 
 function Field({
   label,
   children,
+  className,
+  style,
 }: {
   label: string;
   children: ReactNode;
+  className?: string;
+  style?: CSSProperties;
 }) {
   return (
-    <label className="flex flex-col gap-2">
-      <span className="font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-[color:var(--text-subtle)]">
+    <label style={style} className={cn("flex flex-col gap-2", className)}>
+      <span className="field-label font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-[color:var(--text-subtle)] transition-colors duration-200">
         {label}
       </span>
       {children}
@@ -58,12 +62,36 @@ function Field({
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [inView, setInView] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState({
     nombre: "",
     empresa: "",
     correo: "",
     telefono: "",
   });
+
+  // Dispara la animación de entrada cuando el formulario entra en pantalla.
+  useEffect(() => {
+    const el = formRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    io.observe(el);
+    // Fallback: si por algún motivo el observer no dispara, mostramos igual.
+    const t = setTimeout(() => setInView(true), 1200);
+    return () => {
+      io.disconnect();
+      clearTimeout(t);
+    };
+  }, []);
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
@@ -166,127 +194,167 @@ export function Contact() {
         </div>
 
         <Reveal delay={d(2)} className="w-full">
-          <div className="rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-7 [box-shadow:var(--shadow-md),var(--edge-hi)]">
-            <AnimatePresence mode="wait">
-              {sent ? (
-                <motion.div
-                  key="ok"
-                  initial={{ opacity: 0, scale: 0.97 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="py-6 text-center"
-                >
-                  <div className="mx-auto mb-4 flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[rgba(52,165,116,0.4)] bg-[rgba(52,165,116,0.14)] text-[color:var(--success)]">
-                    <Check size={26} strokeWidth={2} />
+          <div className="contact-card relative rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-6 sm:p-8 [box-shadow:var(--shadow-md),var(--edge-hi)]">
+            <form
+              ref={formRef}
+              className={cn("contact-form flex flex-col gap-5", inView && "in-view")}
+              onSubmit={handleSubmit}
+            >
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field label="Nombre" className="anim-item" style={ai(0)}>
+                  <input
+                    className={inputBase}
+                    placeholder="Tu nombre"
+                    value={form.nombre}
+                    onChange={set("nombre")}
+                    required
+                  />
+                </Field>
+                <Field label="Empresa (opcional)" className="anim-item" style={ai(1)}>
+                  <input
+                    className={inputBase}
+                    placeholder="Tu empresa"
+                    value={form.empresa}
+                    onChange={set("empresa")}
+                  />
+                </Field>
+              </div>
+              <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                <Field label="Correo" className="anim-item" style={ai(2)}>
+                  <div className="relative">
+                    <Mail
+                      size={18}
+                      strokeWidth={1.6}
+                      className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--text-subtle)]"
+                    />
+                    <input
+                      type="email"
+                      className={cn(inputBase, "pl-11")}
+                      placeholder="tu@empresa.com"
+                      value={form.correo}
+                      onChange={set("correo")}
+                      required
+                    />
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-[color:var(--text-strong)]">
-                    ¡Casi listo!
-                  </h3>
-                  <p className="mx-auto max-w-[38ch] text-sm leading-[1.6] text-[color:var(--text-muted)]">
-                    Abrimos tu correo con todo prellenado — solo tenés que darle{" "}
-                    <span className="text-[color:var(--text-body)]">Enviar</span>.
-                    Te respondemos en menos de 24 h.
-                  </p>
-                  <div className="mt-5.5">
-                    <SecondaryButton
-                      size="sm"
-                      onClick={() => {
-                        setForm({
-                          nombre: "",
-                          empresa: "",
-                          correo: "",
-                          telefono: "",
-                        });
-                        setSent(false);
-                      }}
-                    >
-                      Enviar otro
-                    </SecondaryButton>
+                </Field>
+                <Field label="Teléfono (opcional)" className="anim-item" style={ai(3)}>
+                  <div className="relative">
+                    <Phone
+                      size={18}
+                      strokeWidth={1.6}
+                      className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--text-subtle)]"
+                    />
+                    <input
+                      type="tel"
+                      className={cn(inputBase, "pl-11")}
+                      placeholder="WhatsApp o teléfono"
+                      value={form.telefono}
+                      onChange={set("telefono")}
+                    />
                   </div>
-                </motion.div>
-              ) : (
-                <motion.form
-                  key="form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="flex flex-col gap-4.5"
-                  onSubmit={handleSubmit}
-                >
-                  <div className="grid grid-cols-1 gap-4.5 sm:grid-cols-2">
-                    <Field label="Nombre">
-                      <input
-                        className={inputBase}
-                        placeholder="Tu nombre"
-                        value={form.nombre}
-                        onChange={set("nombre")}
-                        required
-                      />
-                    </Field>
-                    <Field label="Empresa (opcional)">
-                      <input
-                        className={inputBase}
-                        placeholder="Tu empresa"
-                        value={form.empresa}
-                        onChange={set("empresa")}
-                      />
-                    </Field>
-                  </div>
-                  <div className="grid grid-cols-1 gap-4.5 sm:grid-cols-2">
-                    <Field label="Correo">
-                      <div className="relative">
-                        <Mail
-                          size={18}
-                          strokeWidth={1.6}
-                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--text-subtle)]"
-                        />
-                        <input
-                          type="email"
-                          className={cn(inputBase, "pl-11")}
-                          placeholder="tu@empresa.com"
-                          value={form.correo}
-                          onChange={set("correo")}
-                          required
-                        />
-                      </div>
-                    </Field>
-                    <Field label="Teléfono (opcional)">
-                      <div className="relative">
-                        <Phone
-                          size={18}
-                          strokeWidth={1.6}
-                          className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[color:var(--text-subtle)]"
-                        />
-                        <input
-                          type="tel"
-                          className={cn(inputBase, "pl-11")}
-                          placeholder="WhatsApp o teléfono"
-                          value={form.telefono}
-                          onChange={set("telefono")}
-                        />
-                      </div>
-                    </Field>
-                  </div>
+                </Field>
+              </div>
 
-                  <MetalButton
-                    type="submit"
-                    size="lg"
-                    className="mt-1 gap-2 font-[family-name:var(--font-body)] text-base font-semibold"
-                  >
-                    Enviar mensaje
-                    <ArrowRight size={18} strokeWidth={1.8} />
-                  </MetalButton>
+              <div className="anim-item" style={ai(4)}>
+                <MetalButton
+                  type="submit"
+                  size="lg"
+                  className="mt-1 w-full justify-center gap-2 font-[family-name:var(--font-body)] text-base font-semibold sm:w-auto"
+                >
+                  Enviar mensaje
+                  <ArrowRight size={18} strokeWidth={1.8} />
+                </MetalButton>
+              </div>
 
-                  <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
-                    <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                    Tus datos están seguros — solo los usamos para responderte.
-                  </p>
-                </motion.form>
-              )}
-            </AnimatePresence>
+              <p
+                className="anim-item flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]"
+                style={ai(5)}
+              >
+                <Lock size={12} strokeWidth={1.8} className="flex-none" />
+                Tus datos están seguros — solo los usamos para responderte.
+              </p>
+            </form>
           </div>
         </Reveal>
       </Container>
+
+      <SentModal
+        open={sent}
+        onClose={() => {
+          setForm({ nombre: "", empresa: "", correo: "", telefono: "" });
+          setSent(false);
+        }}
+        message="Abrimos tu correo con todo prellenado — solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+      />
+
+      {/* Animaciones táctiles, mobile-first. Si preferís, movelas a globals.css. */}
+      <style jsx>{`
+        /* línea de acento que aparece cuando el form está activo */
+        .contact-card::before {
+          content: "";
+          position: absolute;
+          left: 24px;
+          right: 24px;
+          top: 0;
+          height: 2px;
+          border-radius: 2px;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            var(--accent-500),
+            transparent
+          );
+          opacity: 0;
+          transform: scaleX(0.4);
+          transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+        .contact-card {
+          transition: border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+        /* glow suave de toda la card al tocar cualquier campo (sirve en touch) */
+        .contact-card:focus-within {
+          border-color: var(--border-strong);
+          box-shadow: var(--shadow-md), 0 0 0 1px var(--accent-glow),
+            0 0 44px -10px var(--accent-glow);
+        }
+        .contact-card:focus-within::before {
+          opacity: 0.85;
+          transform: scaleX(1);
+        }
+        /* la etiqueta del campo enfocado se tiñe de acento */
+        .contact-form :global(label:focus-within) .field-label {
+          color: var(--accent-300);
+        }
+
+        /* entrada escalonada al entrar en viewport */
+        .contact-form .anim-item {
+          opacity: 0;
+        }
+        .contact-form.in-view .anim-item {
+          animation: fieldUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+          animation-delay: calc(var(--i, 0) * 70ms);
+        }
+        @keyframes fieldUp {
+          from {
+            opacity: 0;
+            transform: translateY(14px);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .contact-form .anim-item,
+          .contact-form.in-view .anim-item {
+            opacity: 1;
+            animation: none;
+          }
+          .contact-card::before {
+            transition: none;
+          }
+        }
+      `}</style>
     </section>
   );
 }

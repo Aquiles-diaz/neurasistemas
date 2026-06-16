@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Reveal, d } from "@/components/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
+import { SpotlightGlow, trackSpotlight } from "@/components/ui/spotlight";
 
 // Monochrome platinum palette — every tile is the same white metal, varied
 // only in brightness so the grid keeps depth without colour.
@@ -46,8 +47,11 @@ export function Services() {
             <Reveal key={title} delay={d((i % 3) + 1)} className="h-full">
               <div
                 style={{ "--tile": tint } as React.CSSProperties}
+                onPointerMove={trackSpotlight}
                 className="group relative h-full overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[image:linear-gradient(180deg,var(--surface-2),var(--surface-1))] p-7 [box-shadow:var(--shadow-md),var(--edge-hi)] transition-[transform,border-color,box-shadow] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-[color:color-mix(in_srgb,var(--tile)_32%,var(--border-strong))] hover:[box-shadow:0_0_44px_-12px_color-mix(in_srgb,var(--tile)_50%,transparent),var(--shadow-lg)]"
               >
+                {/* Platinum spotlight that follows the cursor. */}
+                <SpotlightGlow />
                 {/* Soft tinted bloom — reveals the card's hue on hover. */}
                 <span
                   aria-hidden

@@ -2,7 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/smooth-scroll";
+<<<<<<< HEAD
 import { LaptopBackground } from "@/components/sections/laptop-background";
+=======
+import { SITE_URL } from "@/lib/site";
+>>>>>>> c441da0a641563f76f8a2c565d36ce0516cbb1d8
 
 // Two voices only: Stack Sans Notch (display headings, loaded from Google Fonts
 // below) + Inter for everything else.
@@ -12,8 +16,6 @@ const inter = Inter({
   variable: "--font-inter",
   display: "swap",
 });
-
-const SITE_URL = "https://neurasistemas.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -41,11 +43,20 @@ export const metadata: Metadata = {
     title: "Neura Sistemas — Desarrollo Web",
     description:
       "Creamos sitios web que inspiran confianza. Diseño y desarrollo web rápido, elegante y hecho para crecer.",
+    images: [
+      {
+        url: "/logo/neurasistemas-mark-dark.jpeg",
+        width: 1254,
+        height: 1254,
+        alt: "Neura Sistemas",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Neura Sistemas — Desarrollo Web",
     description: "Creamos sitios web que inspiran confianza.",
+    images: ["/logo/neurasistemas-mark-dark.jpeg"],
   },
   icons: { icon: "/logo/neurasistemas-monogram.png" },
 };

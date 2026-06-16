@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/sections/primitives";
+import { WHATSAPP } from "@/lib/site";
 
 const COLS: [string, [string, string][]][] = [
   [
@@ -18,7 +19,7 @@ const COLS: [string, [string, string][]][] = [
       ["Proceso", "/#proceso"],
       ["Proyectos", "/proyectos"],
       ["Contacto", "/#contacto"],
-      ["WhatsApp", "https://wa.me/5493402507879"],
+      ["WhatsApp", WHATSAPP],
     ],
   ],
 ];
@@ -64,7 +65,7 @@ export function Footer() {
         </div>
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--border-subtle)] pt-6">
           <span className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
-            © 2026 Neura Sistemas — Desarrollo Web
+            © {new Date().getFullYear()} Neura Sistemas — Desarrollo Web
           </span>
           <span className="font-[family-name:var(--font-mono)] text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
             Hecho con precisión en cada pixel

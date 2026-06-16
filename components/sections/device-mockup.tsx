@@ -1,241 +1,308 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useReducedMotion } from "motion/react";
-import { Lock } from "lucide-react";
+import { useEffect, useState, Fragment } from "react";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  type MotionValue,
+} from "motion/react";
 
-const EASE = [0.16, 1, 0.3, 1] as const;
+/* ============================================================
+   A spiral "spring" of flow on the right. As you scroll, the
+   coil STRETCHES downward — it grows longer and winds more turns
+   (it doesn't slide as a rigid block). The nodes are coloured
+   "suns" (n8n palette) that orbit around their point on the
+   spiral, drifting down / up and turning a full 360° as the coil
+   extends. Semi-transparent, behind the content. Static under
+   reduced motion.
+   ============================================================ */
 
-// Looping vertical auto-scroll: ease down the page, hold at the bottom,
-// ease back to the top. Tuned so the inner page reveals every section.
-const SCROLL_Y = ["0%", "-52%", "-52%", "0%"];
-const SCROLL_TIMES = [0, 0.46, 0.6, 1];
-const SCROLL_DUR = 13;
-// Scrollbar thumb runs in sync (own-height-relative travel).
-const THUMB_Y = ["0%", "176%", "176%", "0%"];
+const TWO_PI = Math.PI * 2;
+const DEF = { w: 1440, h: 900 };
+const HALF = 27;
 
-/**
- * A floating browser window playing a looping "screen-recording" of a polished
- * Neura site — the page auto-scrolls through hero, stats, chart, gallery and CTA,
- * with a synced scrollbar thumb. A living demo of what the studio ships.
- * All transform/opacity for speed; pauses entirely under reduced-motion.
- */
+type IconKey = "webhook" | "code" | "branch" | "database" | "send";
+const NODES: { u: number; icon: IconKey; label: string }[] = [
+  { u: 0.06, icon: "webhook", label: "WEBHOOK" },
+  { u: 0.28, icon: "code", label: "TRANSFORMAR" },
+  { u: 0.5, icon: "branch", label: "FILTRAR" },
+  { u: 0.72, icon: "database", label: "GUARDAR" },
+  { u: 0.94, icon: "send", label: "ENVIAR" },
+];
+
+// n8n-style colours, one per node.
+const COLORS = [
+  { glow: "#f2c94c", top: "#ffe488", bot: "#c89a1e" }, // yellow
+  { glow: "#5b8cff", top: "#93b4ff", bot: "#3a5fd9" }, // blue
+  { glow: "#ff5c8a", top: "#ff93b4", bot: "#d83b69" }, // pink
+  { glow: "#15c8a0", top: "#63e7c8", bot: "#0d9077" }, // teal
+  { glow: "#b07cff", top: "#cda9ff", bot: "#894fe2" }, // purple
+];
+
+// motion + shape tuning
+const SPIN = 0.13; // idle rad/s
+const SCROLL_SPIN = 0.5; // extra turns of phase across the page
+const BASE_COILS = 1.5;
+const EXTRA_COILS = 1.6; // coils added as it stretches
+const ORBIT_R = 16;
+const ORBIT_SPIN = 0.6;
+
+const baseGeom = (w: number, h: number) => ({
+  cx: w * 0.7,
+  R: Math.min(w, h) * 0.12,
+  topY: h * 0.1,
+});
+
+function coilPoint(
+  u: number,
+  w: number,
+  h: number,
+  phi: number,
+  height: number,
+  coils: number
+) {
+  const { cx, R, topY } = baseGeom(w, h);
+  const ang = u * coils * TWO_PI + phi;
+  return {
+    x: cx + R * Math.cos(ang),
+    y: topY + u * height,
+    depth: (Math.sin(ang) + 1) / 2,
+  };
+}
+
+function coilPath(
+  w: number,
+  h: number,
+  phi: number,
+  height: number,
+  coils: number
+) {
+  const STEPS = 80;
+  let s = "";
+  for (let k = 0; k <= STEPS; k++) {
+    const p = coilPoint(k / STEPS, w, h, phi, height, coils);
+    s += (k ? " L " : "M ") + p.x.toFixed(1) + " " + p.y.toFixed(1);
+  }
+  return s;
+}
+
+function renderIcon(key: IconKey) {
+  switch (key) {
+    case "webhook":
+      return (
+        <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z" />
+      );
+    case "code":
+      return (
+        <>
+          <path d="m16 18 6-6-6-6" />
+          <path d="m8 6-6 6 6 6" />
+        </>
+      );
+    case "branch":
+      return (
+        <>
+          <line x1="6" y1="3" x2="6" y2="15" />
+          <circle cx="18" cy="6" r="3" />
+          <circle cx="6" cy="18" r="3" />
+          <path d="M18 9a9 9 0 0 1-9 9" />
+        </>
+      );
+    case "database":
+      return (
+        <>
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 12c0 1.66 4.03 3 9 3s9-1.34 9-3" />
+        </>
+      );
+    case "send":
+      return (
+        <>
+          <path d="M22 2 11 13" />
+          <path d="m22 2-7 20-4-9-9-4Z" />
+        </>
+      );
+  }
+}
+
+function SunNode({
+  i,
+  x,
+  y,
+  scale,
+  opacity,
+  icon,
+  label,
+}: {
+  i: number;
+  x: MotionValue<number>;
+  y: MotionValue<number>;
+  scale: MotionValue<number>;
+  opacity: MotionValue<number>;
+  icon: IconKey;
+  label: string;
+}) {
+  const c = COLORS[i];
+  return (
+    <motion.g style={{ x, y, scale, opacity }}>
+      <circle r={48} fill={`url(#ns-glow-${i})`} />
+      <rect
+        x={-HALF}
+        y={-HALF}
+        width={HALF * 2}
+        height={HALF * 2}
+        rx={14}
+        fill={`url(#ns-fill-${i})`}
+        stroke={c.top}
+        strokeOpacity={0.7}
+        strokeWidth={1.5}
+      />
+      <path
+        d={`M ${-HALF + 13} ${-HALF + 1.5} H ${HALF - 13}`}
+        stroke="rgba(255,255,255,0.5)"
+        strokeWidth={1.25}
+        strokeLinecap="round"
+      />
+      <g
+        transform="translate(-11,-11) scale(0.92)"
+        fill="none"
+        stroke="#ffffff"
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        {renderIcon(icon)}
+      </g>
+      <text
+        y={45}
+        textAnchor="middle"
+        className="font-[family-name:var(--font-mono)] text-[9px] tracking-[0.12em]"
+        style={{ fill: "var(--text-subtle)" }}
+      >
+        {label}
+      </text>
+    </motion.g>
+  );
+}
+
 export function DeviceMockup() {
   const reduce = useReducedMotion();
-  const bars = [42, 64, 50, 80, 58, 72, 90];
+  const { scrollYProgress } = useScroll();
+  const [size, setSize] = useState(DEF);
 
-  const scroll = reduce
-    ? undefined
-    : {
-        animate: { y: SCROLL_Y },
-        transition: {
-          duration: SCROLL_DUR,
-          times: SCROLL_TIMES,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      };
+  const nx = [useMotionValue(0), useMotionValue(0), useMotionValue(0), useMotionValue(0), useMotionValue(0)];
+  const ny = [useMotionValue(0), useMotionValue(0), useMotionValue(0), useMotionValue(0), useMotionValue(0)];
+  const ns = [useMotionValue(1), useMotionValue(1), useMotionValue(1), useMotionValue(1), useMotionValue(1)];
+  const no = [useMotionValue(0.7), useMotionValue(0.7), useMotionValue(0.7), useMotionValue(0.7), useMotionValue(0.7)];
+  const pathD = useMotionValue(
+    coilPath(DEF.w, DEF.h, 0, DEF.h * 0.4, BASE_COILS)
+  );
+
+  // Lay out the coil for a moment in time at scroll progress `sp`.
+  const place = (w: number, h: number, t: number, sp: number) => {
+    const phi = t * SPIN + sp * SCROLL_SPIN * TWO_PI;
+    const height = h * 0.4 + sp * h * 1.15; // stretches downward with scroll
+    const coils = BASE_COILS + sp * EXTRA_COILS; // gains turns as it extends
+    for (let i = 0; i < NODES.length; i++) {
+      const base = coilPoint(NODES[i].u, w, h, phi, height, coils);
+      const oa = t * ORBIT_SPIN + i * 1.3;
+      nx[i].set(base.x + Math.cos(oa) * ORBIT_R);
+      ny[i].set(base.y + Math.sin(oa) * ORBIT_R * 0.6);
+      ns[i].set(0.66 + base.depth * 0.46);
+      no[i].set(0.4 + base.depth * 0.55);
+    }
+    pathD.set(coilPath(w, h, phi, height, coils));
+  };
+
+  useEffect(() => {
+    const measure = () =>
+      setSize({ w: window.innerWidth, h: window.innerHeight });
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
+
+  useEffect(() => {
+    if (reduce) place(size.w, size.h, 0, 0);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reduce, size]);
+
+  useAnimationFrame((t) => {
+    if (reduce) return;
+    place(size.w, size.h, t / 1000, scrollYProgress.get());
+  });
 
   return (
-    <div className="relative">
-      {/* glow — platinum / white metal (monochrome) */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -inset-10 z-0 opacity-70"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 60% 40%, rgba(238,241,246,.16), transparent 70%), radial-gradient(40% 40% at 30% 70%, rgba(220,224,231,.10), transparent 70%)",
-        }}
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 40, rotateX: 8 }}
-        animate={{ opacity: 1, y: 0, rotateX: 0 }}
-        transition={{ duration: 0.9, ease: EASE, delay: 0.15 }}
-        className="relative z-[1] [perspective:1200px]"
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 overflow-hidden"
+      style={{ zIndex: -1 }}
+    >
+      <svg
+        width={size.w}
+        height={size.h}
+        viewBox={`0 0 ${size.w} ${size.h}`}
+        className="h-full w-full"
+        style={{ opacity: 0.7 }}
       >
-        <motion.div
-          animate={reduce ? undefined : { y: [0, -10, 0] }}
-          transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-          className="overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border-default)] bg-[color:var(--surface-1)] shadow-[var(--shadow-lg),var(--edge-hi)]"
-        >
-          {/* browser chrome */}
-          <div className="flex items-center gap-3 border-b border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] px-4 py-3">
-            <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-white/25" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-            </div>
-            <div className="mx-auto flex items-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] bg-[color:var(--bg-base)] px-3 py-1">
-              <Lock size={11} className="text-[color:var(--text-subtle)]" />
-              <span className="font-[family-name:var(--font-mono)] text-[11px] text-[color:var(--text-subtle)]">
-                neurasistemas.com
-              </span>
-            </div>
-          </div>
+        <defs>
+          <linearGradient id="ns-flow-stroke" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stopColor="#f2c94c" />
+            <stop offset="0.28" stopColor="#5b8cff" />
+            <stop offset="0.5" stopColor="#ff5c8a" />
+            <stop offset="0.72" stopColor="#15c8a0" />
+            <stop offset="1" stopColor="#b07cff" />
+          </linearGradient>
+          {COLORS.map((c, i) => (
+            <Fragment key={i}>
+              <linearGradient id={`ns-fill-${i}`} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stopColor={c.top} />
+                <stop offset="1" stopColor={c.bot} />
+              </linearGradient>
+              <radialGradient id={`ns-glow-${i}`}>
+                <stop offset="0" stopColor={c.glow} stopOpacity="0.55" />
+                <stop offset="100%" stopColor={c.glow} stopOpacity="0" />
+              </radialGradient>
+            </Fragment>
+          ))}
+        </defs>
 
-          {/* viewport — fixed window; the page scrolls inside it */}
-          <div className="relative h-[340px] overflow-hidden [background:linear-gradient(160deg,var(--ink-900),var(--ink-950))]">
-            {/* sweeping metallic sheen (over everything) */}
-            {!reduce && (
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 z-20"
-                style={{
-                  background:
-                    "linear-gradient(115deg, transparent 30%, rgba(255,255,255,.06) 48%, transparent 60%)",
-                  backgroundSize: "260% 100%",
-                  animation: "ns-sheen 6s linear infinite",
-                }}
-              />
-            )}
+        {/* the spiral spring — faint pipe + flowing coloured dashes */}
+        <motion.path
+          d={pathD}
+          fill="none"
+          stroke="rgba(255,255,255,0.12)"
+          strokeWidth={2}
+          strokeLinecap="round"
+        />
+        <motion.path
+          d={pathD}
+          fill="none"
+          stroke="url(#ns-flow-stroke)"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          strokeDasharray="6 15"
+          className={reduce ? undefined : "ns-flow"}
+        />
 
-            {/* top/bottom fades so content slides in/out softly */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 z-10 h-8"
-              style={{
-                background:
-                  "linear-gradient(180deg, var(--ink-900), transparent)",
-              }}
-            />
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-10"
-              style={{
-                background:
-                  "linear-gradient(0deg, var(--ink-950), transparent)",
-              }}
-            />
-
-            {/* synced scrollbar */}
-            <div className="absolute right-1.5 top-2 bottom-2 z-10 w-1 rounded-full bg-white/[0.05]">
-              <motion.div
-                className="h-[36%] w-full rounded-full bg-white/25"
-                animate={reduce ? undefined : { y: THUMB_Y }}
-                transition={{
-                  duration: SCROLL_DUR,
-                  times: SCROLL_TIMES,
-                  repeat: Infinity,
-                  ease: "easeInOut" as const,
-                }}
-              />
-            </div>
-
-            {/* the scrolling page */}
-            <motion.div className="px-5" {...scroll}>
-              {/* nav */}
-              <div className="flex items-center justify-between pt-5">
-                <div className="flex items-center gap-2">
-                  <Image
-                    src="/logo/neurasistemas-monogram.png"
-                    alt=""
-                    width={18}
-                    height={18}
-                    className="h-[18px] w-auto opacity-90"
-                  />
-                  <span className="font-[family-name:var(--font-display)] text-[11px] font-semibold text-[color:var(--text-strong)]">
-                    Neura
-                  </span>
-                </div>
-                <div className="flex items-center gap-2.5">
-                  <span className="h-1.5 w-7 rounded-full bg-white/10" />
-                  <span className="h-1.5 w-7 rounded-full bg-white/10" />
-                  <span className="h-4 w-14 rounded-[var(--radius-pill)] [background:var(--metal-text)] opacity-90" />
-                </div>
-              </div>
-
-              {/* hero */}
-              <div className="mt-7 h-3.5 w-3/4 rounded [background:var(--metal-text)] opacity-90" />
-              <div className="mt-1.5 h-3.5 w-1/2 rounded [background:var(--metal-text)] opacity-50" />
-              <div className="mt-4 flex flex-col gap-1.5">
-                <span className="h-1.5 w-full rounded-full bg-white/[0.06]" />
-                <span className="h-1.5 w-5/6 rounded-full bg-white/[0.06]" />
-              </div>
-              <div className="mt-4 flex gap-2">
-                <span className="h-6 w-24 rounded-[var(--radius-pill)] [background:var(--metal-text)] opacity-90" />
-                <span className="h-6 w-20 rounded-[var(--radius-pill)] border border-white/15 bg-white/[0.03]" />
-              </div>
-
-              {/* stat tiles */}
-              <div className="mt-7 grid grid-cols-3 gap-2.5">
-                {[
-                  ["+20", "proyectos"],
-                  ["98%", "repiten"],
-                  ["1.2s", "carga"],
-                ].map(([n, l]) => (
-                  <div
-                    key={l}
-                    className="rounded-[var(--radius-md)] border border-[color:var(--border-subtle)] bg-white/[0.02] p-2.5 [box-shadow:var(--edge-hi)]"
-                  >
-                    <div className="font-[family-name:var(--font-display)] text-[15px] font-bold text-[color:var(--text-strong)]">
-                      {n}
-                    </div>
-                    <div className="font-[family-name:var(--font-mono)] text-[8px] uppercase tracking-[0.1em] text-[color:var(--text-subtle)]">
-                      {l}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* chart */}
-              <div className="mt-2.5 flex h-20 items-end gap-1.5 rounded-[var(--radius-md)] border border-[color:var(--border-subtle)] bg-white/[0.02] p-3 [box-shadow:var(--edge-hi)]">
-                {bars.map((h, i) => (
-                  <motion.span
-                    key={i}
-                    className="flex-1 rounded-sm bg-gradient-to-t from-[color:var(--accent-600)] to-[color:var(--accent-400)]"
-                    initial={{ height: "20%" }}
-                    animate={
-                      reduce ? { height: `${h}%` } : { height: [`20%`, `${h}%`] }
-                    }
-                    transition={{
-                      duration: 0.9,
-                      ease: EASE,
-                      delay: 0.4 + i * 0.08,
-                    }}
-                    style={{ transformOrigin: "bottom" }}
-                  />
-                ))}
-              </div>
-
-              {/* gallery */}
-              <div className="mt-7 h-2 w-1/3 rounded-full bg-white/[0.08]" />
-              <div className="mt-3 grid grid-cols-2 gap-2.5">
-                {[0, 1, 2, 3].map((i) => (
-                  <div
-                    key={i}
-                    className="aspect-[16/10] overflow-hidden rounded-[var(--radius-md)] border border-[color:var(--border-subtle)] [background:var(--metal-fill)] [box-shadow:var(--edge-hi)]"
-                  >
-                    <div className="h-full w-full [background:linear-gradient(135deg,rgba(255,255,255,.10),transparent_55%)]" />
-                  </div>
-                ))}
-              </div>
-
-              {/* feature list */}
-              <div className="mt-7 flex flex-col gap-2.5">
-                {[0, 1, 2].map((i) => (
-                  <div
-                    key={i}
-                    className="flex items-center gap-3 rounded-[var(--radius-md)] border border-[color:var(--border-subtle)] bg-white/[0.02] p-2.5"
-                  >
-                    <span className="h-7 w-7 flex-none rounded-[var(--radius-sm)] [background:var(--metal-fill)] [box-shadow:var(--edge-hi)]" />
-                    <div className="flex flex-1 flex-col gap-1.5">
-                      <span className="h-1.5 w-1/2 rounded-full bg-white/15" />
-                      <span className="h-1.5 w-5/6 rounded-full bg-white/[0.06]" />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA band */}
-              <div className="mb-6 mt-7 flex flex-col items-center gap-3 rounded-[var(--radius-lg)] border border-white/10 [background:linear-gradient(160deg,rgba(255,255,255,.05),transparent)] py-6">
-                <span className="h-2.5 w-1/2 rounded-full [background:var(--metal-text)] opacity-90" />
-                <span className="h-6 w-28 rounded-[var(--radius-pill)] [background:var(--metal-text)] opacity-90" />
-              </div>
-            </motion.div>
-          </div>
-        </motion.div>
-      </motion.div>
+        {/* orbiting coloured suns */}
+        {NODES.map((n, i) => (
+          <SunNode
+            key={n.label}
+            i={i}
+            x={nx[i]}
+            y={ny[i]}
+            scale={ns[i]}
+            opacity={no[i]}
+            icon={n.icon}
+            label={n.label}
+          />
+        ))}
+      </svg>
     </div>
   );
 }

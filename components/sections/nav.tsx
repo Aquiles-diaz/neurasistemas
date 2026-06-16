@@ -36,6 +36,13 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // The nav items are buttons (not <Link>), so Next never prefetches their
+  // routes — warm them up front so navigation is instant on click.
+  useEffect(() => {
+    router.prefetch("/proyectos");
+    router.prefetch("/iniciar-proyecto");
+  }, [router]);
+
   // Scroll-spy: highlight the section currently in view (home only).
   useEffect(() => {
     if (!onHome) return;
