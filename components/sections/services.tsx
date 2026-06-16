@@ -9,7 +9,7 @@ import {
   ShieldCheck,
   type LucideIcon,
 } from "lucide-react";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import { SpotlightGlow, trackSpotlight } from "@/components/ui/spotlight";
 

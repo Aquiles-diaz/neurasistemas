@@ -4,8 +4,8 @@ import { Footer } from "@/components/sections/footer";
 import { Contact } from "@/components/sections/contact";
 import { Projects } from "@/components/sections/projects";
 import { Container, Eyebrow } from "@/components/sections/primitives";
-import { Reveal } from "@/components/reveal";
-import { DitherBackground } from "@/components/dither-background";
+import { Reveal } from "@/components/ui/reveal";
+import { DitherBackground } from "@/components/ui/dither-background";
 
 export const metadata: Metadata = {
   title: "Proyectos",

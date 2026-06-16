@@ -168,10 +168,10 @@ section[id] {
   scroll-margin-top: 92px;
 }
 
-/* Deepest ground lives on <html> so the fixed 3D MacBook background (sitting at
-   a negative z-index inside a transparent <body>) shows through every section. */
+/* Full black ground on <html>; <body> stays transparent so the fixed n8n flow
+   (DeviceMockup, at a negative z-index) shows through every section. */
 html {
-  background: var(--bg-base);
+  background: #000;
 }
 
 body {

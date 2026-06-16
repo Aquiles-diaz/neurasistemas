@@ -4,7 +4,7 @@ import { Nav } from "@/components/sections/nav";
 import { Footer } from "@/components/sections/footer";
 import { ProjectDetail } from "@/components/sections/project-detail";
 import { PROJECTS } from "@/components/sections/projects-data";
-import { DitherBackground } from "@/components/dither-background";
+import { DitherBackground } from "@/components/ui/dither-background";
 import { getProjectContent } from "@/lib/github";
 
 // Static export: every project page is prerendered at build time and unknown

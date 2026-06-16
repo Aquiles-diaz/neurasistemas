@@ -12,7 +12,7 @@ import {
   useTransform,
   type MotionValue,
 } from "motion/react";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import { PROJECTS, type Project } from "@/components/sections/projects-data";
 

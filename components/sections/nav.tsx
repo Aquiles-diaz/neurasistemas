@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
-import { useScrollTo } from "@/components/use-scroll-to";
+import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { cn } from "@/lib/utils";
 
 type NavLink = { label: string; id?: string; href?: string };

@@ -1,12 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/smooth-scroll";
-<<<<<<< HEAD
-import { LaptopBackground } from "@/components/sections/laptop-background";
-=======
+import { SmoothScroll } from "@/components/scroll/smooth-scroll";
 import { SITE_URL } from "@/lib/site";
->>>>>>> c441da0a641563f76f8a2c565d36ce0516cbb1d8
 
 // Two voices only: Stack Sans Notch (display headings, loaded from Google Fonts
 // below) + Inter for everything else.
@@ -91,7 +87,6 @@ export default function RootLayout({
       </head>
       <body>
         <SmoothScroll>
-          <LaptopBackground />
           {children}
         </SmoothScroll>
       </body>

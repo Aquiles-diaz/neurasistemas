@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
 import { SentModal } from "@/components/ui/sent-modal";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import { EMAIL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
 import { cn } from "@/lib/utils";

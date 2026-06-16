@@ -18,7 +18,7 @@ import {
 } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
 import { SentModal } from "@/components/ui/sent-modal";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
 import { EMAIL } from "@/lib/site";
 import { cn } from "@/lib/utils";
@@ -262,15 +262,6 @@ export function ProjectBrief() {
 
   // Compute "today" on the client only: this is a static export, so the
   // server HTML is baked at build time and would otherwise disagree.
-<<<<<<< HEAD
-  const [minDate, setMinDate] = useState<Date | null>(null);
-  useEffect(() => {
-    // Intentional: "today" must be derived from the client clock after mount to
-    // avoid a hydration mismatch with the build-time static HTML.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMinDate(addDays(startOfDay(new Date()), LEAD_DAYS));
-  }, []);
-=======
   const mounted = useSyncExternalStore(
     subscribeNoop,
     () => true,
@@ -280,7 +271,6 @@ export function ProjectBrief() {
     () => (mounted ? addDays(startOfDay(new Date()), LEAD_DAYS) : null),
     [mounted]
   );
->>>>>>> c441da0a641563f76f8a2c565d36ce0516cbb1d8
 
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));

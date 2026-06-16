@@ -12,3 +12,4 @@ next-env.d.ts
 .mcp.json
 *.local.json
 skills.md
+*.skill

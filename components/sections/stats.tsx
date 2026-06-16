@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "motion/react";
 import { AnimatedNumber } from "@/components/ui/animated-number";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
 
 type Stat = {

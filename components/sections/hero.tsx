@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Layers } from "lucide-react";
 import { MetalButton } from "@/components/ui/metal-button";
-import { useScrollTo } from "@/components/use-scroll-to";
+import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { Badge, Container, SecondaryButton } from "@/components/sections/primitives";
 import { DeviceMockup } from "@/components/sections/device-mockup";
-import { DitherBackground } from "@/components/dither-background";
+import { DitherBackground } from "@/components/ui/dither-background";
 import { gsap, useGSAP, EASE } from "@/lib/gsap";
 
 const STATS: [string, string][] = [

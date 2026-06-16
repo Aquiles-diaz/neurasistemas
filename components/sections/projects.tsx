@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
 import { ProjectCard } from "@/components/sections/project-card";
 import { PROJECTS, FILTERS } from "@/components/sections/projects-data";

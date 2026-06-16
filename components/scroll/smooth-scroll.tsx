@@ -3,7 +3,7 @@
 import { ReactLenis } from "lenis/react";
 import { useSyncExternalStore } from "react";
 import type { ReactNode } from "react";
-import { LenisGsapSync } from "@/components/lenis-gsap-sync";
+import { LenisGsapSync } from "@/components/scroll/lenis-gsap-sync";
 
 const QUERY = "(prefers-reduced-motion: reduce)";
 

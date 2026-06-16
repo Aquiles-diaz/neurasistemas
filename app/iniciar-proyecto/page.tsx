@@ -3,7 +3,7 @@ import { Nav } from "@/components/sections/nav";
 import { Footer } from "@/components/sections/footer";
 import { ProjectBrief } from "@/components/sections/project-brief";
 import { Container, Eyebrow } from "@/components/sections/primitives";
-import { Reveal } from "@/components/reveal";
+import { Reveal } from "@/components/ui/reveal";
 
 export const metadata: Metadata = {
   title: "Iniciar proyecto",

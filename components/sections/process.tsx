@@ -1,7 +1,7 @@
 "use client";
 
 import { Compass, PenTool, Code2, Rocket, type LucideIcon } from "lucide-react";
-import { Reveal, d } from "@/components/reveal";
+import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 
 const STEPS: [string, LucideIcon, string, string][] = [
