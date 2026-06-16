@@ -256,6 +256,9 @@ export function ProjectBrief() {
   // server HTML is baked at build time and would otherwise disagree.
   const [minDate, setMinDate] = useState<Date | null>(null);
   useEffect(() => {
+    // Intentional: "today" must be derived from the client clock after mount to
+    // avoid a hydration mismatch with the build-time static HTML.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMinDate(addDays(startOfDay(new Date()), LEAD_DAYS));
   }, []);
 

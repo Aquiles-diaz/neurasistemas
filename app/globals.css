@@ -168,9 +168,15 @@ section[id] {
   scroll-margin-top: 92px;
 }
 
+/* Deepest ground lives on <html> so the fixed 3D MacBook background (sitting at
+   a negative z-index inside a transparent <body>) shows through every section. */
+html {
+  background: var(--bg-base);
+}
+
 body {
   margin: 0;
-  background: var(--bg-base);
+  background: transparent;
   color: var(--text-body);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   line-height: 1.7;
