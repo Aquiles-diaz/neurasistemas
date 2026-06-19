@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     siteName: "Neura Sistemas",
     title: "Neura Sistemas — Desarrollo Web",
     description:
-      "Creamos sitios web que inspiran confianza. Diseño y desarrollo web rápido, elegante y hecho para crecer.",
+      "Creamos Soluciones que inspiran confianza. Diseño y desarrollo web rápido, elegante y hecho para crecer.",
     images: [
       {
         url: "/logo/neurasistemas-mark-dark.jpeg",
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Neura Sistemas — Desarrollo Web",
-    description: "Creamos sitios web que inspiran confianza.",
+    description: "Creamos Soluciones que inspiran confianza.",
     images: ["/logo/neurasistemas-mark-dark.jpeg"],
   },
   icons: { icon: "/logo/neurasistemas-monogram.png" },

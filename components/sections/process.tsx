@@ -24,10 +24,10 @@ export function Process() {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-2 gap-4.5 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 items-stretch gap-4.5 lg:grid-cols-4">
           {STEPS.map(([n, Icon, title, desc], i) => (
-            <Reveal key={n} delay={d(i + 1)}>
-              <div className="relative rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] px-5.5 py-6.5 [box-shadow:var(--edge-hi)]">
+            <Reveal key={n} delay={d(i + 1)} className="h-full">
+              <div className="relative h-full rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] px-5.5 py-6.5 [box-shadow:var(--edge-hi)]">
                 <div className="flex items-center justify-between">
                   <span className="font-[family-name:var(--font-mono)] text-[13px] tracking-[0.1em] text-[color:var(--accent-300)]">
                     {n}

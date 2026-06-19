@@ -8,9 +8,9 @@ import {
   ShoppingBag,
   LayoutDashboard,
   Rocket,
-  MonitorSmartphone,
-  Server,
-  Wrench,
+  ListChecks,
+  TrendingUp,
+  Check,
   type LucideIcon,
 } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
@@ -21,10 +21,10 @@ type Rubro = {
   id: string;
   label: string;
   icon: LucideIcon;
-  desc: string;
-  frontend: string[];
-  backend: string[];
-  extras: string[];
+  tagline: string;
+  incluye: string[];
+  ganas: string[];
+  stack: string[];
 };
 
 const RUBROS: Rubro[] = [
@@ -32,53 +32,107 @@ const RUBROS: Rubro[] = [
     id: "corporativo",
     label: "Corporativo",
     icon: Building2,
-    desc: "Webs de empresa que transmiten solidez: veloces, seguras y fáciles de actualizar por tu equipo.",
-    frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    backend: ["Node.js", "Headless CMS", "PostgreSQL"],
-    extras: ["SEO técnico", "Analytics", "CI/CD"],
+    tagline: "Una web que transmite solidez y vende confianza.",
+    incluye: [
+      "Diseño a medida de tu marca",
+      "Páginas que actualizás vos, sin programar",
+      "Optimización para aparecer en Google",
+      "Formularios y vías de contacto",
+      "Panel de métricas de visitas",
+    ],
+    ganas: [
+      "Imagen profesional que genera confianza",
+      "Independencia para cargar contenido",
+      "Que te encuentren tus clientes",
+      "Carga veloz en celular y escritorio",
+    ],
+    stack: ["Next.js", "Headless CMS", "Tailwind"],
   },
   {
     id: "institucional",
     label: "Institucional",
     icon: Landmark,
-    desc: "Portales públicos accesibles (AA), multilingües y preparados para picos de tráfico.",
-    frontend: ["Astro", "Next.js", "TypeScript", "Tailwind CSS"],
-    backend: ["Strapi", "Node.js", "PostgreSQL"],
-    extras: ["Accesibilidad AA", "i18n", "CDN / Caché"],
+    tagline: "Portales públicos para todos, que no se caen.",
+    incluye: [
+      "Accesibilidad para todos (nivel AA)",
+      "Sitio en varios idiomas",
+      "Gestor de noticias y trámites",
+      "Buscador interno",
+      "Preparado para picos de tráfico",
+    ],
+    ganas: [
+      "Llegás a toda la ciudadanía",
+      "Cumplís la normativa de accesibilidad",
+      "Aguanta días de mucha visita sin caerse",
+      "Tu equipo publica sin depender de nadie",
+    ],
+    stack: ["Astro", "Strapi", "CDN"],
   },
   {
     id: "ecommerce",
     label: "E-commerce",
     icon: ShoppingBag,
-    desc: "Tiendas que venden: checkout fluido, pagos seguros y un catálogo a tu medida.",
-    frontend: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    backend: ["Shopify Hydrogen", "Stripe", "GraphQL", "Node.js"],
-    extras: ["Pasarelas de pago", "Inventario", "Email marketing"],
+    tagline: "Tiendas que venden, no solo que se ven.",
+    incluye: [
+      "Checkout en pocos pasos",
+      "Pagos con tarjeta, MercadoPago y Stripe",
+      "Catálogo que gestionás vos mismo",
+      "Gestión de envíos y stock",
+      "Emails para recuperar carritos",
+    ],
+    ganas: [
+      "Más ventas cerradas",
+      "Menos carritos abandonados",
+      "Cargás y editás productos solo",
+      "Clientes que vuelven a comprar",
+    ],
+    stack: ["Next.js", "Shopify", "Stripe"],
   },
   {
     id: "saas",
     label: "Aplicación / SaaS",
     icon: LayoutDashboard,
-    desc: "Plataformas y paneles a medida, multi-usuario y diseñados para escalar sin fricción.",
-    frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS"],
-    backend: ["NestJS", "Node.js", "PostgreSQL", "Prisma", "Redis"],
-    extras: ["Auth & roles", "API REST / GraphQL", "Docker"],
+    tagline: "Plataformas a medida que crecen con tu negocio.",
+    incluye: [
+      "Paneles y dashboards a tu medida",
+      "Usuarios y permisos por rol",
+      "Integración con tus herramientas",
+      "Reportes y exportaciones",
+      "Arquitectura lista para escalar",
+    ],
+    ganas: [
+      "Automatizás tareas manuales",
+      "Cada equipo ve solo lo que le toca",
+      "Escalás sin tener que rehacer todo",
+      "Datos claros para tomar decisiones",
+    ],
+    stack: ["React", "NestJS", "PostgreSQL"],
   },
   {
     id: "landing",
     label: "Landing / Marketing",
     icon: Rocket,
-    desc: "Páginas de alto impacto para campañas, con animaciones y captación de leads.",
-    frontend: ["Next.js", "Motion", "TypeScript", "Tailwind CSS"],
-    backend: ["Serverless", "Formularios", "Webhooks"],
-    extras: ["A/B testing", "Tag Manager", "Performance"],
+    tagline: "Páginas de alto impacto que convierten visitas en clientes.",
+    incluye: [
+      "Diseño enfocado en convertir",
+      "Animaciones y alto impacto visual",
+      "Captación de leads y formularios",
+      "Carga ultra rápida",
+      "Listo para campañas y test A/B",
+    ],
+    ganas: [
+      "Más leads de tus campañas",
+      "Mejor retorno de tu inversión en ads",
+      "Carga al instante: no perdés visitas",
+      "Medís y mejorás qué funciona",
+    ],
+    stack: ["Next.js", "Motion", "Analytics"],
   },
 ];
 
-const COLS: [string, LucideIcon, keyof Pick<Rubro, "frontend" | "backend" | "extras">][] = [
-  ["Frontend", MonitorSmartphone, "frontend"],
-  ["Backend", Server, "backend"],
-  ["Infra & extras", Wrench, "extras"],
+const PANELS: [string, LucideIcon, keyof Pick<Rubro, "incluye" | "ganas">][] = [
+  ["Qué incluye", ListChecks, "incluye"],
+  ["Lo que ganás", TrendingUp, "ganas"],
 ];
 
 export function Stack() {
@@ -89,17 +143,18 @@ export function Stack() {
     <section id="stack" className="relative py-[var(--section-y)]">
       <Container>
         <Reveal>
-          <Eyebrow>Habilidades & stack</Eyebrow>
+          <Eyebrow>Soluciones por rubro</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
-            La tecnología correcta para cada proyecto
+            La solución correcta para cada proyecto
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
           <p className="mt-4 max-w-[56ch] text-lg leading-[1.6] text-[color:var(--text-muted)]">
-            Elegí el tipo de proyecto y mirá el stack que recomendamos. No casamos
-            con una sola herramienta: usamos la que mejor encaja con tu rubro.
+            Elegí tu tipo de proyecto y mirá qué incluye y qué ganás. Detrás
+            elegimos la tecnología que mejor encaja con tu rubro — sin atarnos a
+            una sola herramienta.
           </p>
         </Reveal>
 
@@ -147,11 +202,13 @@ export function Stack() {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             >
-              <p className="max-w-[60ch] text-base leading-[1.6] text-[color:var(--text-body)]">
-                {rubro.desc}
+              {/* punchy promise for the rubro */}
+              <p className="max-w-[34ch] font-[family-name:var(--font-display)] text-[clamp(1.35rem,2.6vw,1.9rem)] font-bold leading-[1.15] tracking-[-0.01em] text-[color:var(--text-strong)] [text-wrap:balance]">
+                {rubro.tagline}
               </p>
-              <div className="mt-7 grid grid-cols-1 gap-7 sm:grid-cols-3">
-                {COLS.map(([title, Icon, key]) => (
+
+              <div className="mt-8 grid grid-cols-1 gap-x-10 gap-y-8 sm:grid-cols-2">
+                {PANELS.map(([title, Icon, key]) => (
                   <div key={title}>
                     <div className="mb-4 flex items-center gap-2.5">
                       <span className="flex h-9 w-9 items-center justify-center rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-3)] text-[color:var(--accent-300)] [box-shadow:var(--edge-hi)]">
@@ -161,17 +218,37 @@ export function Stack() {
                         {title}
                       </h4>
                     </div>
-                    <div className="flex flex-wrap gap-2">
-                      {rubro[key].map((tech) => (
-                        <span
-                          key={tech}
-                          className="rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-2)] px-3 py-1.5 text-[13px] font-medium text-[color:var(--text-body)] transition-colors hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-strong)]"
+                    <ul className="flex flex-col gap-2.5">
+                      {rubro[key].map((item) => (
+                        <li
+                          key={item}
+                          className="flex items-start gap-2.5 text-[15px] leading-[1.5] text-[color:var(--text-body)]"
                         >
-                          {tech}
-                        </span>
+                          <Check
+                            size={16}
+                            strokeWidth={2.4}
+                            className="mt-0.5 shrink-0 text-[color:var(--accent-300)]"
+                          />
+                          {item}
+                        </li>
                       ))}
-                    </div>
+                    </ul>
                   </div>
+                ))}
+              </div>
+
+              {/* tech, kept small as a credibility footnote */}
+              <div className="mt-8 flex flex-wrap items-center gap-x-2 gap-y-1.5 border-t border-[color:var(--border-subtle)] pt-5">
+                <span className="font-[family-name:var(--font-mono)] text-[10.5px] uppercase tracking-[0.14em] text-[color:var(--text-subtle)]">
+                  Bajo el capó
+                </span>
+                {rubro.stack.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-[12.5px] font-medium text-[color:var(--text-muted)]"
+                  >
+                    · {tech}
+                  </span>
                 ))}
               </div>
             </motion.div>
