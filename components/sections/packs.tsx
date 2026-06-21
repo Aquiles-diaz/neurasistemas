@@ -9,6 +9,9 @@ interface Pack {
   id: string;
   icon: LucideIcon;
   accent: string;
+  /** AA-safe variant of `accent` for small text on white (the saturated
+   *  `accent` is for decorative icons/rings only). */
+  accentText: string;
   name: string;
   para: string;
   titular: string;
@@ -22,6 +25,7 @@ const PACKS: Pack[] = [
     id: "arrancar",
     icon: Rocket,
     accent: "var(--primary)",
+    accentText: "var(--primary)",
     name: "Arrancar",
     para: "Para comercios que recién abren",
     titular: "Tu web lista en 3 semanas",
@@ -37,6 +41,7 @@ const PACKS: Pack[] = [
     id: "crecer",
     icon: TrendingUp,
     accent: "var(--secondary)",
+    accentText: "var(--secondary-ink)",
     name: "Crecer",
     para: "Para negocios con procesos para optimizar",
     titular: "Automatizamos lo que te quita tiempo",
@@ -52,6 +57,7 @@ const PACKS: Pack[] = [
     id: "dominar",
     icon: Crown,
     accent: "var(--accent-cta)",
+    accentText: "var(--accent-cta)",
     name: "Dominar",
     para: "Para negocios estructurados",
     titular: "Sistema completo integrado",
@@ -96,7 +102,7 @@ export function Packs() {
                   {/* "Más elegido" badge — only on the featured card */}
                   {pack.featured && (
                     <span
-                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] bg-[color:var(--secondary)] px-3.5 py-1 text-xs font-semibold text-white [box-shadow:var(--shadow-sm)]"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] bg-[color:var(--secondary)] px-3.5 py-1 text-xs font-semibold text-[color:var(--navy)] [box-shadow:var(--shadow-sm)]"
                       aria-label="Plan más elegido"
                     >
                       Más elegido
@@ -117,7 +123,7 @@ export function Packs() {
                   {/* Pack name + subtitle */}
                   <p
                     className="mb-1 text-xs font-semibold uppercase tracking-widest"
-                    style={{ color: pack.accent }}
+                    style={{ color: pack.accentText }}
                   >
                     {pack.name}
                   </p>

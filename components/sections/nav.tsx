@@ -194,6 +194,8 @@ export function Nav() {
             )}
             onClick={() => setMenu(true)}
             aria-label="Abrir menú"
+            aria-expanded={menu}
+            aria-controls="mobile-nav"
           >
             <Menu size={20} strokeWidth={1.6} />
           </button>
@@ -203,6 +205,7 @@ export function Nav() {
       <AnimatePresence>
         {menu && (
           <motion.div
+            id="mobile-nav"
             className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-white px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}

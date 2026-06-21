@@ -293,7 +293,7 @@ export function WhyUs() {
                       </span>
                     </td>
                     <td className="px-5 py-4">
-                      <span className="flex items-center gap-2 text-white/40">
+                      <span className="flex items-center gap-2 text-white/60">
                         <X
                           size={15}
                           strokeWidth={2.5}
@@ -333,7 +333,7 @@ export function WhyUs() {
                       {row.neura}
                     </span>
                   </span>
-                  <span className="flex items-center gap-2 text-sm text-white/40">
+                  <span className="flex items-center gap-2 text-sm text-white/60">
                     <X
                       size={14}
                       strokeWidth={2.5}

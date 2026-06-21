@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container, Eyebrow, CtaButton } from "@/components/sections/primitives";
+import { Container, Eyebrow } from "@/components/sections/primitives";
 import { cn } from "@/lib/utils";
 
 // Datos de contacto hardcodeados correctos (spec §5.9 / Global Constraints)
@@ -45,7 +45,7 @@ const TRUST: { Icon: typeof Lock; text: string }[] = [
 // text-base (16px) evita el zoom automático de iOS al enfocar un input en mobile.
 // Inputs claros sobre el fondo navy para mantener contraste AA.
 const inputBase =
-  "w-full rounded-[var(--radius-md)] border border-white/20 bg-white/10 px-3.5 py-3.5 text-base text-white placeholder:text-white/50 transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-cta)] focus:[box-shadow:0_0_0_3px_rgba(249,115,22,0.35)]";
+  "w-full rounded-[var(--radius-md)] border border-white/20 bg-white/10 px-3.5 py-3.5 text-base text-white placeholder:text-white/60 transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-cta)] focus:[box-shadow:0_0_0_3px_rgba(194,65,12,0.45)]";
 
 // helper para el delay escalonado de la animación de entrada
 const ai = (i: number) => ({ ["--i" as string]: i } as CSSProperties);
@@ -151,11 +151,10 @@ export function Contact() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
+                className="group inline-flex h-[52px] cursor-pointer items-center justify-center gap-3 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
               >
-                <CtaButton size="lg" className="gap-3">
-                  Agendá una llamada sin compromiso
-                  <ArrowRight size={18} strokeWidth={2} />
-                </CtaButton>
+                Agendá una llamada sin compromiso
+                <ArrowRight size={18} strokeWidth={2} />
               </a>
             </div>
           </Reveal>
@@ -254,7 +253,7 @@ export function Contact() {
                       <Mail
                         size={18}
                         strokeWidth={1.6}
-                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40"
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/60"
                       />
                       <input
                         type="email"
@@ -271,7 +270,7 @@ export function Contact() {
                       <Phone
                         size={18}
                         strokeWidth={1.6}
-                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/40"
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/60"
                       />
                       <input
                         type="tel"

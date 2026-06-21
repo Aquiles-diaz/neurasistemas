@@ -58,8 +58,8 @@
   --navy: #0b1f33;
   --secondary: #10b981;
   --secondary-ink: #047857;
-  --accent-cta: #f97316;
-  --accent-cta-hover: #ea580c;
+  --accent-cta: #c2410c;
+  --accent-cta-hover: #9a3412;
 
   /* ---- Surfaces (tema claro) ---- */
   --bg-base: #ffffff;
@@ -73,7 +73,7 @@
   --text-strong: #0f172a;
   --text-body: #334155;
   --text-muted: #475569;
-  --text-subtle: #94a3b8;
+  --text-subtle: #64748b;
   --text-onaccent: #ffffff;
 
   /* ---- Borders / hairlines (tema claro) ---- */

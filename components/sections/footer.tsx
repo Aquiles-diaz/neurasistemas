@@ -43,7 +43,7 @@ export function Footer() {
               height={48}
               className="mb-4 h-12 w-auto"
             />
-            <p className="text-sm leading-relaxed text-slate-300">
+            <p className="text-sm leading-relaxed text-white/80">
               Automatizamos negocios para que trabajés menos y facturés más.
               Webs, CRM, chatbots y automatización para PyMEs y comercios.
             </p>
@@ -51,7 +51,7 @@ export function Footer() {
 
           {/* Nav */}
           <div>
-            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
               Navegación
             </h5>
             <ul className="space-y-2.5">
@@ -59,7 +59,7 @@ export function Footer() {
                 <li key={label}>
                   <a
                     href={href}
-                    className="text-sm text-slate-300 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
+                    className="text-sm text-white/80 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
                   >
                     {label}
                   </a>
@@ -70,15 +70,15 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-400">
+            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
               Contacto
             </h5>
             <ul className="space-y-3">
               {CONTACT_ITEMS.map(({ icon: Icon, label, href }) => (
                 <li key={label}>
                   {href === "#" ? (
-                    <span className="inline-flex items-center gap-2.5 text-sm text-slate-300">
-                      <Icon size={15} className="shrink-0 text-slate-400" aria-hidden />
+                    <span className="inline-flex items-center gap-2.5 text-sm text-white/80">
+                      <Icon size={15} className="shrink-0 text-white/50" aria-hidden />
                       {label}
                     </span>
                   ) : (
@@ -86,9 +86,9 @@ export function Footer() {
                       href={href}
                       target={href.startsWith("http") ? "_blank" : undefined}
                       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-2.5 text-sm text-slate-300 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
+                      className="inline-flex items-center gap-2.5 text-sm text-white/80 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
                     >
-                      <Icon size={15} className="shrink-0 text-slate-400" aria-hidden />
+                      <Icon size={15} className="shrink-0 text-white/50" aria-hidden />
                       {label}
                     </a>
                   )}
@@ -100,10 +100,10 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
-          <span className="text-[11px] tracking-[0.04em] text-slate-500">
+          <span className="text-[11px] tracking-[0.04em] text-white/60">
             © {new Date().getFullYear()} Neura Sistemas — Rosario, Santa Fe
           </span>
-          <span className="text-[11px] tracking-[0.04em] text-slate-500">
+          <span className="text-[11px] tracking-[0.04em] text-white/60">
             Automatización para PyMEs argentinas
           </span>
         </div>

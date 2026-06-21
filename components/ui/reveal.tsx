@@ -42,7 +42,7 @@ export function Reveal({
   return (
     <MotionTag
       className={className}
-      initial="hidden"
+      initial={reduce ? "show" : "hidden"}
       whileInView="show"
       viewport={{ once, amount, margin: "0px 0px -8% 0px" }}
       variants={variants}

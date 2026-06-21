@@ -35,7 +35,7 @@ export function ProjectCard({
         aria-label={`Ver proyecto ${name}`}
         className="absolute inset-0 z-[1]"
       />
-      <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--ink-800),var(--ink-900))]">
+      <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]">
         {image ? (
           <Image
             src={image}
@@ -60,7 +60,7 @@ export function ProjectCard({
                   "radial-gradient(70% 90% at 50% 120%, var(--accent-glow), transparent 70%)",
               }}
             />
-            <b className="metal-text relative font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3rem)] font-bold tracking-[-0.02em] opacity-85 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.06]">
+            <b className="brand-text relative font-[family-name:var(--font-display)] text-[clamp(2rem,5vw,3rem)] font-bold tracking-[-0.02em] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.06]">
               {initials}
             </b>
           </>

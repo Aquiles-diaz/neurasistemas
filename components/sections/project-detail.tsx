@@ -115,7 +115,7 @@ export function ProjectDetail({
               {[0, 1, 2].map((i) => (
                 <span
                   key={i}
-                  className="h-2.5 w-2.5 rounded-full bg-[color:var(--ink-600)]"
+                  className="h-2.5 w-2.5 rounded-full bg-[color:var(--border-strong)]"
                 />
               ))}
             </span>
@@ -136,7 +136,7 @@ export function ProjectDetail({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visitar ${title}`}
-              className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--ink-800),var(--ink-900))]"
+              className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]"
             >
               <PreviewArt project={project} title={title} />
               <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-1.5 text-xs font-semibold text-[color:var(--text-strong)] opacity-0 [box-shadow:var(--edge-hi)] transition-opacity duration-300 group-hover:opacity-100">
@@ -145,7 +145,7 @@ export function ProjectDetail({
               </span>
             </a>
           ) : (
-            <div className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--ink-800),var(--ink-900))]">
+            <div className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]">
               <PreviewArt project={project} title={title} />
               <span className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-[color:var(--text-subtle)]">
                 Vista previa disponible próximamente
@@ -187,7 +187,7 @@ function PreviewArt({ project, title }: { project: Project; title: string }) {
             "radial-gradient(70% 90% at 50% 120%, var(--accent-glow), transparent 70%)",
         }}
       />
-      <b className="metal-text relative font-[family-name:var(--font-display)] text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.02em] opacity-85 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]">
+      <b className="brand-text relative font-[family-name:var(--font-display)] text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.02em] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]">
         {project.initials}
       </b>
     </>

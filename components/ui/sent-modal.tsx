@@ -56,6 +56,7 @@ export function SentModal({
             <button
               onClick={onClose}
               aria-label="Cerrar"
+              autoFocus
               className="absolute right-3.5 top-3.5 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] text-[color:var(--text-muted)] transition-colors hover:border-[color:var(--border-default)] hover:text-[color:var(--text-strong)]"
             >
               <X size={16} strokeWidth={1.8} />

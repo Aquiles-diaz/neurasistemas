@@ -32,7 +32,7 @@ export function Process() {
                   <span className="font-[family-name:var(--font-mono)] text-[13px] tracking-[0.1em] text-[color:var(--accent-300)]">
                     {n}
                   </span>
-                  <span className="text-[color:var(--silver-300)]">
+                  <span className="text-[color:var(--text-muted)]">
                     <Icon size={20} strokeWidth={1.6} />
                   </span>
                 </div>
