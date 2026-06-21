@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
-import { ArrowRight, Menu, X } from "lucide-react";
-import { MetalButton } from "@/components/ui/metal-button";
+import { Menu, X } from "lucide-react";
+import { CtaButton } from "@/components/sections/primitives";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { cn } from "@/lib/utils";
 
 type NavLink = { label: string; id?: string; href?: string };
 
 const LINKS: NavLink[] = [
-  { label: "Servicios", id: "servicios" },
-  { label: "Stack", id: "stack" },
-  { label: "Proceso", id: "proceso" },
-  { label: "Proyectos", href: "/proyectos" },
+  { label: "Soluciones", id: "solucion" },
+  { label: "Packs", id: "packs" },
+  { label: "Casos", id: "casos" },
+  { label: "FAQ", id: "faq" },
   { label: "Contacto", id: "contacto" },
 ];
 
@@ -87,10 +87,20 @@ export function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "glass-pill pointer-events-auto relative mx-auto flex items-center justify-between gap-4 rounded-[var(--radius-pill)] pl-5 pr-2.5 transition-[max-width,padding,box-shadow] duration-500 ease-[var(--ease-out-soft)]",
+          "pointer-events-auto relative mx-auto flex items-center justify-between gap-4 rounded-[var(--radius-pill)] pl-5 pr-2.5 transition-[max-width,padding,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[var(--ease-out-soft)]",
+          // Over hero (dark video): translucent dark pill — white text
+          // Over light page (scrolled): blurred light pill — dark text
           scrolled
-            ? "glass-pill--solid max-w-[var(--container-lg)] py-2"
-            : "max-w-[calc(var(--container-lg)+3rem)] py-2.5"
+            ? [
+                "max-w-[var(--container-lg)] py-2",
+                "border border-[color:var(--border-subtle)] bg-white/80 shadow-[0_4px_24px_-6px_rgba(15,23,42,.10)]",
+                "[backdrop-filter:blur(16px)_saturate(160%)]",
+              ]
+            : [
+                "max-w-[calc(var(--container-lg)+3rem)] py-2.5",
+                "border border-white/15 bg-[rgba(11,31,51,0.55)]",
+                "[backdrop-filter:blur(16px)_saturate(160%)]",
+              ]
         )}
       >
         <button
@@ -103,11 +113,21 @@ export function Nav() {
           aria-label="Inicio"
         >
           <span className="block text-left">
-            <b className="block font-[family-name:var(--font-display)] text-[15px] font-bold leading-[1.15] tracking-[0.01em] text-[color:var(--text-strong)]">
+            <b
+              className={cn(
+                "block font-[family-name:var(--font-display)] text-[15px] font-bold leading-[1.15] tracking-[0.01em] transition-colors duration-500",
+                scrolled ? "text-[color:var(--text-strong)]" : "text-white"
+              )}
+            >
               Neura Sistemas
             </b>
-            <span className="mt-0.5 hidden font-[family-name:var(--font-mono)] text-[9px] uppercase tracking-[0.22em] text-[color:var(--text-subtle)] sm:block">
-              Desarrollo Web
+            <span
+              className={cn(
+                "mt-0.5 hidden font-[family-name:var(--font-mono)] text-[9px] uppercase tracking-[0.22em] transition-colors duration-500 sm:block",
+                scrolled ? "text-[color:var(--text-subtle)]" : "text-white/60"
+              )}
+            >
+              Automatización &amp; Web
             </span>
           </span>
         </button>
@@ -125,15 +145,24 @@ export function Nav() {
                 onMouseEnter={() => setHovered(key)}
                 className={cn(
                   "relative cursor-pointer rounded-[var(--radius-pill)] px-4 py-2 text-sm font-medium transition-colors duration-300",
-                  highlight === key
-                    ? "text-[color:var(--text-strong)]"
-                    : "text-[color:var(--text-muted)] hover:text-[color:var(--text-body)]"
+                  scrolled
+                    ? highlight === key
+                      ? "text-[color:var(--text-strong)]"
+                      : "text-[color:var(--text-muted)] hover:text-[color:var(--text-body)]"
+                    : highlight === key
+                      ? "text-white"
+                      : "text-white/70 hover:text-white"
                 )}
               >
                 {highlight === key && (
                   <motion.span
                     layoutId="nav-pill"
-                    className="absolute inset-0 -z-10 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[rgba(255,255,255,0.07)] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                    className={cn(
+                      "absolute inset-0 -z-10 rounded-[var(--radius-pill)]",
+                      scrolled
+                        ? "border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
+                        : "border border-white/15 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
+                    )}
                     transition={{ type: "spring", stiffness: 420, damping: 34 }}
                   />
                 )}
@@ -145,20 +174,24 @@ export function Nav() {
 
         <div className="flex items-center gap-3">
           <span className="hidden md:inline-flex">
-            <MetalButton
+            <CtaButton
               size="sm"
-              className="gap-2 font-[family-name:var(--font-body)] font-semibold"
+              className="font-[family-name:var(--font-body)] font-semibold"
               onClick={() => {
                 setMenu(false);
-                router.push("/iniciar-proyecto");
+                scrollTo("contacto");
               }}
             >
-              Iniciar proyecto
-              <ArrowRight size={16} strokeWidth={1.8} />
-            </MetalButton>
+              Agendá una llamada
+            </CtaButton>
           </span>
           <button
-            className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-default)] text-[color:var(--text-strong)] transition-colors hover:bg-[rgba(255,255,255,0.06)] md:hidden"
+            className={cn(
+              "inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border transition-colors md:hidden",
+              scrolled
+                ? "border-[color:var(--border-subtle)] text-[color:var(--text-strong)] hover:bg-[color:var(--surface-1)]"
+                : "border-white/25 text-white hover:bg-white/10"
+            )}
             onClick={() => setMenu(true)}
             aria-label="Abrir menú"
           >
@@ -170,7 +203,7 @@ export function Nav() {
       <AnimatePresence>
         {menu && (
           <motion.div
-            className="glass-pill--solid pointer-events-auto fixed inset-0 z-[60] flex flex-col px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
+            className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-white px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -190,7 +223,7 @@ export function Nav() {
                 </b>
               </div>
               <button
-                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-default)] text-[color:var(--text-strong)]"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] text-[color:var(--text-strong)]"
                 onClick={() => setMenu(false)}
                 aria-label="Cerrar menú"
               >
@@ -212,17 +245,16 @@ export function Nav() {
               ))}
             </div>
             <div className="mt-7">
-              <MetalButton
+              <CtaButton
                 size="lg"
-                className="w-full gap-2 font-[family-name:var(--font-body)] font-semibold"
+                className="w-full font-[family-name:var(--font-body)] font-semibold"
                 onClick={() => {
                   setMenu(false);
-                  router.push("/iniciar-proyecto");
+                  scrollTo("contacto");
                 }}
               >
-                Iniciar proyecto
-                <ArrowRight size={18} strokeWidth={1.8} />
-              </MetalButton>
+                Agendá una llamada
+              </CtaButton>
             </div>
           </motion.div>
         )}

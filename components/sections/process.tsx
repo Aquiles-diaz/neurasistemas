@@ -1,14 +1,14 @@
 "use client";
 
-import { Compass, PenTool, Code2, Rocket, type LucideIcon } from "lucide-react";
+import { MessageCircle, FileText, Wrench, GraduationCap, type LucideIcon } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 
 const STEPS: [string, LucideIcon, string, string][] = [
-  ["01", Compass, "Descubrimiento", "Entendemos tu negocio, tus usuarios y los objetivos del proyecto."],
-  ["02", PenTool, "Diseño", "Prototipamos la interfaz y definimos la dirección visual de la marca."],
-  ["03", Code2, "Desarrollo", "Construimos con código limpio, probado y preparado para escalar."],
-  ["04", Rocket, "Lanzamiento", "Desplegamos, medimos y mejoramos. Te acompañamos después del estreno."],
+  ["01", MessageCircle, "Diagnóstico", "Hablamos 20 minutos. Entendemos tu negocio."],
+  ["02", FileText, "Propuesta", "Te decimos exactamente qué hacemos y cuánto cuesta."],
+  ["03", Wrench, "Implementación", "Construimos tu sistema sin molestarte."],
+  ["04", GraduationCap, "Capacitación + Soporte", "Te enseñamos a usarlo, y estamos cuando nos necesités."],
 ];
 
 export function Process() {
@@ -16,11 +16,11 @@ export function Process() {
     <section id="proceso" className="py-[var(--section-y-sm)]">
       <Container>
         <Reveal>
-          <Eyebrow>Cómo trabajamos</Eyebrow>
+          <Eyebrow>Simple y sin vueltas</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
-            Un proceso claro, sin sorpresas
+            Cómo trabajamos
           </h2>
         </Reveal>
 
