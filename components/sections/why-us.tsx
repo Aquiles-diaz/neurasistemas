@@ -179,7 +179,7 @@ export function WhyUs() {
           </Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
-          <h2 className="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em]">
+          <h2 className="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] text-white">
             Lo que nos hace diferentes
           </h2>
         </Reveal>
@@ -207,7 +207,7 @@ export function WhyUs() {
                   />
                 </div>
                 <div>
-                  <h3 className="font-semibold leading-snug">{title}</h3>
+                  <h3 className="font-semibold leading-snug text-white">{title}</h3>
                   <p className="mt-1 text-sm leading-[1.55] text-white/65">
                     {line}
                   </p>
@@ -243,7 +243,7 @@ export function WhyUs() {
 
         {/* ── Tabla comparativa ── */}
         <Reveal delay={d(1)}>
-          <h3 className="mt-16 font-[family-name:var(--font-display)] text-[clamp(1.3rem,2.8vw,1.75rem)] font-bold">
+          <h3 className="mt-16 font-[family-name:var(--font-display)] text-[clamp(1.3rem,2.8vw,1.75rem)] font-bold text-white">
             Neura Sistemas vs. Agencias típicas
           </h3>
           <p className="mt-2 text-sm text-white/60">

@@ -193,15 +193,20 @@ body {
   overflow-x: hidden;
 }
 
-h1, h2, h3, h4, h5 {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  color: var(--text-strong);
-  font-weight: 700;
-  line-height: 1.04;
-  letter-spacing: -0.015em;
-  margin: 0;
-  text-wrap: balance;
+/* In @layer base so Tailwind text-color utilities (utilities layer comes
+   after base) always win — e.g. `text-white` on the navy bands. An UNLAYERED
+   rule here would beat every layered utility regardless of specificity. */
+@layer base {
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+    color: var(--text-strong);
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.015em;
+    margin: 0;
+    text-wrap: balance;
+  }
 }
 
 ::selection {
