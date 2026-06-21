@@ -87,7 +87,7 @@ export function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "pointer-events-auto relative mx-auto flex items-center justify-between gap-4 rounded-[var(--radius-pill)] pl-5 pr-2.5 transition-[max-width,padding,background-color,border-color,box-shadow,backdrop-filter] duration-500 ease-[var(--ease-out-soft)]",
+          "pointer-events-auto relative mx-auto flex items-center justify-between gap-4 rounded-[var(--radius-pill)] pl-5 pr-2.5 transition-[max-width,padding,background-color,border-color,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
           // Over hero (dark video): translucent dark pill — white text
           // Over light page (scrolled): blurred light pill — dark text
           scrolled
@@ -208,9 +208,8 @@ export function Nav() {
             id="mobile-nav"
             className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-white px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            animate={{ opacity: 1, transition: { duration: 0.3 } }}
+            exit={{ opacity: 0, transition: { duration: 0.2 } }}
           >
             <div className="flex h-[50px] items-center justify-between">
               <div className="flex items-center gap-3">
@@ -240,7 +239,7 @@ export function Nav() {
                   onClick={() => go(link)}
                   initial={{ opacity: 0, x: -16 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.08 + i * 0.06, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ delay: 0.08 + i * 0.06, duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                   className="border-b border-[color:var(--border-subtle)] py-3 text-left font-[family-name:var(--font-display)] text-3xl font-semibold text-[color:var(--text-strong)]"
                 >
                   {link.label}

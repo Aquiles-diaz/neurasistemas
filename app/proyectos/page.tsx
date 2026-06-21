@@ -9,7 +9,7 @@ import { Reveal } from "@/components/ui/reveal";
 export const metadata: Metadata = {
   title: "Proyectos",
   description:
-    "Portafolio de Neura Sistemas — sitios corporativos, plataformas, e-commerce y aplicaciones web a medida.",
+    "Portafolio de Neura Sistemas: sitios corporativos, plataformas, e-commerce y aplicaciones web a medida.",
 };
 
 export default function ProyectosPage() {

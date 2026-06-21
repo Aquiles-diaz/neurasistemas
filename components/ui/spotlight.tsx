@@ -24,7 +24,7 @@ export function SpotlightGlow() {
       {/* interior wash that follows the pointer */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+        className="pointer-events-none absolute inset-0 z-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100 motion-reduce:hidden"
         style={{
           background:
             "radial-gradient(240px circle at var(--spot-x,-999px) var(--spot-y,-999px), rgba(238,241,246,0.07), transparent 70%)",

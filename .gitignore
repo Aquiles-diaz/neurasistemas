@@ -9,7 +9,9 @@ next-env.d.ts
 
 # local tooling / assistant config — keep out of the repo
 .claude/
+.agents/
 .mcp.json
 *.local.json
 skills.md
 *.skill
+skills-lock.json

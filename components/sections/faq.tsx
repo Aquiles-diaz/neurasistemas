@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container, Eyebrow } from "@/components/sections/primitives";
+import { Container } from "@/components/sections/primitives";
 
 const FAQS = [
   {
@@ -16,7 +16,7 @@ const FAQS = [
   },
   {
     q: "¿Y si después necesito cambios?",
-    a: "Tenés un plan de mantenimiento mensual ($100–200) que incluye lo que necesites.",
+    a: "Tenés un plan de mantenimiento mensual ($100-200) que incluye lo que necesites.",
   },
   {
     q: "¿Es difícil de usar?",
@@ -37,9 +37,6 @@ export function Faq() {
       className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]"
     >
       <Container>
-        <Reveal>
-          <Eyebrow center>Preguntas frecuentes</Eyebrow>
-        </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-center text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-[1.1] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
             Lo que probablemente te estés preguntando

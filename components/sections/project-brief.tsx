@@ -32,7 +32,7 @@ const TIPOS = [
   "Rediseño",
   "Otro",
 ];
-const PRESUPUESTOS = ["Aún no lo sé", "Hasta US$1.5k", "US$1.5k–4k", "US$4k+"];
+const PRESUPUESTOS = ["Aún no lo sé", "Hasta US$1.5k", "US$1.5k-4k", "US$4k+"];
 
 const inputBase =
   "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3 text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-500)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
@@ -279,25 +279,25 @@ export function ProjectBrief() {
   const tipoLabel =
     form.tipo === "Otro"
       ? form.tipoOtro.trim()
-        ? `Otro — ${form.tipoOtro.trim()}`
+        ? `Otro: ${form.tipoOtro.trim()}`
         : "Otro"
-      : form.tipo || "—";
+      : form.tipo || "-";
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Nuevo proyecto — ${form.nombre || "Brief web"}`;
+    const subject = `Nuevo proyecto: ${form.nombre || "Brief web"}`;
     const body = [
       `Nombre: ${form.nombre}`,
-      `Empresa: ${form.empresa || "—"}`,
+      `Empresa: ${form.empresa || "-"}`,
       `Correo: ${form.correo}`,
-      `Teléfono: ${form.telefono || "—"}`,
+      `Teléfono: ${form.telefono || "-"}`,
       "",
       `¿Qué necesita?: ${tipoLabel}`,
-      `Presupuesto estimado: ${form.presupuesto || "—"}`,
-      `Fecha deseada: ${fecha ? formatLong(fecha) : "—"}`,
+      `Presupuesto estimado: ${form.presupuesto || "-"}`,
+      `Fecha deseada: ${fecha ? formatLong(fecha) : "-"}`,
       "",
       "Detalles:",
-      form.mensaje || "—",
+      form.mensaje || "-",
     ].join("\n");
     window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
       subject
@@ -451,7 +451,7 @@ export function ProjectBrief() {
 
               <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
                 <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                Tus datos están seguros — el formulario abre tu correo y los
+                Tus datos están seguros. El formulario abre tu correo y los
                 enviás vos.
               </p>
             </form>
@@ -463,7 +463,7 @@ export function ProjectBrief() {
         open={sent}
         onClose={reset}
         title="¡Brief enviado!"
-        message="Abrimos tu correo con el brief prellenado — solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+        message="Abrimos tu correo con el brief prellenado. Solo tenés que darle Enviar. Te respondemos en menos de 24 h."
       />
     </section>
   );

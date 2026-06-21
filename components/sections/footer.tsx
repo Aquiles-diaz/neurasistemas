@@ -101,7 +101,7 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
           <span className="text-[11px] tracking-[0.04em] text-white/60">
-            © {new Date().getFullYear()} Neura Sistemas — Rosario, Santa Fe
+            © {new Date().getFullYear()} Neura Sistemas · Rosario, Santa Fe
           </span>
           <span className="text-[11px] tracking-[0.04em] text-white/60">
             Automatización para PyMEs argentinas

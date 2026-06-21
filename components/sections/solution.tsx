@@ -63,6 +63,12 @@ export function Solution() {
             Del caos operativo al piloto automático
           </h2>
         </Reveal>
+        <Reveal delay={d(2)}>
+          <p className="mt-4 max-w-[52ch] text-[color:var(--text-muted)] leading-[1.6]">
+            Esto es lo que cambia cuando dejás de hacer a mano lo que un sistema
+            resuelve solo.
+          </p>
+        </Reveal>
 
         {/* Transformation rows */}
         <div className="mt-12 flex flex-col gap-4">
@@ -101,8 +107,8 @@ export function Solution() {
                   />
                 </div>
 
-                {/* Solución card — right */}
-                <div className="flex items-start gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-5 [box-shadow:var(--shadow-sm)]">
+                {/* Solución card — right (tinte esmeralda: el "después" deseable) */}
+                <div className="flex items-start gap-4 rounded-[var(--radius-lg)] border border-[color:color-mix(in_srgb,var(--secondary)_32%,transparent)] bg-[color:color-mix(in_srgb,var(--secondary)_6%,white)] p-5 [box-shadow:var(--shadow-sm)]">
                   <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-emerald-50">
                     <SIcon
                       size={20}

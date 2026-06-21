@@ -148,8 +148,8 @@ const COMP_ROWS: CompRow[] = [
   },
   {
     aspecto: "Precio",
-    neura: "$450 – 2.500 USD",
-    agencias: "$1.000 – 5.000+ USD",
+    neura: "$450 a 2.500 USD",
+    agencias: "$1.000 a 5.000+ USD",
   },
   {
     aspecto: "Modelo",

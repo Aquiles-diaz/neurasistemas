@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container, Eyebrow, Badge } from "@/components/sections/primitives";
+import { Container, Badge } from "@/components/sections/primitives";
 
 interface Caso {
   lugar: string;
@@ -50,9 +50,6 @@ export function Casos() {
   return (
     <section id="casos" className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]">
       <Container>
-        <Reveal>
-          <Eyebrow>Casos</Eyebrow>
-        </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
             Resultados que se notan

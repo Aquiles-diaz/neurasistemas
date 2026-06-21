@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container, Eyebrow } from "@/components/sections/primitives";
+import { Container } from "@/components/sections/primitives";
 import { cn } from "@/lib/utils";
 
 // Datos de contacto hardcodeados correctos (spec §5.9 / Global Constraints)
@@ -30,7 +30,7 @@ const CONTACTS: { Icon: typeof Mail; text: string; href?: string }[] = [
 const TRUST: { Icon: typeof Lock; text: string }[] = [
   {
     Icon: Lock,
-    text: "No guardamos tus datos en ningún servidor — el formulario abre tu correo y los enviás vos.",
+    text: "No guardamos tus datos en ningún servidor: el formulario abre tu correo y los enviás vos.",
   },
   {
     Icon: ShieldCheck,
@@ -109,12 +109,12 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Contacto — ${form.nombre || "Web"}`;
+    const subject = `Contacto: ${form.nombre || "Web"}`;
     const body = [
       `Nombre: ${form.nombre}`,
-      `Empresa: ${form.empresa || "—"}`,
+      `Empresa: ${form.empresa || "-"}`,
       `Correo: ${form.correo}`,
-      `Teléfono: ${form.telefono || "—"}`,
+      `Teléfono: ${form.telefono || "-"}`,
     ].join("\n");
     // Abre el cliente de correo del visitante con todo prellenado (sin backend).
     window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
@@ -131,9 +131,6 @@ export function Contact() {
       <Container>
         {/* Encabezado centrado */}
         <div className="mb-12 text-center">
-          <Reveal>
-            <Eyebrow className="text-white/60">&nbsp;Contacto&nbsp;</Eyebrow>
-          </Reveal>
           <Reveal delay={d(1)}>
             <h2 className="mt-4 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-white">
               ¿Listo para que tu negocio crezca?
@@ -294,11 +291,11 @@ export function Contact() {
                 </div>
 
                 <p
-                  className="anim-item flex items-center justify-center gap-1.5 text-center text-xs text-white/40"
+                  className="anim-item flex items-center justify-center gap-1.5 text-center text-xs text-white/60"
                   style={ai(5)}
                 >
                   <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                  Tus datos están seguros — solo los usamos para responderte.
+                  Tus datos están seguros. Solo los usamos para responderte.
                 </p>
               </form>
             </div>
@@ -312,7 +309,7 @@ export function Contact() {
           setForm({ nombre: "", empresa: "", correo: "", telefono: "" });
           setSent(false);
         }}
-        message="Abrimos tu correo con todo prellenado — solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+        message="Abrimos tu correo con todo prellenado. Solo tenés que darle Enviar. Te respondemos en menos de 24 h."
       />
 
       {/* Animaciones de entrada y focus. prefers-reduced-motion seguro. */}

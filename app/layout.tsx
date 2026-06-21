@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/scroll/smooth-scroll";
 import { MotionProvider } from "@/components/motion-provider";
 import { SITE_URL } from "@/lib/site";
 
@@ -23,7 +22,7 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Neura Sistemas — Automatización y Web para PyMEs",
+    default: "Neura Sistemas: Automatización y Web para PyMEs",
     template: "%s · Neura Sistemas",
   },
   description:
@@ -44,7 +43,7 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: SITE_URL,
     siteName: "Neura Sistemas",
-    title: "Neura Sistemas — Automatización y Web para PyMEs",
+    title: "Neura Sistemas: Automatización y Web para PyMEs",
     description:
       "Automatizamos tu negocio. Webs, CRM, chatbots y automatización para PyMEs y comercios que quieren crecer. Trabajás menos, facturás más.",
     images: [
@@ -58,7 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neura Sistemas — Automatización y Web para PyMEs",
+    title: "Neura Sistemas: Automatización y Web para PyMEs",
     description: "Automatizamos tu negocio. Trabajás menos, facturás más.",
     images: ["/logo/neurasistemas-mark-dark.jpeg"],
   },
@@ -82,9 +81,7 @@ export default function RootLayout({
       className={`${inter.variable} ${montserrat.variable}`}
     >
       <body>
-        <SmoothScroll>
-          <MotionProvider>{children}</MotionProvider>
-        </SmoothScroll>
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

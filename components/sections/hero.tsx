@@ -1,46 +1,25 @@
 "use client";
 
-import { useRef } from "react";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { gsap, useGSAP, EASE } from "@/lib/gsap";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { Container, SecondaryButton, CtaButton } from "@/components/sections/primitives";
 import { HeroVideoBg } from "@/components/sections/hero-video";
 
 const BENEFITS = [
-  "Implementación en 2-3 semanas",
-  "Sin codificar",
-  "Soporte local",
+  "Listo en 2-3 semanas",
+  "Soporte local en Rosario",
+  "Recuperás la inversión en 30 días",
 ] as const;
 
 export function Hero() {
   const scrollTo = useScrollTo();
-  const root = useRef<HTMLElement>(null);
 
-  useGSAP(
-    () => {
-      const mm = gsap.matchMedia();
-      // Only animate when the visitor hasn't asked to reduce motion.
-      // Outside this branch nothing is hidden, so content is always readable.
-      mm.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.from("[data-hero]", {
-          y: 30,
-          autoAlpha: 0,
-          duration: 0.9,
-          ease: EASE,
-          stagger: 0.09,
-          delay: 0.1,
-        });
-      });
-    },
-    { scope: root }
-  );
-
+  // Entrance animation lives in CSS (`[data-hero]` in globals.css) so it runs
+  // on first paint with zero JS, and opts out under prefers-reduced-motion.
   return (
     <section
-      ref={root}
       id="top"
-      className="relative flex min-h-[88vh] items-center overflow-hidden pb-[var(--section-y)] pt-[clamp(104px,13vh,150px)]"
+      className="relative flex min-h-[88dvh] items-center overflow-hidden pb-[var(--section-y)] pt-[clamp(104px,13vh,150px)]"
     >
       <HeroVideoBg />
 
@@ -50,15 +29,16 @@ export function Hero() {
             data-hero
             className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white [text-wrap:balance]"
           >
-            Automatizamos tu negocio. Trabajás menos, facturás más.
+            Recuperá 8 horas por semana y hacé crecer tu negocio sin sumar empleados.
           </h1>
 
           <p
             data-hero
             className="mt-6 max-w-[50ch] text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.65] text-slate-200"
           >
-            Webs, CRM, chatbots y automatización para PyMEs y comercios que
-            quieren crecer sin morir en el intento.
+            Las reservas, los pedidos y la atención de tu comercio pasan a
+            funcionar solos. Vos recuperás tus horas; del trabajo repetitivo nos
+            encargamos nosotros.
           </p>
 
           <div data-hero className="mt-9 flex flex-wrap gap-3.5">

@@ -42,7 +42,7 @@ export default function IniciarProyectoPage() {
               <p className="mx-auto mt-5 max-w-[54ch] text-[clamp(1.05rem,1.6vw,1.2rem)] leading-[1.6] text-[color:var(--text-muted)]">
                 Unos pocos datos para entender qué necesitás, tu presupuesto y
                 para cuándo. Te respondemos en menos de 24 horas con una
-                propuesta concreta — sin compromiso.
+                propuesta concreta, sin compromiso.
               </p>
             </Reveal>
           </Container>

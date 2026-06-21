@@ -13,7 +13,7 @@ const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
 export function Reveal({
   children,
   delay = 0,
-  y = 30,
+  y = 18,
   className,
   as = "div",
   once = true,
@@ -35,7 +35,7 @@ export function Reveal({
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: reduce ? 0 : 0.7, ease: EASE_EXPO, delay },
+      transition: { duration: reduce ? 0 : 0.55, ease: EASE_EXPO, delay },
     },
   };
 

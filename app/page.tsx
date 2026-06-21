@@ -9,6 +9,8 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/sections/footer";
+import { ExitOfferModal } from "@/components/ui/exit-offer-modal";
+import { PromoBanner } from "@/components/ui/promo-banner";
 
 export default function Home() {
   return (
@@ -26,6 +28,8 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
+      <PromoBanner />
+      <ExitOfferModal />
     </>
   );
 }
