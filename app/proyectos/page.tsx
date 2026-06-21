@@ -5,7 +5,6 @@ import { Contact } from "@/components/sections/contact";
 import { Projects } from "@/components/sections/projects";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import { Reveal } from "@/components/ui/reveal";
-import { DitherBackground } from "@/components/ui/dither-background";
 
 export const metadata: Metadata = {
   title: "Proyectos",
@@ -22,9 +21,7 @@ export default function ProyectosPage() {
           id="top"
           className="relative overflow-hidden pb-[var(--section-y-sm)] pt-[clamp(120px,16vh,180px)]"
         >
-          {/* monochrome dithered backdrop (no WebGL) */}
-          <DitherBackground className="z-0" />
-          {/* ambient glow on top for a touch of depth */}
+          {/* ambient glow for a touch of depth */}
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 z-0"
@@ -40,7 +37,7 @@ export default function ProyectosPage() {
             <Reveal delay={0.08}>
               <h1 className="mt-5 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4rem)] font-bold leading-[1.03] tracking-[-0.02em] text-[color:var(--text-strong)]">
                 Proyectos que{" "}
-                <span className="metal-text">hablan por nosotros</span>
+                <span className="brand-text">hablan por nosotros</span>
               </h1>
             </Reveal>
             <Reveal delay={0.16}>

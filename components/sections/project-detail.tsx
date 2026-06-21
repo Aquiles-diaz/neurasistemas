@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "motion/react";
 import { ArrowLeft, ArrowUpRight, Github, Globe } from "lucide-react";
-import { MetalButton } from "@/components/ui/metal-button";
 import { TiltScroll } from "@/components/ui/tilt-scroll";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import type { Project } from "@/components/sections/projects-data";
@@ -53,7 +52,7 @@ export function ProjectDetail({
         {...enter(2)}
         className="mt-5 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4rem)] font-bold leading-[1.03] tracking-[-0.02em] text-[color:var(--text-strong)]"
       >
-        <span className="metal-text">{title}</span>
+        <span className="brand-text">{title}</span>
       </motion.h1>
 
       <motion.p
@@ -77,16 +76,15 @@ export function ProjectDetail({
       {(project.url || repoUrl) && (
         <motion.div {...enter(5)} className="mt-8 flex flex-wrap items-center gap-3.5">
           {project.url && (
-            <MetalButton
-              size="lg"
-              asChild
-              className="gap-2 font-[family-name:var(--font-body)] text-base font-semibold"
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
             >
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
-                Visitar sitio
-                <ArrowUpRight size={18} strokeWidth={1.8} />
-              </a>
-            </MetalButton>
+              Visitar sitio
+              <ArrowUpRight size={18} strokeWidth={1.8} />
+            </a>
           )}
           {repoUrl && (
             <a

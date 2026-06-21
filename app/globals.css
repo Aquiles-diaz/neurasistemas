@@ -223,6 +223,14 @@ h1, h2, h3, h4, h5 {
   color: transparent;
 }
 
+/* Brand gradient text for headings on LIGHT backgrounds (navy → blue). */
+.brand-text {
+  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #0b1f33 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
 .glass {
   background: var(--surface-glass);
   -webkit-backdrop-filter: blur(var(--blur-md));

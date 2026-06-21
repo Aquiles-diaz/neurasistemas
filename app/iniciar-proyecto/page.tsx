@@ -35,7 +35,7 @@ export default function IniciarProyectoPage() {
             </Reveal>
             <Reveal delay={0.08}>
               <h1 className="mx-auto mt-5 max-w-[20ch] font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4rem)] font-bold leading-[1.03] tracking-[-0.02em] text-[color:var(--text-strong)]">
-                Contanos <span className="metal-text">tu idea</span>
+                Contanos <span className="brand-text">tu idea</span>
               </h1>
             </Reveal>
             <Reveal delay={0.16}>

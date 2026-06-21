@@ -16,10 +16,9 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
-import { MetalButton } from "@/components/ui/metal-button";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container } from "@/components/sections/primitives";
+import { Container, CtaButton } from "@/components/sections/primitives";
 import { EMAIL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
@@ -441,14 +440,14 @@ export function ProjectBrief() {
                     />
                   </Field>
 
-                  <MetalButton
+                  <CtaButton
                     type="submit"
                     size="lg"
-                    className="mt-1 gap-2 font-[family-name:var(--font-body)] text-base font-semibold"
+                    className="mt-1 font-[family-name:var(--font-body)] text-base font-semibold"
                   >
                     Enviar brief
                     <ArrowRight size={18} strokeWidth={1.8} />
-                  </MetalButton>
+                  </CtaButton>
 
               <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
                 <Lock size={12} strokeWidth={1.8} className="flex-none" />
