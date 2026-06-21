@@ -132,8 +132,22 @@ function ContactDrawer({ open, onClose }: { open: boolean; onClose: () => void }
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="absolute inset-y-0 right-0 flex w-full max-w-[400px] flex-col overflow-y-auto bg-[color:var(--navy)] text-white [box-shadow:-24px_0_60px_-20px_rgba(0,0,0,0.6)]"
           >
+            {/* Marca */}
+            <div className="flex justify-center px-6 pt-6 pb-2">
+              <span className="inline-flex items-center justify-center rounded-[var(--radius-md)] bg-white px-5 py-3.5 [box-shadow:var(--edge-hi)]">
+                <Image
+                  src="/logo/logons.png"
+                  alt="Neura Sistemas"
+                  width={1407}
+                  height={768}
+                  className="h-auto w-[168px]"
+                  priority={false}
+                />
+              </span>
+            </div>
+
             {/* Encabezado */}
-            <div className="flex items-center justify-between p-6 pb-0">
+            <div className="flex items-center justify-between px-6 pb-0 pt-3">
               <h2
                 id="contact-drawer-title"
                 className="font-[family-name:var(--font-display)] text-2xl font-bold text-white"
