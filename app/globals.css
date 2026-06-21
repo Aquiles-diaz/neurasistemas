@@ -36,12 +36,12 @@
   --metal-fill: linear-gradient(160deg, #2a2e35 0%, #1a1d22 48%, #14161a 100%);
   --metal-edge: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 40%);
 
-  /* ---- Accent (monochrome platinum / white metal — the ONLY accent) ---- */
-  --accent-300: #f5f6f8;
-  --accent-400: #dde0e5;
-  --accent-500: #bdc2ca;
-  --accent-600: #9aa0aa;
-  --accent-glow: rgba(238, 241, 246, 0.26);
+  /* ---- Accent (blue — confianza) ---- */
+  --accent-300: #3b82f6;
+  --accent-400: #1d4ed8;
+  --accent-500: #1e40af;
+  --accent-600: #1e3a8a;
+  --accent-glow: rgba(29, 78, 216, 0.18);
 
   /* ---- Liquid-glass violet — a single restrained whisper, glass only ---- */
   --lg-violet: rgba(167, 139, 250, 0.5);
@@ -53,25 +53,33 @@
   --warning-400: #e6b752;
   --danger-400: #ea6a55;
 
-  /* ---- Surfaces ---- */
-  --bg-base: var(--ink-950);
-  --bg-sunken: #060708;
-  --surface-1: var(--ink-900);
-  --surface-2: var(--ink-850);
-  --surface-3: var(--ink-800);
-  --surface-glass: rgba(22, 24, 29, 0.62);
+  /* ---- Brand (reposición PyME: azul/verde + naranja) ---- */
+  --primary: #1d4ed8;
+  --navy: #0b1f33;
+  --secondary: #10b981;
+  --secondary-ink: #047857;
+  --accent-cta: #f97316;
+  --accent-cta-hover: #ea580c;
 
-  /* ---- Text ---- */
-  --text-strong: var(--silver-bright);
-  --text-body: var(--ink-200);
-  --text-muted: var(--ink-300);
-  --text-subtle: var(--ink-400);
-  --text-onaccent: #0a0b0d;
+  /* ---- Surfaces (tema claro) ---- */
+  --bg-base: #ffffff;
+  --bg-sunken: #f1f5f9;
+  --surface-1: #f7f9fc;
+  --surface-2: #eef2f8;
+  --surface-3: #e7ecf3;
+  --surface-glass: rgba(255, 255, 255, 0.72);
 
-  /* ---- Borders / hairlines ---- */
-  --border-subtle: rgba(255, 255, 255, 0.06);
-  --border-default: rgba(255, 255, 255, 0.1);
-  --border-strong: rgba(255, 255, 255, 0.18);
+  /* ---- Text (tema claro) ---- */
+  --text-strong: #0f172a;
+  --text-body: #334155;
+  --text-muted: #475569;
+  --text-subtle: #94a3b8;
+  --text-onaccent: #ffffff;
+
+  /* ---- Borders / hairlines (tema claro) ---- */
+  --border-subtle: #e2e8f0;
+  --border-default: #e2e8f0;
+  --border-strong: #cbd5e1;
 
   /* ---- Interactive ---- */
   --focus-ring: var(--accent-500);
@@ -87,12 +95,12 @@
   --radius-pill: 999px;
 
   /* ---- Elevation (ambient, for dark surfaces) ---- */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 12px 30px -10px rgba(0, 0, 0, 0.6);
-  --shadow-lg: 0 28px 60px -18px rgba(0, 0, 0, 0.7);
-  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 10px 30px -12px rgba(15, 23, 42, 0.12);
+  --shadow-lg: 0 24px 60px -20px rgba(15, 23, 42, 0.18);
+  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, 0.6);
   --glow-accent-lg: 0 0 40px -6px var(--accent-glow);
-  --glow-silver: 0 0 36px -8px rgba(220, 224, 231, 0.22);
+  --glow-silver: 0 0 36px -8px rgba(148, 163, 184, 0.22);
 
   /* ---- Blur (glass) ---- */
   --blur-md: 16px;
@@ -136,7 +144,7 @@
 
   --color-success: var(--success-400);
 
-  --font-display: "Stack Sans Notch", var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-montserrat), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-inter);
   /* Labels/eyebrows are Inter too (uppercase + letter-spacing gives them the
      "kicker" feel) — keeps the whole site to two voices. */
@@ -168,10 +176,9 @@ section[id] {
   scroll-margin-top: 92px;
 }
 
-/* Full black ground on <html>; <body> stays transparent so the fixed n8n flow
-   (DeviceMockup, at a negative z-index) shows through every section. */
+/* Light ground on <html>; <body> stays transparent so it shows through. */
 html {
-  background: #000;
+  background: var(--bg-base);
 }
 
 body {

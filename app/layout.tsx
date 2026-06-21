@@ -1,11 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/scroll/smooth-scroll";
 import { SITE_URL } from "@/lib/site";
 
-// Two voices only: Stack Sans Notch (display headings, loaded from Google Fonts
-// below) + Inter for everything else.
+// Two voices only: Montserrat (display headings) + Inter for everything else.
 const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -13,32 +12,40 @@ const inter = Inter({
   display: "swap",
 });
 
+const montserrat = Montserrat({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  variable: "--font-montserrat",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Neura Sistemas — Desarrollo Web",
+    default: "Neura Sistemas — Automatización y Web para PyMEs",
     template: "%s · Neura Sistemas",
   },
   description:
-    "Estudio de diseño y desarrollo web. Convertimos ideas en experiencias digitales rápidas, elegantes y hechas para crecer.",
+    "Automatizamos tu negocio: webs, CRM, chatbots y automatización para PyMEs y comercios. Trabajás menos, facturás más.",
   keywords: [
+    "automatización",
+    "chatbots",
+    "CRM",
     "desarrollo web",
-    "diseño web",
-    "aplicaciones web",
-    "e-commerce",
-    "React",
-    "Next.js",
+    "PyMEs",
+    "comercios",
+    "Rosario",
     "Neura Sistemas",
   ],
   authors: [{ name: "Neura Sistemas" }],
   openGraph: {
     type: "website",
-    locale: "es_ES",
+    locale: "es_AR",
     url: SITE_URL,
     siteName: "Neura Sistemas",
-    title: "Neura Sistemas — Desarrollo Web",
+    title: "Neura Sistemas — Automatización y Web para PyMEs",
     description:
-      "Creamos Soluciones que inspiran confianza. Diseño y desarrollo web rápido, elegante y hecho para crecer.",
+      "Automatizamos tu negocio. Webs, CRM, chatbots y automatización para PyMEs y comercios que quieren crecer. Trabajás menos, facturás más.",
     images: [
       {
         url: "/logo/neurasistemas-mark-dark.jpeg",
@@ -50,15 +57,15 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neura Sistemas — Desarrollo Web",
-    description: "Creamos Soluciones que inspiran confianza.",
+    title: "Neura Sistemas — Automatización y Web para PyMEs",
+    description: "Automatizamos tu negocio. Trabajás menos, facturás más.",
     images: ["/logo/neurasistemas-mark-dark.jpeg"],
   },
   icons: { icon: "/logo/neurasistemas-monogram.png" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0b0d",
+  themeColor: "#0b1f33",
   width: "device-width",
   initialScale: 1,
 };
@@ -71,20 +78,8 @@ export default function RootLayout({
   return (
     <html
       lang="es"
-      className={`dark ${inter.variable}`}
+      className={`${inter.variable} ${montserrat.variable}`}
     >
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Stack+Sans+Notch:wght@500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
       <body>
         <SmoothScroll>
           {children}
