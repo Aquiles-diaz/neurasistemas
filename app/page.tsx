@@ -1,12 +1,18 @@
 import { Nav } from "@/components/sections/nav";
 import { Hero } from "@/components/sections/hero";
-import { Services } from "@/components/sections/services";
-import { Stack } from "@/components/sections/stack";
-import { Stats } from "@/components/sections/stats";
+import { Solution } from "@/components/sections/solution";
+import { Servicios } from "@/components/sections/servicios";
+import { Packs } from "@/components/sections/packs";
+import { Cuidado } from "@/components/sections/cuidado";
+import { Casos } from "@/components/sections/casos";
+import { WhyUs } from "@/components/sections/why-us";
 import { Process } from "@/components/sections/process";
-import { Showcase } from "@/components/sections/showcase";
+import { Testimonials } from "@/components/sections/testimonials";
+import { Faq } from "@/components/sections/faq";
 import { Contact } from "@/components/sections/contact";
 import { Footer } from "@/components/sections/footer";
+import { ExitOfferModal } from "@/components/ui/exit-offer-modal";
+import { PromoBanner } from "@/components/ui/promo-banner";
 
 export default function Home() {
   return (
@@ -14,14 +20,20 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
-        <Services />
-        <Stack />
-        <Stats />
+        <Solution />
+        <Servicios />
+        <Packs />
+        <Cuidado />
+        <Casos />
+        <WhyUs />
         <Process />
-        <Showcase />
+        <Testimonials />
+        <Faq />
         <Contact />
       </main>
       <Footer />
+      <PromoBanner />
+      <ExitOfferModal />
     </>
   );
 }

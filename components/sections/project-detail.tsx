@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { ArrowLeft, ArrowUpRight, Github, Globe } from "lucide-react";
-import { MetalButton } from "@/components/ui/metal-button";
 import { TiltScroll } from "@/components/ui/tilt-scroll";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import type { Project } from "@/components/sections/projects-data";
@@ -31,7 +30,7 @@ export function ProjectDetail({
 
   return (
     <Container className="relative z-[1]">
-      <motion.div {...enter(0)}>
+      <m.div {...enter(0)}>
         <Link
           href="/proyectos"
           className="group inline-flex items-center gap-2 text-sm font-medium text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-strong)]"
@@ -43,27 +42,27 @@ export function ProjectDetail({
           />
           Volver a proyectos
         </Link>
-      </motion.div>
+      </m.div>
 
-      <motion.div {...enter(1)} className="mt-8">
+      <m.div {...enter(1)} className="mt-8">
         <Eyebrow>{project.type}</Eyebrow>
-      </motion.div>
+      </m.div>
 
-      <motion.h1
+      <m.h1
         {...enter(2)}
         className="mt-5 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4rem)] font-bold leading-[1.03] tracking-[-0.02em] text-[color:var(--text-strong)]"
       >
-        <span className="metal-text">{title}</span>
-      </motion.h1>
+        <span className="brand-text">{title}</span>
+      </m.h1>
 
-      <motion.p
+      <m.p
         {...enter(3)}
         className="mt-5 max-w-[58ch] text-[clamp(1.05rem,1.6vw,1.2rem)] leading-[1.6] text-[color:var(--text-muted)]"
       >
         {desc}
-      </motion.p>
+      </m.p>
 
-      <motion.div {...enter(4)} className="mt-6 flex flex-wrap gap-2">
+      <m.div {...enter(4)} className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((t) => (
           <span
             key={t}
@@ -72,21 +71,20 @@ export function ProjectDetail({
             {t}
           </span>
         ))}
-      </motion.div>
+      </m.div>
 
       {(project.url || repoUrl) && (
-        <motion.div {...enter(5)} className="mt-8 flex flex-wrap items-center gap-3.5">
+        <m.div {...enter(5)} className="mt-8 flex flex-wrap items-center gap-3.5">
           {project.url && (
-            <MetalButton
-              size="lg"
-              asChild
-              className="gap-2 font-[family-name:var(--font-body)] text-base font-semibold"
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
             >
-              <a href={project.url} target="_blank" rel="noopener noreferrer">
-                Visitar sitio
-                <ArrowUpRight size={18} strokeWidth={1.8} />
-              </a>
-            </MetalButton>
+              Visitar sitio
+              <ArrowUpRight size={18} strokeWidth={1.8} />
+            </a>
           )}
           {repoUrl && (
             <a
@@ -99,12 +97,12 @@ export function ProjectDetail({
               Ver repositorio
             </a>
           )}
-        </motion.div>
+        </m.div>
       )}
 
       {/* Browser-frame preview of the live site — fades in on load, then
           settles flat in 3D as it scrolls into view. */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.45 }}
@@ -117,7 +115,7 @@ export function ProjectDetail({
               {[0, 1, 2].map((i) => (
                 <span
                   key={i}
-                  className="h-2.5 w-2.5 rounded-full bg-[color:var(--ink-600)]"
+                  className="h-2.5 w-2.5 rounded-full bg-[color:var(--border-strong)]"
                 />
               ))}
             </span>
@@ -138,7 +136,7 @@ export function ProjectDetail({
               target="_blank"
               rel="noopener noreferrer"
               aria-label={`Visitar ${title}`}
-              className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--ink-800),var(--ink-900))]"
+              className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]"
             >
               <PreviewArt project={project} title={title} />
               <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-1.5 text-xs font-semibold text-[color:var(--text-strong)] opacity-0 [box-shadow:var(--edge-hi)] transition-opacity duration-300 group-hover:opacity-100">
@@ -147,7 +145,7 @@ export function ProjectDetail({
               </span>
             </a>
           ) : (
-            <div className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--ink-800),var(--ink-900))]">
+            <div className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]">
               <PreviewArt project={project} title={title} />
               <span className="absolute bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap font-[family-name:var(--font-mono)] text-[11px] uppercase tracking-[0.1em] text-[color:var(--text-subtle)]">
                 Vista previa disponible próximamente
@@ -156,7 +154,7 @@ export function ProjectDetail({
           )}
           </div>
         </TiltScroll>
-      </motion.div>
+      </m.div>
     </Container>
   );
 }
@@ -189,7 +187,7 @@ function PreviewArt({ project, title }: { project: Project; title: string }) {
             "radial-gradient(70% 90% at 50% 120%, var(--accent-glow), transparent 70%)",
         }}
       />
-      <b className="metal-text relative font-[family-name:var(--font-display)] text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.02em] opacity-85 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]">
+      <b className="brand-text relative font-[family-name:var(--font-display)] text-[clamp(3rem,9vw,5.5rem)] font-bold tracking-[-0.02em] transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05]">
         {project.initials}
       </b>
     </>

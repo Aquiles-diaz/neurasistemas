@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
-import type { ReactNode } from "react";
+import { m, useReducedMotion, type Variants } from "motion/react";
+import { useEffect, useState, type ReactNode } from "react";
 
 /**
  * Brand reveal: rise + fade on enter, expo-out easing — the signature
@@ -13,7 +13,7 @@ const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
 export function Reveal({
   children,
   delay = 0,
-  y = 30,
+  y = 18,
   className,
   as = "div",
   once = true,
@@ -28,14 +28,28 @@ export function Reveal({
   amount?: number;
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.div;
+  // Defer the reduced-motion branch to after mount so SSR and the first client
+  // render are identical (both render the deterministic "hidden" initial) — no
+  // hydration mismatch. Post-mount, reduced-motion users jump straight to the
+  // visible state (no scroll gating); everyone else keeps the rise+fade.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const reduceNow = mounted && reduce;
+
+  const MotionTag = m[as] as typeof m.div;
 
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : y },
+    // `hidden` must not depend on `reduce`: it's the SSR-rendered initial style,
+    // so it has to be identical on server and first client paint.
+    hidden: { opacity: 0, y },
     show: {
       opacity: 1,
       y: 0,
-      transition: { duration: reduce ? 0 : 0.7, ease: EASE_EXPO, delay },
+      transition: {
+        duration: reduce ? 0 : 0.55,
+        ease: EASE_EXPO,
+        delay: reduce ? 0 : delay,
+      },
     },
   };
 
@@ -43,7 +57,8 @@ export function Reveal({
     <MotionTag
       className={className}
       initial="hidden"
-      whileInView="show"
+      animate={reduceNow ? "show" : undefined}
+      whileInView={reduceNow ? undefined : "show"}
       viewport={{ once, amount, margin: "0px 0px -8% 0px" }}
       variants={variants}
     >

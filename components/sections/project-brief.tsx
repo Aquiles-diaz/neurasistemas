@@ -6,7 +6,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import {
   ArrowRight,
   CalendarDays,
@@ -16,11 +16,11 @@ import {
   Mail,
   Phone,
 } from "lucide-react";
-import { MetalButton } from "@/components/ui/metal-button";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container } from "@/components/sections/primitives";
-import { EMAIL } from "@/lib/site";
+import { Container, CtaButton } from "@/components/sections/primitives";
+import { sendEmail, emailConfigured } from "@/lib/email";
+import { EMAIL, WHATSAPP } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 /** Projects take more than 10 days, so the first 10 days are never selectable. */
@@ -33,7 +33,7 @@ const TIPOS = [
   "Rediseño",
   "Otro",
 ];
-const PRESUPUESTOS = ["Aún no lo sé", "Hasta US$1.5k", "US$1.5k–4k", "US$4k+"];
+const PRESUPUESTOS = ["Aún no lo sé", "Hasta US$1.5k", "US$1.5k-4k", "US$4k+"];
 
 const inputBase =
   "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3 text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-500)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
@@ -257,6 +257,8 @@ const EMPTY = {
 
 export function ProjectBrief() {
   const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [hp, setHp] = useState(""); // honeypot anti-bot
   const [form, setForm] = useState(EMPTY);
   const [fecha, setFecha] = useState<Date | null>(null);
 
@@ -280,35 +282,61 @@ export function ProjectBrief() {
   const tipoLabel =
     form.tipo === "Otro"
       ? form.tipoOtro.trim()
-        ? `Otro — ${form.tipoOtro.trim()}`
+        ? `Otro: ${form.tipoOtro.trim()}`
         : "Otro"
-      : form.tipo || "—";
+      : form.tipo || "-";
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = `Nuevo proyecto — ${form.nombre || "Brief web"}`;
-    const body = [
+    if (hp) {
+      // Honeypot lleno → bot. Fingimos éxito y no enviamos nada.
+      setSent(true);
+      return;
+    }
+    const subject = `Nuevo proyecto: ${form.nombre || "Brief web"}`;
+    const message = [
       `Nombre: ${form.nombre}`,
-      `Empresa: ${form.empresa || "—"}`,
+      `Empresa: ${form.empresa || "-"}`,
       `Correo: ${form.correo}`,
-      `Teléfono: ${form.telefono || "—"}`,
+      `Teléfono: ${form.telefono || "-"}`,
       "",
       `¿Qué necesita?: ${tipoLabel}`,
-      `Presupuesto estimado: ${form.presupuesto || "—"}`,
-      `Fecha deseada: ${fecha ? formatLong(fecha) : "—"}`,
+      `Presupuesto estimado: ${form.presupuesto || "-"}`,
+      `Fecha deseada: ${fecha ? formatLong(fecha) : "-"}`,
       "",
       "Detalles:",
-      form.mensaje || "—",
+      form.mensaje || "-",
     ].join("\n");
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+
+    // Sin claves de EmailJS: fallback al cliente de correo del visitante.
+    if (!emailConfigured) {
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(message)}`;
+      setSent(true);
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await sendEmail({
+        subject,
+        fromName: form.nombre || "Brief web",
+        replyTo: form.correo,
+        message,
+      });
+      setStatus("idle");
+      setSent(true);
+    } catch {
+      setStatus("error");
+    }
   };
 
   const reset = () => {
     setForm(EMPTY);
     setFecha(null);
+    setHp("");
+    setStatus("idle");
     setSent(false);
   };
 
@@ -318,6 +346,17 @@ export function ProjectBrief() {
         <Reveal delay={d(1)} className="mx-auto w-full max-w-[760px]">
           <div className="rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-6 [box-shadow:var(--shadow-md),var(--edge-hi)] sm:p-8">
             <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+                  {/* Honeypot anti-bot: invisible para humanos, tentador para bots. */}
+                  <input
+                    type="text"
+                    name="company_website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    value={hp}
+                    onChange={(e) => setHp(e.target.value)}
+                    className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
+                  />
                   <div className="flex flex-col gap-3">
                     <ChipGroup
                       label="¿Qué necesitás?"
@@ -327,7 +366,7 @@ export function ProjectBrief() {
                     />
                     <AnimatePresence initial={false}>
                       {form.tipo === "Otro" && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
@@ -341,7 +380,7 @@ export function ProjectBrief() {
                             onChange={set("tipoOtro")}
                             required
                           />
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -441,19 +480,43 @@ export function ProjectBrief() {
                     />
                   </Field>
 
-                  <MetalButton
+                  <CtaButton
                     type="submit"
                     size="lg"
-                    className="mt-1 gap-2 font-[family-name:var(--font-body)] text-base font-semibold"
+                    disabled={status === "sending"}
+                    className="mt-1 font-[family-name:var(--font-body)] text-base font-semibold disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    Enviar brief
-                    <ArrowRight size={18} strokeWidth={1.8} />
-                  </MetalButton>
+                    {status === "sending" ? "Enviando…" : "Enviar brief"}
+                    {status !== "sending" && (
+                      <ArrowRight size={18} strokeWidth={1.8} />
+                    )}
+                  </CtaButton>
+
+                  {status === "error" && (
+                    <p className="text-sm leading-[1.5] text-[color:var(--text-muted)]">
+                      No se pudo enviar. Escribinos por{" "}
+                      <a
+                        href={WHATSAPP}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold text-[color:var(--accent-cta)] underline underline-offset-2"
+                      >
+                        WhatsApp
+                      </a>{" "}
+                      o a{" "}
+                      <a
+                        href={`mailto:${EMAIL}`}
+                        className="font-semibold text-[color:var(--accent-cta)] underline underline-offset-2"
+                      >
+                        {EMAIL}
+                      </a>
+                      .
+                    </p>
+                  )}
 
               <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
                 <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                Tus datos están seguros — el formulario abre tu correo y los
-                envías vos.
+                Tu brief nos llega directo. Te respondemos en menos de 24 h.
               </p>
             </form>
           </div>
@@ -464,7 +527,7 @@ export function ProjectBrief() {
         open={sent}
         onClose={reset}
         title="¡Brief enviado!"
-        message="Abrimos tu correo con el brief prellenado — solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+        message="Recibimos tu brief. Te respondemos en menos de 24 h."
       />
     </section>
   );

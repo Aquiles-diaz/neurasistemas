@@ -93,3 +93,31 @@ export function SecondaryButton({
     </button>
   );
 }
+
+/** Primary CTA — solid orange, white text, lifts on hover. */
+export function CtaButton({
+  children,
+  size = "md",
+  className,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement> & {
+  size?: "sm" | "md" | "lg";
+}) {
+  const sizes = {
+    sm: "h-9 px-4 text-sm",
+    md: "h-11 px-5 text-sm",
+    lg: "h-[52px] px-7 text-base",
+  };
+  return (
+    <button
+      className={cn(
+        "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px active:scale-[0.985]",
+        sizes[size],
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Check, X } from "lucide-react";
 import { SecondaryButton } from "@/components/sections/primitives";
 
@@ -38,7 +38,7 @@ export function SentModal({
           aria-label={title}
           className="fixed inset-0 z-[80] grid place-items-center px-[var(--gutter)]"
         >
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -46,7 +46,7 @@ export function SentModal({
             onClick={onClose}
             className="absolute inset-0 bg-[rgba(6,7,8,0.72)] [backdrop-filter:blur(12px)_saturate(140%)]"
           />
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 18, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.97 }}
@@ -56,6 +56,7 @@ export function SentModal({
             <button
               onClick={onClose}
               aria-label="Cerrar"
+              autoFocus
               className="absolute right-3.5 top-3.5 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] text-[color:var(--text-muted)] transition-colors hover:border-[color:var(--border-default)] hover:text-[color:var(--text-strong)]"
             >
               <X size={16} strokeWidth={1.8} />
@@ -74,7 +75,7 @@ export function SentModal({
                 Entendido
               </SecondaryButton>
             </div>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>
