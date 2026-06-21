@@ -13,10 +13,10 @@ import {
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
+import { sendEmail, emailConfigured } from "@/lib/email";
+import { EMAIL } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
-// Datos de contacto hardcodeados correctos (spec §5.9 / Global Constraints)
-const EMAIL = "aquilesdiaz335@gmail.com";
 const PHONE_DISPLAY = "+54 9 3402 507879";
 const WHATSAPP = "https://wa.me/5493402507879";
 
@@ -30,7 +30,7 @@ const CONTACTS: { Icon: typeof Mail; text: string; href?: string }[] = [
 const TRUST: { Icon: typeof Lock; text: string }[] = [
   {
     Icon: Lock,
-    text: "No guardamos tus datos en ningún servidor: el formulario abre tu correo y los enviás vos.",
+    text: "Tu mensaje nos llega directo, sin que tengas que abrir tu correo.",
   },
   {
     Icon: ShieldCheck,
@@ -73,6 +73,8 @@ function Field({
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "error">("idle");
+  const [hp, setHp] = useState(""); // honeypot anti-bot
   const [inView, setInView] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState({
@@ -107,20 +109,43 @@ export function Contact() {
   const set = (k: keyof typeof form) => (e: { target: { value: string } }) =>
     setForm((f) => ({ ...f, [k]: e.target.value }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (hp) {
+      // Honeypot lleno → bot. Fingimos éxito y no enviamos nada.
+      setSent(true);
+      return;
+    }
     const subject = `Contacto: ${form.nombre || "Web"}`;
-    const body = [
+    const message = [
       `Nombre: ${form.nombre}`,
       `Empresa: ${form.empresa || "-"}`,
       `Correo: ${form.correo}`,
       `Teléfono: ${form.telefono || "-"}`,
     ].join("\n");
-    // Abre el cliente de correo del visitante con todo prellenado (sin backend).
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+
+    // Sin claves de EmailJS: fallback al cliente de correo del visitante.
+    if (!emailConfigured) {
+      window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(message)}`;
+      setSent(true);
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      await sendEmail({
+        subject,
+        fromName: form.nombre || "Web",
+        replyTo: form.correo,
+        message,
+      });
+      setStatus("idle");
+      setSent(true);
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -225,6 +250,17 @@ export function Contact() {
                 className={cn("contact-form flex flex-col gap-5", inView && "in-view")}
                 onSubmit={handleSubmit}
               >
+                {/* Honeypot anti-bot: invisible para humanos, tentador para bots. */}
+                <input
+                  type="text"
+                  name="company_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  value={hp}
+                  onChange={(e) => setHp(e.target.value)}
+                  className="pointer-events-none absolute left-[-9999px] h-0 w-0 opacity-0"
+                />
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <Field label="Nombre" className="anim-item" style={ai(0)}>
                     <input
@@ -283,11 +319,35 @@ export function Contact() {
                 <div className="anim-item" style={ai(4)}>
                   <button
                     type="submit"
-                    className="mt-1 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-white/30 bg-white/15 px-5 py-3 text-base font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/50 hover:bg-white/25 active:translate-y-px sm:w-auto"
+                    disabled={status === "sending"}
+                    className="mt-1 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-white/30 bg-white/15 px-5 py-3 text-base font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/50 hover:bg-white/25 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
                   >
-                    Enviar mensaje
-                    <ArrowRight size={18} strokeWidth={1.8} />
+                    {status === "sending" ? "Enviando…" : "Enviar mensaje"}
+                    {status !== "sending" && (
+                      <ArrowRight size={18} strokeWidth={1.8} />
+                    )}
                   </button>
+                  {status === "error" && (
+                    <p className="mt-3 text-sm leading-[1.5] text-white/85">
+                      No se pudo enviar. Escribinos por{" "}
+                      <a
+                        href={WHATSAPP}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-semibold underline underline-offset-2 hover:text-white"
+                      >
+                        WhatsApp
+                      </a>{" "}
+                      o a{" "}
+                      <a
+                        href={`mailto:${EMAIL}`}
+                        className="font-semibold underline underline-offset-2 hover:text-white"
+                      >
+                        {EMAIL}
+                      </a>
+                      .
+                    </p>
+                  )}
                 </div>
 
                 <p
@@ -307,9 +367,11 @@ export function Contact() {
         open={sent}
         onClose={() => {
           setForm({ nombre: "", empresa: "", correo: "", telefono: "" });
+          setHp("");
+          setStatus("idle");
           setSent(false);
         }}
-        message="Abrimos tu correo con todo prellenado. Solo tenés que darle Enviar. Te respondemos en menos de 24 h."
+        message="Recibimos tu mensaje. Te respondemos en menos de 24 h."
       />
 
       {/* Animaciones de entrada y focus. prefers-reduced-motion seguro. */}

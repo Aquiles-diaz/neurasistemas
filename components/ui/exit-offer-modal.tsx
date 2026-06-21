@@ -4,10 +4,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { Gift, X, MessageCircle, Mail } from "lucide-react";
 import { CtaButton } from "@/components/sections/primitives";
+import { EMAIL } from "@/lib/site";
 
-/* Datos de contacto — mismos que components/sections/contact.tsx (sitio sin backend). */
+/* Datos de contacto — el mail sale del único lugar central (lib/site.ts). */
 const WHATSAPP_DIGITS = "5493402507879";
-const EMAIL = "aquilesdiaz335@gmail.com";
 const WA_TEXT =
   "Hola Neura! Quiero el diagnóstico gratis de automatización para mi negocio.";
 const MAIL_SUBJECT = "Quiero mi diagnóstico gratis";
