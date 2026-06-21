@@ -3,7 +3,7 @@
 import { ShieldCheck, Gauge, Check, type LucideIcon } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow, CtaButton } from "@/components/sections/primitives";
-import { useScrollTo } from "@/components/scroll/use-scroll-to";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
 
 interface Plan {
   id: string;
@@ -60,7 +60,7 @@ const PLANS: Plan[] = [
 ];
 
 export function Cuidado() {
-  const scrollTo = useScrollTo();
+  const { open } = useContactDrawer();
 
   return (
     <section
@@ -185,7 +185,7 @@ export function Cuidado() {
                     <CtaButton
                       size="md"
                       className="w-full justify-center"
-                      onClick={() => scrollTo("contacto")}
+                      onClick={open}
                     >
                       {plan.cta}
                     </CtaButton>

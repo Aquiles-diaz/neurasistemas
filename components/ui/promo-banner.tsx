@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { Sparkles, ArrowRight, X } from "lucide-react";
-import { useScrollTo } from "@/components/scroll/use-scroll-to";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
 
 /* ============================================================
    Barra de anuncio descartable (sticky bottom).
@@ -27,7 +27,7 @@ export function PromoBanner() {
   const [visible, setVisible] = useState(false);
   const [contactInView, setContactInView] = useState(false);
   const reduce = useReducedMotion();
-  const scrollTo = useScrollTo();
+  const { open } = useContactDrawer();
 
   // Mostrar solo si no fue descartada en esta versión (lectura post-mount → sin
   // mismatch de hidratación en el export estático).
@@ -58,7 +58,7 @@ export function PromoBanner() {
   };
 
   const onCta = () => {
-    scrollTo("contacto");
+    open();
   };
 
   const show = visible && !contactInView;

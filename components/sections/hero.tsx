@@ -2,6 +2,7 @@
 
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
 import { Container, SecondaryButton, CtaButton } from "@/components/sections/primitives";
 import { HeroVideoBg } from "@/components/sections/hero-video";
 
@@ -13,6 +14,7 @@ const BENEFITS = [
 
 export function Hero() {
   const scrollTo = useScrollTo();
+  const { open } = useContactDrawer();
 
   // Entrance animation lives in CSS (`[data-hero]` in globals.css) so it runs
   // on first paint with zero JS, and opts out under prefers-reduced-motion.
@@ -52,7 +54,7 @@ export function Hero() {
 
             <SecondaryButton
               size="lg"
-              onClick={() => scrollTo("contacto")}
+              onClick={open}
               className="border-white/30 bg-white/10 text-white hover:bg-white/20"
             >
               Agendá una llamada

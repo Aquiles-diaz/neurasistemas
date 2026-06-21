@@ -3,7 +3,7 @@
 import { Rocket, TrendingUp, Crown, Check, type LucideIcon } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow, CtaButton } from "@/components/sections/primitives";
-import { useScrollTo } from "@/components/scroll/use-scroll-to";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
 
 interface Pack {
   id: string;
@@ -77,7 +77,7 @@ const PACKS: Pack[] = [
 ];
 
 export function Packs() {
-  const scrollTo = useScrollTo();
+  const { open } = useContactDrawer();
 
   return (
     <section id="packs" className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]">
@@ -222,7 +222,7 @@ export function Packs() {
                     <CtaButton
                       size="md"
                       className="w-full justify-center"
-                      onClick={() => scrollTo("contacto")}
+                      onClick={open}
                     >
                       {pack.cta}
                     </CtaButton>

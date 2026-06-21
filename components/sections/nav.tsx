@@ -7,6 +7,7 @@ import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { CtaButton } from "@/components/sections/primitives";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
 import { cn } from "@/lib/utils";
 
 type NavLink = { label: string; id?: string; href?: string };
@@ -26,6 +27,7 @@ export function Nav() {
   const [active, setActive] = useState<string>("");
   const [hovered, setHovered] = useState<string | null>(null);
   const scrollTo = useScrollTo();
+  const { open } = useContactDrawer();
   const router = useRouter();
   const pathname = usePathname();
   const onHome = pathname === "/";
@@ -71,6 +73,11 @@ export function Nav() {
       return;
     }
     if (!link.id) return;
+    // "Contacto" abre el panel en vez de mandar al fondo (en cualquier página).
+    if (link.id === "contacto") {
+      open();
+      return;
+    }
     if (onHome) scrollTo(link.id);
     else router.push(`/#${link.id}`);
   };
@@ -180,7 +187,7 @@ export function Nav() {
               className="font-[family-name:var(--font-body)] font-semibold"
               onClick={() => {
                 setMenu(false);
-                scrollTo("contacto");
+                open();
               }}
             >
               Agendá una llamada
@@ -253,7 +260,7 @@ export function Nav() {
                 className="w-full font-[family-name:var(--font-body)] font-semibold"
                 onClick={() => {
                   setMenu(false);
-                  scrollTo("contacto");
+                  open();
                 }}
               >
                 Agendá una llamada

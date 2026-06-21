@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/components/motion-provider";
+import { ContactDrawerProvider } from "@/components/ui/contact-drawer";
 import { SITE_URL } from "@/lib/site";
 
 // Two voices only: Montserrat (display headings) + Inter for everything else.
@@ -81,7 +82,9 @@ export default function RootLayout({
       className={`${inter.variable} ${montserrat.variable}`}
     >
       <body>
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <ContactDrawerProvider>{children}</ContactDrawerProvider>
+        </MotionProvider>
       </body>
     </html>
   );

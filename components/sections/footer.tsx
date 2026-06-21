@@ -1,20 +1,14 @@
 import Image from "next/image";
 import { Mail, MessageCircle, MapPin } from "lucide-react";
 import { Container } from "@/components/sections/primitives";
-
-const NAV_LINKS: [string, string][] = [
-  ["Soluciones", "/#solucion"],
-  ["Packs", "/#packs"],
-  ["Casos", "/#casos"],
-  ["FAQ", "/#faq"],
-  ["Contacto", "/#contacto"],
-];
+import { FooterNav } from "@/components/ui/footer-nav";
+import { EMAIL } from "@/lib/site";
 
 const CONTACT_ITEMS: { icon: typeof Mail; label: string; href: string }[] = [
   {
     icon: Mail,
-    label: "aquilesdiaz335@gmail.com",
-    href: "mailto:aquilesdiaz335@gmail.com",
+    label: EMAIL,
+    href: `mailto:${EMAIL}`,
   },
   {
     icon: MessageCircle,
@@ -54,18 +48,7 @@ export function Footer() {
             <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
               Navegación
             </h5>
-            <ul className="space-y-2.5">
-              {NAV_LINKS.map(([label, href]) => (
-                <li key={label}>
-                  <a
-                    href={href}
-                    className="text-sm text-white/80 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <FooterNav />
           </div>
 
           {/* Contact */}
