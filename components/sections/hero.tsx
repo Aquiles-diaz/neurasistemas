@@ -26,7 +26,7 @@ export function Hero() {
       <HeroVideoBg />
 
       <Container className="relative z-[1]">
-        <div className="flex max-w-[640px] flex-col">
+        <div className="mx-auto flex max-w-[640px] flex-col items-center text-center">
           <h1
             data-hero
             className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white [text-wrap:balance]"
@@ -43,7 +43,7 @@ export function Hero() {
             encargamos nosotros.
           </p>
 
-          <div data-hero className="mt-9 flex flex-wrap gap-3.5">
+          <div data-hero className="mt-9 flex flex-wrap justify-center gap-3.5">
             <CtaButton
               size="lg"
               onClick={() => scrollTo("solucion")}
@@ -63,7 +63,7 @@ export function Hero() {
 
           <ul
             data-hero
-            className="mt-10 flex flex-wrap gap-x-6 gap-y-3"
+            className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3"
             aria-label="Beneficios principales"
           >
             {BENEFITS.map((item) => (

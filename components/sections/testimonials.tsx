@@ -41,7 +41,7 @@ export function Testimonials() {
     <section className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]">
       <Container>
         <Reveal delay={d(1)}>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-center">
             <h2 className="text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
               Lo que dicen quienes ya automatizaron
             </h2>

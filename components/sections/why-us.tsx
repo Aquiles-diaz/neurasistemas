@@ -174,17 +174,17 @@ export function WhyUs() {
       <Container>
         {/* Encabezado */}
         <Reveal>
-          <Eyebrow className="text-[color:var(--secondary)]">
+          <Eyebrow center className="text-[color:var(--secondary)]">
             Por qué nosotros
           </Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
-          <h2 className="mt-4 font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] text-white">
+          <h2 className="mt-4 text-center font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] text-white">
             Lo que nos hace diferentes
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
-          <p className="mt-4 max-w-[54ch] text-lg leading-[1.6] text-white/70">
+          <p className="mt-4 mx-auto max-w-[54ch] text-center text-lg leading-[1.6] text-white/70">
             No somos una agencia de Buenos Aires que te manda un PDF. Somos un
             equipo local que entiende cómo funciona tu negocio y trabaja con vos
             hasta que el sistema está andando.

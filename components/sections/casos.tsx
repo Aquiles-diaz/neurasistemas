@@ -51,12 +51,12 @@ export function Casos() {
     <section id="casos" className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]">
       <Container>
         <Reveal delay={d(1)}>
-          <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
+          <h2 className="mt-4.5 text-center text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
             Resultados que se notan
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
-          <p className="mt-4 max-w-[54ch] text-lg leading-[1.6] text-[color:var(--text-muted)]">
+          <p className="mt-4 mx-auto max-w-[54ch] text-center text-lg leading-[1.6] text-[color:var(--text-muted)]">
             Negocios como el tuyo que dejaron de perder tiempo y empezaron a crecer.
           </p>
         </Reveal>

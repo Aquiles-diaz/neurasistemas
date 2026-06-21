@@ -16,7 +16,7 @@ export function Process() {
     <section id="proceso" className="py-[var(--section-y-sm)]">
       <Container>
         <Reveal delay={d(1)}>
-          <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
+          <h2 className="mt-4.5 text-center text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
             Cómo trabajamos
           </h2>
         </Reveal>

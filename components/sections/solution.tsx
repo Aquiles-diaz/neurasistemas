@@ -56,15 +56,15 @@ export function Solution() {
       <Container>
         {/* Header */}
         <Reveal>
-          <Eyebrow>Antes / Después</Eyebrow>
+          <Eyebrow center>Antes / Después</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
-          <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
+          <h2 className="mt-4.5 text-center text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
             Del caos operativo al piloto automático
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
-          <p className="mt-4 max-w-[52ch] text-[color:var(--text-muted)] leading-[1.6]">
+          <p className="mt-4 mx-auto max-w-[52ch] text-center text-[color:var(--text-muted)] leading-[1.6]">
             Esto es lo que cambia cuando dejás de hacer a mano lo que un sistema
             resuelve solo.
           </p>
