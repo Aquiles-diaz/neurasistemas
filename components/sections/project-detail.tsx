@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { ArrowLeft, ArrowUpRight, Github, Globe } from "lucide-react";
 import { TiltScroll } from "@/components/ui/tilt-scroll";
 import { Container, Eyebrow } from "@/components/sections/primitives";
@@ -30,7 +30,7 @@ export function ProjectDetail({
 
   return (
     <Container className="relative z-[1]">
-      <motion.div {...enter(0)}>
+      <m.div {...enter(0)}>
         <Link
           href="/proyectos"
           className="group inline-flex items-center gap-2 text-sm font-medium text-[color:var(--text-muted)] transition-colors hover:text-[color:var(--text-strong)]"
@@ -42,27 +42,27 @@ export function ProjectDetail({
           />
           Volver a proyectos
         </Link>
-      </motion.div>
+      </m.div>
 
-      <motion.div {...enter(1)} className="mt-8">
+      <m.div {...enter(1)} className="mt-8">
         <Eyebrow>{project.type}</Eyebrow>
-      </motion.div>
+      </m.div>
 
-      <motion.h1
+      <m.h1
         {...enter(2)}
         className="mt-5 max-w-[18ch] font-[family-name:var(--font-display)] text-[clamp(2.4rem,5.4vw,4rem)] font-bold leading-[1.03] tracking-[-0.02em] text-[color:var(--text-strong)]"
       >
         <span className="brand-text">{title}</span>
-      </motion.h1>
+      </m.h1>
 
-      <motion.p
+      <m.p
         {...enter(3)}
         className="mt-5 max-w-[58ch] text-[clamp(1.05rem,1.6vw,1.2rem)] leading-[1.6] text-[color:var(--text-muted)]"
       >
         {desc}
-      </motion.p>
+      </m.p>
 
-      <motion.div {...enter(4)} className="mt-6 flex flex-wrap gap-2">
+      <m.div {...enter(4)} className="mt-6 flex flex-wrap gap-2">
         {project.tags.map((t) => (
           <span
             key={t}
@@ -71,10 +71,10 @@ export function ProjectDetail({
             {t}
           </span>
         ))}
-      </motion.div>
+      </m.div>
 
       {(project.url || repoUrl) && (
-        <motion.div {...enter(5)} className="mt-8 flex flex-wrap items-center gap-3.5">
+        <m.div {...enter(5)} className="mt-8 flex flex-wrap items-center gap-3.5">
           {project.url && (
             <a
               href={project.url}
@@ -97,12 +97,12 @@ export function ProjectDetail({
               Ver repositorio
             </a>
           )}
-        </motion.div>
+        </m.div>
       )}
 
       {/* Browser-frame preview of the live site — fades in on load, then
           settles flat in 3D as it scrolls into view. */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.9, ease: EASE, delay: 0.45 }}
@@ -154,7 +154,7 @@ export function ProjectDetail({
           )}
           </div>
         </TiltScroll>
-      </motion.div>
+      </m.div>
     </Container>
   );
 }

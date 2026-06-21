@@ -6,7 +6,7 @@ import {
   useSyncExternalStore,
   type ReactNode,
 } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import {
   ArrowRight,
   CalendarDays,
@@ -326,7 +326,7 @@ export function ProjectBrief() {
                     />
                     <AnimatePresence initial={false}>
                       {form.tipo === "Otro" && (
-                        <motion.div
+                        <m.div
                           initial={{ opacity: 0, height: 0 }}
                           animate={{ opacity: 1, height: "auto" }}
                           exit={{ opacity: 0, height: 0 }}
@@ -340,7 +340,7 @@ export function ProjectBrief() {
                             onChange={set("tipoOtro")}
                             required
                           />
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>

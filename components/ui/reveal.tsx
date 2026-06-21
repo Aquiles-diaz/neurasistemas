@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { m, useReducedMotion, type Variants } from "motion/react";
 import type { ReactNode } from "react";
 
 /**
@@ -28,7 +28,7 @@ export function Reveal({
   amount?: number;
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.div;
+  const MotionTag = m[as] as typeof m.div;
 
   const variants: Variants = {
     hidden: { opacity: 0, y: reduce ? 0 : y },

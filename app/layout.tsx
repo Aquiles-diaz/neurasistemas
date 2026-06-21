@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/scroll/smooth-scroll";
+import { MotionProvider } from "@/components/motion-provider";
 import { SITE_URL } from "@/lib/site";
 
 // Two voices only: Montserrat (display headings) + Inter for everything else.
@@ -82,7 +83,7 @@ export default function RootLayout({
     >
       <body>
         <SmoothScroll>
-          {children}
+          <MotionProvider>{children}</MotionProvider>
         </SmoothScroll>
       </body>
     </html>

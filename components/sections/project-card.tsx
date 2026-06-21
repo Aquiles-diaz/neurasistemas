@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { SpotlightGlow, trackSpotlight } from "@/components/ui/spotlight";
 import type { Project } from "@/components/sections/projects-data";
@@ -18,7 +18,7 @@ export function ProjectCard({
   const { name, slug, type, initials, desc, tags, image } = project;
 
   return (
-    <motion.article
+    <m.article
       layout
       initial={{ opacity: 0, scale: 0.96 }}
       animate={{ opacity: 1, scale: 1 }}
@@ -98,6 +98,6 @@ export function ProjectCard({
           </>
         )}
       </div>
-    </motion.article>
+    </m.article>
   );
 }

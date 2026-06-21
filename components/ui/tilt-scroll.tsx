@@ -2,7 +2,7 @@
 
 import { useRef, type ReactNode } from "react";
 import {
-  motion,
+  m,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -11,7 +11,7 @@ import {
 /**
  * Apple-style scroll perspective (adapted from 21st.dev
  * "container-scroll-animation"): the child starts tilted back in 3D and
- * settles flat as it scrolls into view. Renders static under reduced motion.
+ * settles flat as it scrolls into view. Renders static under reduced m.
  */
 export function TiltScroll({
   children,
@@ -34,9 +34,9 @@ export function TiltScroll({
 
   return (
     <div ref={ref} className={className} style={{ perspective: 1200 }}>
-      <motion.div style={{ rotateX, scale, y, transformOrigin: "center top" }}>
+      <m.div style={{ rotateX, scale, y, transformOrigin: "center top" }}>
         {children}
-      </motion.div>
+      </m.div>
     </div>
   );
 }

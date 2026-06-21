@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Reveal } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
 import { ProjectCard } from "@/components/sections/project-card";
@@ -33,7 +33,7 @@ export function Projects() {
           ))}
         </Reveal>
 
-        <motion.div
+        <m.div
           layout
           className="mt-8 grid grid-cols-1 gap-4.5 sm:grid-cols-2 lg:grid-cols-3"
         >
@@ -42,7 +42,7 @@ export function Projects() {
               <ProjectCard key={p.name} project={p} showTags />
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </Container>
     </section>
   );

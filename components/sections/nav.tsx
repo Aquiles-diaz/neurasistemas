@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { CtaButton } from "@/components/sections/primitives";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
@@ -82,7 +82,7 @@ export function Nav() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-[var(--gutter)] pt-[clamp(12px,2vw,20px)]">
-      <motion.div
+      <m.div
         initial={{ y: -24, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -155,7 +155,7 @@ export function Nav() {
                 )}
               >
                 {highlight === key && (
-                  <motion.span
+                  <m.span
                     layoutId="nav-pill"
                     className={cn(
                       "absolute inset-0 -z-10 rounded-[var(--radius-pill)]",
@@ -200,11 +200,11 @@ export function Nav() {
             <Menu size={20} strokeWidth={1.6} />
           </button>
         </div>
-      </motion.div>
+      </m.div>
 
       <AnimatePresence>
         {menu && (
-          <motion.div
+          <m.div
             id="mobile-nav"
             className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-white px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
             initial={{ opacity: 0 }}
@@ -235,7 +235,7 @@ export function Nav() {
             </div>
             <div className="mt-8 flex flex-col gap-1.5">
               {LINKS.map((link, i) => (
-                <motion.button
+                <m.button
                   key={keyOf(link)}
                   onClick={() => go(link)}
                   initial={{ opacity: 0, x: -16 }}
@@ -244,7 +244,7 @@ export function Nav() {
                   className="border-b border-[color:var(--border-subtle)] py-3 text-left font-[family-name:var(--font-display)] text-3xl font-semibold text-[color:var(--text-strong)]"
                 >
                   {link.label}
-                </motion.button>
+                </m.button>
               ))}
             </div>
             <div className="mt-7">
@@ -259,7 +259,7 @@ export function Nav() {
                 Agendá una llamada
               </CtaButton>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>
