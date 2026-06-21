@@ -305,7 +305,8 @@ h1, h2, h3, h4, h5 {
   content: "";
   width: 22px;
   height: 1px;
-  background: var(--silver-400);
+  background: currentColor;
+  opacity: 0.5;
 }
 
 /* Sheen sweep used on metallic CTAs */

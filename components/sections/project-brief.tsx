@@ -452,7 +452,7 @@ export function ProjectBrief() {
               <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
                 <Lock size={12} strokeWidth={1.8} className="flex-none" />
                 Tus datos están seguros — el formulario abre tu correo y los
-                envías vos.
+                enviás vos.
               </p>
             </form>
           </div>
