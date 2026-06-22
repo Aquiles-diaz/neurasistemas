@@ -15,3 +15,4 @@ next-env.d.ts
 skills.md
 *.skill
 skills-lock.json
+.vercel
