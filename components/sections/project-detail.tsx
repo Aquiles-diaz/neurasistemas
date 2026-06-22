@@ -123,7 +123,7 @@ export function ProjectDetail({
               <span className="flex max-w-full items-center gap-2 truncate rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] px-4 py-1.5 font-[family-name:var(--font-mono)] text-xs text-[color:var(--text-subtle)]">
                 <Globe size={12} strokeWidth={1.8} className="flex-none" />
                 <span className="truncate">
-                  {displayUrl ?? `${project.slug}.neurasistemas.com`}
+                  {displayUrl ?? `${project.slug}.neurasistemas.com.ar`}
                 </span>
               </span>
             </span>
