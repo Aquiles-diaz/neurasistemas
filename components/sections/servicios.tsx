@@ -83,8 +83,8 @@ export function Servicios() {
                 className={[
                   "group flex h-full flex-col rounded-[var(--radius-lg)] border p-6 transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1",
                   featured
-                    ? "border-[color:color-mix(in_srgb,var(--secondary)_32%,transparent)] bg-[color:color-mix(in_srgb,var(--secondary)_5%,white)] [box-shadow:var(--shadow-md)] hover:[box-shadow:var(--shadow-lg)]"
-                    : "border-[color:var(--border-subtle)] bg-white [box-shadow:var(--shadow-sm)] hover:[box-shadow:var(--shadow-md)]",
+                    ? "border-[color:color-mix(in_srgb,var(--accent)_40%,transparent)] bg-[color:color-mix(in_srgb,var(--accent)_8%,var(--card))] [box-shadow:var(--shadow-md)] hover:[box-shadow:var(--shadow-lg)]"
+                    : "border-[color:var(--border-subtle)] bg-[color:var(--card)] [box-shadow:var(--shadow-sm)] hover:[box-shadow:var(--shadow-md)]",
                 ].join(" ")}
               >
                 <div

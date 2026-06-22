@@ -49,9 +49,9 @@ export const metadata: Metadata = {
       "Automatizamos tu negocio. Webs, CRM, chatbots y automatización para PyMEs y comercios que quieren crecer. Trabajás menos, facturás más.",
     images: [
       {
-        url: "/logo/neurasistemas-mark-dark.jpeg",
-        width: 1254,
-        height: 1254,
+        url: "/logo/logoneurasistemas.png",
+        width: 2000,
+        height: 2000,
         alt: "Neura Sistemas",
       },
     ],
@@ -60,13 +60,21 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Neura Sistemas: Automatización y Web para PyMEs",
     description: "Automatizamos tu negocio. Trabajás menos, facturás más.",
-    images: ["/logo/neurasistemas-mark-dark.jpeg"],
+    images: ["/logo/logoneurasistemas.png"],
   },
-  icons: { icon: "/logo/neurasistemas-monogram.png" },
+  icons: {
+    icon: [
+      { url: "/logo/favicon.ico", sizes: "any" },
+      { url: "/logo/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/logo/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+    apple: { url: "/logo/apple-touch-icon.png", sizes: "180x180" },
+  },
+  manifest: "/site.webmanifest",
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0b1f33",
+  themeColor: "#141414",
   width: "device-width",
   initialScale: 1,
 };

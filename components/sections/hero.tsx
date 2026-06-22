@@ -9,7 +9,7 @@ import { HeroVideoBg } from "@/components/sections/hero-video";
 const BENEFITS = [
   "Listo en 2-3 semanas",
   "Soporte local en Rosario",
-  "Recuperás la inversión en 30 días",
+  "Presupuesto cerrado, sin sorpresas",
 ] as const;
 
 export function Hero() {
@@ -31,7 +31,7 @@ export function Hero() {
             data-hero
             className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white [text-wrap:balance]"
           >
-            Recuperá 8 horas por semana y hacé crecer tu negocio sin sumar empleados.
+            Recuperá tu tiempo y hacé crecer tu negocio sin sumar empleados.
           </h1>
 
           <p

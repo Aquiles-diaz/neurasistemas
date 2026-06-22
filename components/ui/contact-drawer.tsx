@@ -151,13 +151,13 @@ function ContactDrawer({ open, onClose }: { open: boolean; onClose: () => void }
 
             {/* Toque personal */}
             <div className="flex items-center gap-4 px-6 pt-7">
-              <span className="flex h-14 w-14 flex-none items-center justify-center overflow-hidden rounded-full border border-white/15 bg-white">
+              <span className="flex h-14 w-14 flex-none items-center justify-center overflow-hidden rounded-full bg-[color:var(--card)]">
                 <Image
-                  src="/logo/logons.png"
+                  src="/logo/logoneurasistemas-white.png"
                   alt="Neura Sistemas"
-                  width={1407}
-                  height={768}
-                  className="h-auto w-[46px]"
+                  width={1755}
+                  height={649}
+                  className="h-auto w-[40px]"
                 />
               </span>
               <p className="text-[15px] leading-snug text-white/80">

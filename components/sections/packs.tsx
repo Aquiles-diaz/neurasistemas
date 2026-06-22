@@ -109,8 +109,8 @@ export function Packs() {
                   className={[
                     "group relative flex h-full flex-col rounded-[var(--radius-lg)] p-7 transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
                     featured
-                      ? "bg-[color:var(--navy)] text-white ring-1 ring-white/12 [box-shadow:0_30px_70px_-24px_rgba(16,185,129,0.45)] hover:[box-shadow:0_40px_90px_-24px_rgba(16,185,129,0.62)] lg:-translate-y-4"
-                      : "border border-[color:var(--border-subtle)] bg-white [box-shadow:var(--shadow-md)] hover:-translate-y-1.5 hover:[box-shadow:var(--shadow-lg)]",
+                      ? "bg-[color:var(--card-hover)] text-white ring-1 ring-[color:var(--accent)]/40 [box-shadow:0_30px_70px_-24px_rgba(182,255,0,0.3)] hover:[box-shadow:0_40px_90px_-24px_rgba(182,255,0,0.42)] lg:-translate-y-4"
+                      : "border border-[color:var(--border-subtle)] bg-[color:var(--card)] [box-shadow:var(--shadow-md)] hover:-translate-y-1.5 hover:[box-shadow:var(--shadow-lg)]",
                   ].join(" ")}
                 >
                   {/* "Más elegido" badge — only on the featured card */}

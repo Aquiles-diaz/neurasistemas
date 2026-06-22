@@ -1,7 +1,5 @@
 "use client";
 
-import { useRef } from "react";
-import { useInView } from "motion/react";
 import {
   Zap,
   MapPin,
@@ -13,7 +11,6 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { AnimatedNumber } from "@/components/ui/animated-number";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 
@@ -53,78 +50,23 @@ const DIFERENCIADORES: Diferenciador[] = [
   },
   {
     Icon: LineChart,
-    title: "Rentabilidad inmediata",
-    line: "Ves ROI en los primeros 30 días.",
+    title: "Es inversión, no gasto",
+    line: "Vuelve en tiempo ahorrado y en ventas que hoy se te escapan.",
   },
 ];
 
-/* ─── Métricas ────────────────────────────────────────────────────────────── */
+/* ─── Compromisos (en vez de métricas que todavía no podemos demostrar) ────── */
 
-function CountUp({
-  value,
-  precision = 0,
-  prefix = "",
-  suffix = "",
-}: {
-  value: number;
-  precision?: number;
-  prefix?: string;
-  suffix?: string;
-}) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
-  return (
-    <span ref={ref}>
-      {prefix}
-      <AnimatedNumber
-        value={inView ? value : 0}
-        precision={precision}
-        stiffness={70}
-        damping={18}
-        format={(n) =>
-          n.toLocaleString("es", {
-            minimumFractionDigits: precision,
-            maximumFractionDigits: precision,
-          })
-        }
-      />
-      {suffix}
-    </span>
-  );
-}
-
-type Metrica = {
-  display: "animated" | "static";
-  value?: number;
-  prefix?: string;
-  suffix?: string;
-  staticText?: string;
+type Compromiso = {
+  value: string;
   label: string;
 };
 
-const METRICAS: Metrica[] = [
-  {
-    display: "animated",
-    value: 20,
-    prefix: "+",
-    label: "negocios automatizados",
-  },
-  {
-    display: "animated",
-    value: 8,
-    suffix: " h",
-    label: "ahorradas por semana",
-  },
-  {
-    display: "static",
-    staticText: "2-3 sem",
-    label: "de implementación",
-  },
-  {
-    display: "static",
-    staticText: "24/7",
-    label: "atención sin parar",
-  },
+const COMPROMISOS: Compromiso[] = [
+  { value: "2-3 sem", label: "de la idea a tu sistema andando" },
+  { value: "24/7", label: "tu negocio atendiendo sin parar" },
+  { value: "100%", label: "en español y con soporte local" },
+  { value: "0", label: "sorpresas: presupuesto cerrado" },
 ];
 
 /* ─── Tabla comparativa ───────────────────────────────────────────────────── */
@@ -169,12 +111,12 @@ export function WhyUs() {
   return (
     <section
       id="porque"
-      className="bg-[color:var(--navy)] py-[var(--section-y)] text-white"
+      className="bg-[color:var(--ink)] py-[var(--section-y)] text-white"
     >
       <Container>
         {/* Encabezado */}
         <Reveal>
-          <Eyebrow center className="text-[color:var(--secondary)]">
+          <Eyebrow center className="text-[color:var(--accent)]">
             Por qué nosotros
           </Eyebrow>
         </Reveal>
@@ -195,15 +137,15 @@ export function WhyUs() {
         <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {DIFERENCIADORES.map(({ Icon, title, line }, i) => (
             <Reveal key={title} delay={d((i % 3) + 1)}>
-              <div className="flex gap-4 rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-6 transition-colors duration-200 hover:bg-white/10">
+              <div className="flex gap-4 rounded-[var(--radius-lg)] border border-[color:var(--hairline)] bg-[color:var(--card)] p-6 transition-colors duration-200 hover:border-[color:var(--accent)]/35 hover:bg-[color:var(--card-hover)]">
                 <div
-                  className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--secondary)]/15"
+                  className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--accent)]/15"
                   aria-hidden
                 >
                   <Icon
                     size={20}
                     strokeWidth={1.8}
-                    className="text-[color:var(--secondary)]"
+                    className="text-[color:var(--accent)]"
                   />
                 </div>
                 <div>
@@ -217,24 +159,16 @@ export function WhyUs() {
           ))}
         </div>
 
-        {/* ── Métricas row ── */}
+        {/* ── Compromisos row ── */}
         <Reveal delay={d(1)}>
-          <div className="mt-16 grid grid-cols-2 gap-6 border-y border-white/10 py-10 md:grid-cols-4">
-            {METRICAS.map((m) => (
-              <div key={m.label} className="text-center">
-                <b className="block font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.02em] text-[color:var(--secondary)]">
-                  {m.display === "animated" ? (
-                    <CountUp
-                      value={m.value!}
-                      prefix={m.prefix}
-                      suffix={m.suffix}
-                    />
-                  ) : (
-                    m.staticText
-                  )}
+          <div className="mt-16 grid grid-cols-2 gap-6 border-y border-[color:var(--hairline)] py-10 md:grid-cols-4">
+            {COMPROMISOS.map((c) => (
+              <div key={c.label} className="text-center">
+                <b className="block font-[family-name:var(--font-display)] text-[clamp(2rem,4.5vw,3rem)] font-bold tracking-[-0.02em] text-[color:var(--accent)]">
+                  {c.value}
                 </b>
                 <span className="mt-1 block text-sm text-white/60">
-                  {m.label}
+                  {c.label}
                 </span>
               </div>
             ))}
@@ -253,14 +187,14 @@ export function WhyUs() {
 
         {/* Desktop: tabla visible desde md */}
         <Reveal delay={d(2)}>
-          <div className="mt-8 hidden overflow-hidden rounded-[var(--radius-lg)] border border-white/10 md:block">
+          <div className="mt-8 hidden overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--hairline)] md:block">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-white/10 bg-white/5">
+                <tr className="border-b border-[color:var(--hairline)] bg-[color:var(--card)]">
                   <th className="px-5 py-3.5 text-left font-semibold text-white/70">
                     Aspecto
                   </th>
-                  <th className="px-5 py-3.5 text-left font-semibold text-[color:var(--secondary)]">
+                  <th className="px-5 py-3.5 text-left font-semibold text-[color:var(--accent)]">
                     Neura Sistemas
                   </th>
                   <th className="px-5 py-3.5 text-left font-semibold text-white/50">
@@ -274,8 +208,8 @@ export function WhyUs() {
                     key={row.aspecto}
                     className={
                       i % 2 === 0
-                        ? "border-b border-white/5"
-                        : "border-b border-white/5 bg-white/[0.03]"
+                        ? "border-b border-[color:var(--hairline)]"
+                        : "border-b border-[color:var(--hairline)] bg-white/[0.03]"
                     }
                   >
                     <td className="px-5 py-4 font-medium text-white/80">
@@ -286,7 +220,7 @@ export function WhyUs() {
                         <Check
                           size={15}
                           strokeWidth={2.5}
-                          className="shrink-0 text-[color:var(--secondary)]"
+                          className="shrink-0 text-[color:var(--accent)]"
                           aria-hidden
                         />
                         {row.neura}
@@ -314,7 +248,7 @@ export function WhyUs() {
         <div className="mt-8 flex flex-col gap-4 md:hidden">
           {COMP_ROWS.map((row, i) => (
             <Reveal key={row.aspecto} delay={d(i + 1)}>
-              <div className="rounded-[var(--radius-lg)] border border-white/10 bg-white/5 p-5">
+              <div className="rounded-[var(--radius-lg)] border border-[color:var(--hairline)] bg-[color:var(--card)] p-5">
                 <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-white/50">
                   {row.aspecto}
                 </p>
@@ -323,11 +257,11 @@ export function WhyUs() {
                     <Check
                       size={14}
                       strokeWidth={2.5}
-                      className="shrink-0 text-[color:var(--secondary)]"
+                      className="shrink-0 text-[color:var(--accent)]"
                       aria-hidden
                     />
                     <span>
-                      <span className="font-semibold text-[color:var(--secondary)]">
+                      <span className="font-semibold text-[color:var(--accent)]">
                         Neura:{" "}
                       </span>
                       {row.neura}

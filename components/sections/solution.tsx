@@ -79,7 +79,7 @@ export function Solution() {
 
                 {/* Problema card — left */}
                 <div className="flex items-center gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] p-5 [box-shadow:var(--shadow-sm)]">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-red-50">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--danger-400)]/15">
                     <PIcon
                       size={20}
                       strokeWidth={1.7}
@@ -108,15 +108,15 @@ export function Solution() {
                 </div>
 
                 {/* Solución card — right (tinte esmeralda: el "después" deseable) */}
-                <div className="flex items-center gap-4 rounded-[var(--radius-lg)] border border-[color:color-mix(in_srgb,var(--secondary)_32%,transparent)] bg-[color:color-mix(in_srgb,var(--secondary)_6%,white)] p-5 [box-shadow:var(--shadow-sm)]">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-emerald-50">
+                <div className="flex items-center gap-4 rounded-[var(--radius-lg)] border border-[color:color-mix(in_srgb,var(--accent)_35%,transparent)] bg-[color:color-mix(in_srgb,var(--accent)_8%,var(--card))] p-5 [box-shadow:var(--shadow-sm)]">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--accent)]/15">
                     <SIcon
                       size={20}
                       strokeWidth={1.7}
                       style={{ color: "var(--secondary)" }}
                     />
                   </span>
-                  <p className="text-sm font-semibold leading-[1.6] text-[color:var(--secondary-ink)]">
+                  <p className="text-sm font-semibold leading-[1.6] text-[color:var(--accent)]">
                     {solucion}
                   </p>
                 </div>

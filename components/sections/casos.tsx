@@ -8,7 +8,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
-import { Container, Badge } from "@/components/sections/primitives";
+import { Container } from "@/components/sections/primitives";
 
 interface Caso {
   lugar: string;
@@ -61,15 +61,10 @@ export function Casos() {
           </p>
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-4.5 md:grid-cols-3">
+        <div className="mx-auto mt-12 grid max-w-[400px] grid-cols-1 gap-6 md:max-w-none md:grid-cols-3">
           {CASOS.map(({ lugar, zona, icon: Icon, antes, ahora, metrica }, i) => (
             <Reveal key={lugar} delay={d(i + 1)} className="h-full">
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-white p-7 [box-shadow:var(--shadow-md),var(--edge-hi)] transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:[box-shadow:var(--shadow-lg),var(--edge-hi)]">
-                {/* Ejemplo ilustrativo badge — non-negotiable */}
-                <div className="mb-5">
-                  <Badge>Ejemplo ilustrativo</Badge>
-                </div>
-
+              <article className="group relative flex h-full flex-col overflow-hidden rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--card)] p-7 [box-shadow:var(--shadow-md),var(--edge-hi)] transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-[color:color-mix(in_srgb,var(--accent)_35%,transparent)] hover:[box-shadow:var(--shadow-lg),var(--edge-hi)]">
                 {/* Icon tile */}
                 <div className="mb-5 flex h-[52px] w-[52px] items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--surface-2)] border border-[color:var(--border-subtle)] text-[color:var(--primary)] transition-[transform] duration-300 group-hover:-translate-y-0.5">
                   <Icon size={26} strokeWidth={1.6} aria-hidden />

@@ -61,7 +61,7 @@ export function SentModal({
             >
               <X size={16} strokeWidth={1.8} />
             </button>
-            <div className="mx-auto mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[rgba(52,165,116,0.4)] bg-[rgba(52,165,116,0.14)] text-[color:var(--success)]">
+            <div className="mx-auto mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[rgba(52,165,116,0.4)] bg-[rgba(52,165,116,0.14)] text-[color:var(--success-400)]">
               <Check size={26} strokeWidth={2} />
             </div>
             <h3 className="mb-2.5 font-[family-name:var(--font-display)] text-xl font-bold text-[color:var(--text-strong)]">

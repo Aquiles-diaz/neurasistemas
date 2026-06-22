@@ -111,7 +111,7 @@ export function CtaButton({
   return (
     <button
       className={cn(
-        "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px active:scale-[0.985]",
+        "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px active:scale-[0.985]",
         sizes[size],
         className
       )}

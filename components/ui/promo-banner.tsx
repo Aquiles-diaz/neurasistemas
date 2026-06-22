@@ -88,7 +88,7 @@ export function PromoBanner() {
 
             <button
               onClick={onCta}
-              className="group inline-flex flex-none cursor-pointer items-center gap-1.5 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-4 py-2 text-sm font-semibold text-white transition-[transform,background-color] duration-200 hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
+              className="group inline-flex flex-none cursor-pointer items-center gap-1.5 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-4 py-2 text-sm font-semibold text-[color:var(--text-onaccent)] transition-[transform,background-color] duration-200 hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
             >
               {CTA_LABEL}
               <ArrowRight

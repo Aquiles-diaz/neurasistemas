@@ -80,7 +80,7 @@ export function ProjectDetail({
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
+              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
             >
               Visitar sitio
               <ArrowUpRight size={18} strokeWidth={1.8} />

@@ -25,27 +25,21 @@
   --ink-100: #e3e6ea;
   --ink-50: #f4f5f7;
 
-  /* ---- Platinum / silver (the brand metal) ---- */
+  /* ---- Platinum / silver (metallic edge on project cards) ---- */
   --silver-bright: #f3f4f6;
   --silver-100: #e0e2e7;
   --silver-200: #c5c9d0;
   --silver-300: #a7acb5;
   --silver-400: #888e98;
   --silver-500: #6c727c;
-  --metal-text: linear-gradient(150deg, #ffffff 0%, #d9dce1 30%, #9ea3ac 62%, #edeff2 100%);
-  --metal-fill: linear-gradient(160deg, #2a2e35 0%, #1a1d22 48%, #14161a 100%);
   --metal-edge: linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0) 40%);
 
-  /* ---- Accent (blue — confianza) ---- */
-  --accent-300: #3b82f6;
-  --accent-400: #1d4ed8;
-  --accent-500: #1e40af;
-  --accent-600: #1e3a8a;
-  --accent-glow: rgba(29, 78, 216, 0.18);
-
-  /* ---- Liquid-glass violet — a single restrained whisper, glass only ---- */
-  --lg-violet: rgba(167, 139, 250, 0.5);
-  --lg-violet-soft: rgba(139, 92, 246, 0.12);
+  /* ---- Accent scale (lima) — links, glow, focus ---- */
+  --accent-300: #b6ff00;
+  --accent-400: #a6e600;
+  --accent-500: #8fcc00;
+  --accent-600: #79ab00;
+  --accent-glow: rgba(182, 255, 0, 0.18);
 
   /* ---- Semantic status ---- */
   --success-400: #45c08a;
@@ -53,33 +47,41 @@
   --warning-400: #e6b752;
   --danger-400: #ea6a55;
 
-  /* ---- Brand (reposición PyME: azul/verde + naranja) ---- */
-  --primary: #1d4ed8;
-  --navy: #0b1f33;
-  --secondary: #10b981;
-  --secondary-ink: #047857;
-  --accent-cta: #c2410c;
-  --accent-cta-hover: #9a3412;
+  /* ---- Brand (cibertech: lima #B6FF00 + casi-negro #141414) ---- */
+  --primary: #b6ff00;
+  --navy: #141414;
+  --secondary: #b6ff00;
+  --secondary-ink: #8fcc00;
+  --accent-cta: #b6ff00;
+  --accent-cta-hover: #a6e600;
 
-  /* ---- Surfaces (tema claro) ---- */
-  --bg-base: #ffffff;
-  --bg-sunken: #f1f5f9;
-  --surface-1: #f7f9fc;
-  --surface-2: #eef2f8;
-  --surface-3: #e7ecf3;
-  --surface-glass: rgba(255, 255, 255, 0.72);
+  /* ---- Reposición cibertech (#141414 + #B6FF00) ---- */
+  --ink: #141414;            /* base casi-negro neutro */
+  --card: #1e1e1e;           /* superficie sólida, sin gris/glass */
+  --card-hover: #272727;     /* hover natural (lighten) */
+  --hairline: #242424;       /* borde fino, NO blanco */
+  --accent: #b6ff00;         /* verde lima de marca */
+  --accent-hover: #a6e600;   /* lima hover (más oscuro) */
 
-  /* ---- Text (tema claro) ---- */
-  --text-strong: #0f172a;
-  --text-body: #334155;
-  --text-muted: #475569;
-  --text-subtle: #64748b;
-  --text-onaccent: #ffffff;
+  /* ---- Surfaces (tema oscuro) ---- */
+  --bg-base: #141414;
+  --bg-sunken: #0e0e0e;
+  --surface-1: #141414;
+  --surface-2: #1a1a1a;
+  --surface-3: #1e1e1e;
+  --surface-glass: rgba(20, 20, 20, 0.72);
 
-  /* ---- Borders / hairlines (tema claro) ---- */
-  --border-subtle: #e2e8f0;
-  --border-default: #e2e8f0;
-  --border-strong: #cbd5e1;
+  /* ---- Text (tema oscuro) ---- */
+  --text-strong: #f4f5f7;
+  --text-body: #c8cdd4;
+  --text-muted: #969ca7;
+  --text-subtle: #8a909b;
+  --text-onaccent: #141414;
+
+  /* ---- Borders / hairlines (tema oscuro) ---- */
+  --border-subtle: #242424;
+  --border-default: #242424;
+  --border-strong: #313131;
 
   /* ---- Interactive ---- */
   --focus-ring: var(--accent-500);
@@ -95,10 +97,10 @@
   --radius-pill: 999px;
 
   /* ---- Elevation (ambient, for dark surfaces) ---- */
-  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
-  --shadow-md: 0 10px 30px -12px rgba(15, 23, 42, 0.12);
-  --shadow-lg: 0 24px 60px -20px rgba(15, 23, 42, 0.18);
-  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 34px -14px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 26px 64px -22px rgba(0, 0, 0, 0.65);
+  --edge-hi: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   --glow-accent-lg: 0 0 40px -6px var(--accent-glow);
   --glow-silver: 0 0 36px -8px rgba(148, 163, 184, 0.22);
 
@@ -221,74 +223,15 @@ body {
 }
 
 /* ---- Brand utilities ---- */
-.metal-text {
-  background: var(--metal-text);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Brand gradient text for headings on LIGHT backgrounds (navy → blue). */
+/* Palabras destacadas en títulos — lima sólido sobre fondo oscuro. */
 .brand-text {
-  background: linear-gradient(135deg, #0f172a 0%, #1d4ed8 55%, #0b1f33 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: var(--accent);
 }
 
 .glass {
   background: var(--surface-glass);
   -webkit-backdrop-filter: blur(var(--blur-md));
   backdrop-filter: blur(var(--blur-md));
-}
-
-/* ---- Liquid glass: floating pill / panels ---- */
-.glass-pill {
-  background:
-    radial-gradient(120% 140% at 100% 0%, var(--lg-violet-soft), transparent 55%),
-    linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.07) 0%,
-      rgba(255, 255, 255, 0.02) 45%,
-      rgba(10, 11, 13, 0.18) 100%
-    );
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow:
-    0 18px 50px -16px rgba(0, 0, 0, 0.65),
-    inset 0 1px 0 rgba(255, 255, 255, 0.16),
-    inset 0 -1px 0 rgba(0, 0, 0, 0.22);
-}
-
-/* Specular sheen along the top edge — the "liquid" highlight */
-.glass-pill::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(
-    120deg,
-    rgba(255, 255, 255, 0.32) 0%,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0) 70%,
-    var(--lg-violet) 100%
-  );
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
-.glass-pill--solid {
-  background: linear-gradient(
-    180deg,
-    rgba(28, 31, 37, 0.82) 0%,
-    rgba(16, 18, 22, 0.86) 100%
-  );
 }
 
 .edge-hi {
@@ -391,6 +334,25 @@ body {
 
   .dither-drift { animation: dither-drift 19s ease-in-out infinite alternate; will-change: transform; }
   .dither-spin { animation: dither-spin 27s ease-in-out infinite alternate; will-change: transform; }
+
+  /* Hero auroras drift slowly; particles float + pulse. */
+  .hero-aurora { animation: ns-aurora 17s ease-in-out infinite alternate; will-change: transform; }
+  .hero-aurora-2 { animation: ns-aurora 23s ease-in-out infinite alternate-reverse; will-change: transform; }
+  .hero-particle { animation-name: ns-particle; animation-timing-function: ease-in-out; animation-iteration-count: infinite; will-change: transform, opacity; }
+}
+
+@keyframes ns-aurora {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(7%, 5%) scale(1.14); }
+}
+@keyframes ns-particle {
+  0%, 100% { transform: translateY(0); opacity: 0.28; }
+  50% { transform: translateY(-16px); opacity: 0.72; }
+}
+/* Base (also the reduced-motion resting state): visible but static. */
+.hero-particle {
+  opacity: 0.32;
+  box-shadow: 0 0 6px rgba(182, 255, 0, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {

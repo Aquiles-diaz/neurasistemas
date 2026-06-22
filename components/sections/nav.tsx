@@ -16,7 +16,7 @@ const LINKS: NavLink[] = [
   { label: "Soluciones", id: "solucion" },
   { label: "Servicios", id: "servicios" },
   { label: "Packs", id: "packs" },
-  { label: "Casos", id: "casos" },
+  { label: "Opiniones", id: "opiniones" },
   { label: "FAQ", id: "faq" },
   { label: "Contacto", id: "contacto" },
 ];
@@ -100,19 +100,19 @@ export function Nav() {
           // Over light page (scrolled): blurred light pill — dark text
           scrolled
             ? [
-                "max-w-[var(--container-lg)] py-2",
-                "border border-[color:var(--border-subtle)] bg-white/80 shadow-[0_4px_24px_-6px_rgba(15,23,42,.10)]",
+                "max-w-[var(--container-lg)] py-1.5",
+                "border border-[color:var(--border-default)] bg-[rgba(20,20,20,0.85)] shadow-[0_8px_30px_-10px_rgba(0,0,0,0.6)]",
                 "[backdrop-filter:blur(16px)_saturate(160%)]",
               ]
             : [
-                "max-w-[calc(var(--container-lg)+3rem)] py-2.5",
-                "border border-white/15 bg-[rgba(11,31,51,0.55)]",
+                "max-w-[calc(var(--container-lg)+3rem)] py-2",
+                "border border-white/12 bg-[rgba(16,16,16,0.72)] shadow-[0_10px_34px_-14px_rgba(0,0,0,0.8)]",
                 "[backdrop-filter:blur(16px)_saturate(160%)]",
               ]
         )}
       >
         <button
-          className="group flex cursor-pointer items-center gap-3"
+          className="group flex cursor-pointer items-center gap-2.5"
           onClick={() => {
             setMenu(false);
             if (onHome) scrollTo("top");
@@ -120,6 +120,13 @@ export function Nav() {
           }}
           aria-label="Inicio"
         >
+          <Image
+            src="/logo/logoneurasistemas-white.png"
+            alt=""
+            width={1755}
+            height={649}
+            className="h-[22px] w-auto opacity-95"
+          />
           <span className="block text-left">
             <b
               className={cn(
@@ -168,7 +175,7 @@ export function Nav() {
                     className={cn(
                       "absolute inset-0 -z-10 rounded-[var(--radius-pill)]",
                       scrolled
-                        ? "border border-[color:var(--border-subtle)] bg-[color:var(--surface-1)] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)]"
+                        ? "border border-white/12 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]"
                         : "border border-white/15 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]"
                     )}
                     transition={{ type: "spring", stiffness: 420, damping: 34 }}
@@ -214,7 +221,7 @@ export function Nav() {
         {menu && (
           <m.div
             id="mobile-nav"
-            className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-white px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
+            className="pointer-events-auto fixed inset-0 z-[60] flex flex-col bg-[color:var(--ink)] px-[var(--gutter)] py-6 [backdrop-filter:blur(20px)_saturate(160%)]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1, transition: { duration: 0.3 } }}
             exit={{ opacity: 0, transition: { duration: 0.2 } }}
@@ -222,11 +229,11 @@ export function Nav() {
             <div className="flex h-[50px] items-center justify-between">
               <div className="flex items-center gap-3">
                 <Image
-                  src="/logo/neurasistemas-monogram.png"
+                  src="/logo/logoneurasistemas-white.png"
                   alt=""
-                  width={26}
-                  height={26}
-                  className="h-[26px] w-auto"
+                  width={1755}
+                  height={649}
+                  className="h-[22px] w-auto"
                 />
                 <b className="font-[family-name:var(--font-display)] text-[color:var(--text-strong)]">
                   Neura Sistemas

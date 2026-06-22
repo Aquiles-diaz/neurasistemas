@@ -3,12 +3,14 @@
 import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from "react";
 import {
   ArrowRight,
+  Building2,
   Handshake,
   Lock,
   Mail,
   MapPin,
   Phone,
   ShieldCheck,
+  User,
 } from "lucide-react";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
@@ -43,9 +45,9 @@ const TRUST: { Icon: typeof Lock; text: string }[] = [
 ];
 
 // text-base (16px) evita el zoom automático de iOS al enfocar un input en mobile.
-// Inputs claros sobre el fondo navy para mantener contraste AA.
+// Campos "hundidos" (fondo = base) dentro de la tarjeta, borde fino — sin gris/glass.
 const inputBase =
-  "w-full rounded-[var(--radius-md)] border border-white/20 bg-white/10 px-3.5 py-3.5 text-base text-white placeholder:text-white/60 transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-cta)] focus:[box-shadow:0_0_0_3px_rgba(194,65,12,0.45)]";
+  "w-full rounded-[var(--radius-md)] border border-[color:var(--hairline)] bg-[color:var(--ink)] px-3.5 py-3.5 text-base text-white placeholder:text-white/55 transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent)] focus:[box-shadow:0_0_0_3px_rgba(182,255,0,0.3)]";
 
 // helper para el delay escalonado de la animación de entrada
 const ai = (i: number) => ({ ["--i" as string]: i } as CSSProperties);
@@ -82,6 +84,7 @@ export function Contact() {
     empresa: "",
     correo: "",
     telefono: "",
+    mensaje: "",
   });
 
   // Dispara la animación de entrada cuando el formulario entra en pantalla.
@@ -119,9 +122,10 @@ export function Contact() {
     const subject = `Contacto: ${form.nombre || "Web"}`;
     const message = [
       `Nombre: ${form.nombre}`,
-      `Empresa: ${form.empresa || "-"}`,
       `Correo: ${form.correo}`,
       `Teléfono: ${form.telefono || "-"}`,
+      `Empresa: ${form.empresa || "-"}`,
+      `Consulta: ${form.mensaje || "-"}`,
     ].join("\n");
 
     // Sin claves de EmailJS: fallback al cliente de correo del visitante.
@@ -151,7 +155,7 @@ export function Contact() {
   return (
     <section
       id="contacto"
-      className="bg-[color:var(--navy)] py-[var(--section-y)] text-white"
+      className="bg-[color:var(--ink)] py-[var(--section-y)] text-white"
     >
       <Container>
         {/* Encabezado centrado */}
@@ -173,7 +177,7 @@ export function Contact() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex h-[52px] cursor-pointer items-center justify-center gap-3 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-white shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
+                className="group inline-flex h-[52px] cursor-pointer items-center justify-center gap-3 rounded-[var(--radius-pill)] bg-[color:var(--accent)] px-7 text-base font-semibold text-[color:var(--ink)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-hover)] active:translate-y-px"
               >
                 Agendá una llamada sin compromiso
                 <ArrowRight size={18} strokeWidth={2} />
@@ -182,16 +186,17 @@ export function Contact() {
           </Reveal>
         </div>
 
-        {/* Grid: info de contacto + formulario */}
-        <div className="grid grid-cols-1 items-start gap-9 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
-          {/* Columna izquierda: datos directos + trust */}
-          <div>
-            <Reveal delay={d(3)}>
+        {/* Grid: info de contacto + formulario — dos tarjetas simétricas */}
+        <div className="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-2 lg:gap-8">
+          {/* Columna izquierda: marca + datos directos + trust, en una sola tarjeta */}
+          <Reveal delay={d(3)} className="h-full">
+            <div className="flex h-full flex-col justify-center gap-7 rounded-[var(--radius-lg)] bg-[color:var(--card)] p-6 sm:p-8">
+              {/* Datos directos */}
               <ul className="flex flex-col gap-4">
                 {CONTACTS.map(({ Icon, text, href }, i) => {
                   const inner = (
                     <>
-                      <span className="flex h-[44px] w-[44px] flex-none items-center justify-center rounded-[var(--radius-md)] border border-white/20 bg-white/10 text-white/80 transition-colors group-hover:border-white/40 group-hover:text-white">
+                      <span className="flex h-[44px] w-[44px] flex-none items-center justify-center rounded-[var(--radius-md)] bg-[color:var(--ink)] text-white/80 transition-colors group-hover:bg-[color:var(--card-hover)] group-hover:text-[color:var(--accent)]">
                         <Icon size={18} strokeWidth={1.6} />
                       </span>
                       <span className="text-white/80 transition-colors group-hover:text-white">
@@ -219,35 +224,34 @@ export function Contact() {
                   );
                 })}
               </ul>
-            </Reveal>
 
-            {/* Panel de confianza */}
-            <Reveal delay={d(4)}>
-              <div className="mt-8 rounded-[var(--radius-lg)] border border-white/15 bg-white/8 p-5">
-                <ul className="flex flex-col gap-3.5">
-                  {TRUST.map(({ Icon, text }, i) => (
-                    <li key={i} className="flex items-start gap-3">
-                      <Icon
-                        size={17}
-                        strokeWidth={1.7}
-                        className="mt-0.5 flex-none text-[color:var(--secondary)]"
-                      />
-                      <span className="text-sm leading-[1.55] text-white/65">
-                        {text}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
-          </div>
+              {/* Separador */}
+              <div className="h-px w-full bg-[color:var(--hairline)]" />
+
+              {/* Señales de confianza */}
+              <ul className="flex flex-col gap-3.5">
+                {TRUST.map(({ Icon, text }, i) => (
+                  <li key={i} className="flex items-start gap-3">
+                    <Icon
+                      size={17}
+                      strokeWidth={1.7}
+                      className="mt-0.5 flex-none text-[color:var(--accent)]"
+                    />
+                    <span className="text-sm leading-[1.55] text-white/65">
+                      {text}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
 
           {/* Columna derecha: formulario mailto */}
-          <Reveal delay={d(2)} className="w-full">
-            <div className="contact-card relative rounded-[var(--radius-lg)] border border-white/15 bg-white/8 p-6 sm:p-8">
+          <Reveal delay={d(2)} className="h-full w-full">
+            <div className="contact-card relative flex h-full flex-col rounded-[var(--radius-lg)] border border-transparent bg-[color:var(--card)] p-6 sm:p-8">
               <form
                 ref={formRef}
-                className={cn("contact-form flex flex-col gap-5", inView && "in-view")}
+                className={cn("contact-form flex flex-1 flex-col gap-5", inView && "in-view")}
                 onSubmit={handleSubmit}
               >
                 {/* Honeypot anti-bot: invisible para humanos, tentador para bots. */}
@@ -263,25 +267,22 @@ export function Contact() {
                 />
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                   <Field label="Nombre" className="anim-item" style={ai(0)}>
-                    <input
-                      className={inputBase}
-                      placeholder="Tu nombre"
-                      value={form.nombre}
-                      onChange={set("nombre")}
-                      required
-                    />
+                    <div className="relative">
+                      <User
+                        size={18}
+                        strokeWidth={1.6}
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/60"
+                      />
+                      <input
+                        className={cn(inputBase, "pl-11")}
+                        placeholder="Tu nombre"
+                        value={form.nombre}
+                        onChange={set("nombre")}
+                        required
+                      />
+                    </div>
                   </Field>
-                  <Field label="Empresa (opcional)" className="anim-item" style={ai(1)}>
-                    <input
-                      className={inputBase}
-                      placeholder="Tu empresa"
-                      value={form.empresa}
-                      onChange={set("empresa")}
-                    />
-                  </Field>
-                </div>
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <Field label="Correo" className="anim-item" style={ai(2)}>
+                  <Field label="Correo" className="anim-item" style={ai(1)}>
                     <div className="relative">
                       <Mail
                         size={18}
@@ -298,7 +299,9 @@ export function Contact() {
                       />
                     </div>
                   </Field>
-                  <Field label="Teléfono (opcional)" className="anim-item" style={ai(3)}>
+                </div>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <Field label="Teléfono (opcional)" className="anim-item" style={ai(2)}>
                     <div className="relative">
                       <Phone
                         size={18}
@@ -314,13 +317,42 @@ export function Contact() {
                       />
                     </div>
                   </Field>
+                  <Field label="Empresa (opcional)" className="anim-item" style={ai(3)}>
+                    <div className="relative">
+                      <Building2
+                        size={18}
+                        strokeWidth={1.6}
+                        className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-white/60"
+                      />
+                      <input
+                        className={cn(inputBase, "pl-11")}
+                        placeholder="Tu empresa"
+                        value={form.empresa}
+                        onChange={set("empresa")}
+                      />
+                    </div>
+                  </Field>
                 </div>
 
-                <div className="anim-item" style={ai(4)}>
+                <Field
+                  label="¿En qué te podemos ayudar?"
+                  className="anim-item"
+                  style={ai(4)}
+                >
+                  <textarea
+                    className={cn(inputBase, "min-h-[104px] resize-y")}
+                    placeholder="Contanos brevemente qué necesitás (web, automatización, chatbot…)"
+                    value={form.mensaje}
+                    onChange={set("mensaje")}
+                    rows={3}
+                  />
+                </Field>
+
+                <div className="anim-item mt-auto" style={ai(5)}>
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="mt-1 inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-white/30 bg-white/15 px-5 py-3 text-base font-semibold text-white transition-[background-color,border-color,transform] duration-200 hover:-translate-y-px hover:border-white/50 hover:bg-white/25 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+                    className="inline-flex w-full cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent)] px-5 py-3.5 text-base font-semibold text-[color:var(--ink)] shadow-[var(--shadow-md)] transition-[background-color,transform] duration-200 hover:-translate-y-px hover:bg-[color:var(--accent-hover)] active:translate-y-px disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     {status === "sending" ? "Enviando…" : "Enviar mensaje"}
                     {status !== "sending" && (
@@ -352,7 +384,7 @@ export function Contact() {
 
                 <p
                   className="anim-item flex items-center justify-center gap-1.5 text-center text-xs text-white/60"
-                  style={ai(5)}
+                  style={ai(6)}
                 >
                   <Lock size={12} strokeWidth={1.8} className="flex-none" />
                   Tus datos están seguros. Solo los usamos para responderte.
@@ -366,7 +398,7 @@ export function Contact() {
       <SentModal
         open={sent}
         onClose={() => {
-          setForm({ nombre: "", empresa: "", correo: "", telefono: "" });
+          setForm({ nombre: "", empresa: "", correo: "", telefono: "", mensaje: "" });
           setHp("");
           setStatus("idle");
           setSent(false);
@@ -388,7 +420,7 @@ export function Contact() {
           background: linear-gradient(
             90deg,
             transparent,
-            var(--accent-cta),
+            var(--accent),
             transparent
           );
           opacity: 0;
@@ -399,7 +431,7 @@ export function Contact() {
           transition: border-color 0.4s ease;
         }
         .contact-card:focus-within {
-          border-color: rgba(249, 115, 22, 0.4);
+          border-color: rgba(182, 255, 0, 0.45);
         }
         .contact-card:focus-within::before {
           opacity: 0.85;
@@ -407,7 +439,7 @@ export function Contact() {
         }
         /* etiqueta del campo enfocado se tiñe de naranja */
         .contact-form :global(label:focus-within) .field-label {
-          color: var(--accent-cta);
+          color: var(--accent);
         }
 
         /* entrada escalonada al entrar en viewport */

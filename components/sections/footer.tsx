@@ -31,10 +31,10 @@ export function Footer() {
           {/* Brand */}
           <div className="max-w-[28ch]">
             <Image
-              src="/logo/neurasistemas-mark.png"
+              src="/logo/logoneurasistemas-white.png"
               alt="Neura Sistemas"
-              width={180}
-              height={48}
+              width={1755}
+              height={649}
               className="mb-4 h-12 w-auto"
             />
             <p className="text-sm leading-relaxed text-white/80">
