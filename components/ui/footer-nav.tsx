@@ -7,7 +7,7 @@ import { useContactDrawer } from "@/components/ui/contact-drawer";
 const NAV_LINKS: [string, string][] = [
   ["Soluciones", "/#solucion"],
   ["Packs", "/#packs"],
-  ["Casos", "/#casos"],
+  ["Opiniones", "/#opiniones"],
   ["FAQ", "/#faq"],
 ];
 
