@@ -13,11 +13,17 @@ export function Projects() {
   const [active, setActive] = useState("all");
   const shown = PROJECTS.filter((p) => active === "all" || p.cat === active);
 
+  // Solo mostramos filtros con al menos un proyecto real (además de "Todo"),
+  // así la barra se auto-mantiene a medida que sumamos proyectos.
+  const filters = FILTERS.filter(
+    ([id]) => id === "all" || PROJECTS.some((p) => p.cat === id)
+  );
+
   return (
     <section className="pb-[var(--section-y)]">
       <Container>
         <Reveal className="flex flex-wrap gap-2.5">
-          {FILTERS.map(([id, label]) => (
+          {filters.map(([id, label]) => (
             <button
               key={id}
               onClick={() => setActive(id)}

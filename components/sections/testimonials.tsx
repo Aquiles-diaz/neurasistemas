@@ -1,6 +1,6 @@
 "use client";
 
-import { Star } from "lucide-react";
+import { Star, ArrowUpRight } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 
@@ -15,6 +15,8 @@ type Review = {
   fecha: string;
   initial: string;
   avatar: string;
+  /** Sitio/proyecto en vivo — hace el testimonio comprobable. */
+  href?: string;
 };
 
 const REVIEWS: Review[] = [
@@ -27,6 +29,7 @@ const REVIEWS: Review[] = [
     fecha: "hace 1 mes",
     initial: "P",
     avatar: "#7c3aed",
+    href: "https://renovision-nu.vercel.app",
   },
   {
     quote:
@@ -37,6 +40,7 @@ const REVIEWS: Review[] = [
     fecha: "hace 2 meses",
     initial: "S",
     avatar: "#0ea5e9",
+    href: "https://human-power-rrhh.vercel.app",
   },
 ];
 
@@ -108,6 +112,19 @@ export function Testimonials() {
                 <blockquote className="text-[15px] leading-[1.7] text-[color:var(--text-body)]">
                   {r.quote}
                 </blockquote>
+
+                {/* Prueba verificable: link al proyecto en vivo */}
+                {r.href && (
+                  <a
+                    href={r.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-auto inline-flex items-center gap-1 self-start text-sm font-semibold text-[color:var(--primary)] underline-offset-2 hover:underline"
+                  >
+                    Ver el proyecto en vivo
+                    <ArrowUpRight size={15} strokeWidth={2} aria-hidden />
+                  </a>
+                )}
               </article>
             </Reveal>
           ))}

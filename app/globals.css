@@ -269,6 +269,12 @@ body {
 }
 .ns-flow { animation: ns-flow 1.15s linear infinite; }
 
+/* Carrusel infinito de tecnologías/aliados. La pista se duplica en el markup,
+   así que -50% reinicia el loop sin saltos. */
+@keyframes ns-marquee {
+  to { transform: translateX(-50%); }
+}
+
 /* Gentle idle float for the n8n flow nodes (translateY only — safe on <g>). */
 @keyframes ns-float {
   0%, 100% { transform: translateY(0); }
@@ -331,6 +337,7 @@ body {
   #top [data-hero]:nth-child(2) { animation-delay: 0.19s; }
   #top [data-hero]:nth-child(3) { animation-delay: 0.28s; }
   #top [data-hero]:nth-child(4) { animation-delay: 0.37s; }
+  #top [data-hero]:nth-child(5) { animation-delay: 0.46s; }
 
   .dither-drift { animation: dither-drift 19s ease-in-out infinite alternate; will-change: transform; }
   .dither-spin { animation: dither-spin 27s ease-in-out infinite alternate; will-change: transform; }

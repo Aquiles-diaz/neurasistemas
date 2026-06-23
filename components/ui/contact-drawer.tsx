@@ -161,8 +161,10 @@ function ContactDrawer({ open, onClose }: { open: boolean; onClose: () => void }
                 />
               </span>
               <p className="text-[15px] leading-snug text-white/80">
-                <span className="font-semibold text-white">Soy Aquiles.</span> Te
-                respondo yo, no un bot.
+                <span className="font-semibold text-white">
+                  Soy Aquiles, uno de los desarrolladores.
+                </span>{" "}
+                Te respondo yo, no un bot.
               </p>
             </div>
 
@@ -189,9 +191,12 @@ function ContactDrawer({ open, onClose }: { open: boolean; onClose: () => void }
 
             {/* Pie */}
             <div className="mt-auto px-6 pb-6 pt-8">
-              <p className="flex items-center gap-2 text-xs text-white/60">
-                <Clock size={13} strokeWidth={1.8} className="flex-none" />
-                Rosario · respondo en menos de 24 h
+              <p className="flex items-start gap-2 text-xs leading-relaxed text-white/60">
+                <Clock size={13} strokeWidth={1.8} className="mt-0.5 flex-none" />
+                <span>
+                  Rosario · Preguntas rápidas en menos de 1 h. Algo más a fondo,
+                  en menos de 12 h.
+                </span>
               </p>
             </div>
           </m.aside>

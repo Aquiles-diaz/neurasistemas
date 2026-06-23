@@ -23,12 +23,14 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Neura Sistemas: Automatización y Web para PyMEs",
+    default: "Neura Sistemas: Software a medida para PyMEs",
     template: "%s · Neura Sistemas",
   },
   description:
-    "Automatizamos tu negocio: webs, CRM, chatbots y automatización para PyMEs y comercios. Trabajás menos, facturás más.",
+    "Desarrollamos software a medida para PyMEs y comercios: webs, automatización, CRM y chatbots. Orientados a PyMEs, abiertos a cualquier rubro. Trabajás menos, facturás más.",
   keywords: [
+    "desarrollo de software",
+    "software a medida",
     "automatización",
     "chatbots",
     "CRM",
@@ -39,14 +41,20 @@ export const metadata: Metadata = {
     "Neura Sistemas",
   ],
   authors: [{ name: "Neura Sistemas" }],
+  creator: "Neura Sistemas",
+  publisher: "Neura Sistemas",
+  other: {
+    copyright: "© 2026 Neura Sistemas. Todos los derechos reservados.",
+    "rights-standard": "All Rights Reserved",
+  },
   openGraph: {
     type: "website",
     locale: "es_AR",
     url: SITE_URL,
     siteName: "Neura Sistemas",
-    title: "Neura Sistemas: Automatización y Web para PyMEs",
+    title: "Neura Sistemas: Software a medida para PyMEs",
     description:
-      "Automatizamos tu negocio. Webs, CRM, chatbots y automatización para PyMEs y comercios que quieren crecer. Trabajás menos, facturás más.",
+      "Desarrollamos software a medida: webs, automatización, CRM y chatbots. Orientados a PyMEs y comercios, abiertos a cualquier rubro que quiera crecer.",
     images: [
       {
         url: "/logo/logoneurasistemas.png",
@@ -58,8 +66,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neura Sistemas: Automatización y Web para PyMEs",
-    description: "Automatizamos tu negocio. Trabajás menos, facturás más.",
+    title: "Neura Sistemas: Software a medida para PyMEs",
+    description: "Desarrollamos software a medida. Trabajás menos, facturás más.",
     images: ["/logo/logoneurasistemas.png"],
   },
   icons: {

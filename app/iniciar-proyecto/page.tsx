@@ -8,7 +8,7 @@ import { Reveal } from "@/components/ui/reveal";
 export const metadata: Metadata = {
   title: "Iniciar proyecto",
   description:
-    "Contanos qué necesitás, tu presupuesto y la fecha deseada. Te respondemos en menos de 24 horas con una propuesta concreta.",
+    "Contanos qué necesitás, tu presupuesto y la fecha deseada. Te respondemos en menos de 12 horas con una propuesta concreta.",
 };
 
 export default function IniciarProyectoPage() {
@@ -41,7 +41,7 @@ export default function IniciarProyectoPage() {
             <Reveal delay={0.16}>
               <p className="mx-auto mt-5 max-w-[54ch] text-[clamp(1.05rem,1.6vw,1.2rem)] leading-[1.6] text-[color:var(--text-muted)]">
                 Unos pocos datos para entender qué necesitás, tu presupuesto y
-                para cuándo. Te respondemos en menos de 24 horas con una
+                para cuándo. Te respondemos en menos de 12 horas con una
                 propuesta concreta, sin compromiso.
               </p>
             </Reveal>

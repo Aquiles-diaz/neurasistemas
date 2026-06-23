@@ -4,6 +4,7 @@ import { useEffect, useRef, useState, type ReactNode, type CSSProperties } from 
 import {
   ArrowRight,
   Building2,
+  Clock,
   Handshake,
   Lock,
   Mail,
@@ -30,6 +31,10 @@ const CONTACTS: { Icon: typeof Mail; text: string; href?: string }[] = [
 
 // Señales de confianza — el formulario no tiene backend, abre el cliente de correo del visitante.
 const TRUST: { Icon: typeof Lock; text: string }[] = [
+  {
+    Icon: Clock,
+    text: "Respondemos rápido: preguntas simples en menos de 1 hora; algo más a fondo, en menos de 12.",
+  },
   {
     Icon: Lock,
     text: "Tu mensaje nos llega directo, sin que tengas que abrir tu correo.",
@@ -403,7 +408,7 @@ export function Contact() {
           setStatus("idle");
           setSent(false);
         }}
-        message="Recibimos tu mensaje. Te respondemos en menos de 24 h."
+        message="Recibimos tu mensaje. Te respondemos en menos de 12 h."
       />
 
       {/* Animaciones de entrada y focus. prefers-reduced-motion seguro. */}

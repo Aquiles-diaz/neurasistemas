@@ -37,13 +37,21 @@ export function ProjectCard({
       />
       <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]">
         {image ? (
-          <Image
-            src={image}
-            alt={`Vista previa de ${name}`}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-top transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.04]"
-          />
+          <>
+            <Image
+              src={image}
+              alt={`Vista previa de ${name}`}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover object-top saturate-[0.85] transition duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05] group-hover:saturate-100"
+            />
+            {/* Capa formal oscura en reposo; se disuelve al pasar el mouse para
+                revelar el sitio a todo color ("ir a ver la otra mitad"). */}
+            <span
+              aria-hidden
+              className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/55 to-[color:var(--ink)]/35 transition-opacity duration-500 ease-[var(--ease-out-soft)] group-hover:opacity-0"
+            />
+          </>
         ) : (
           <>
             <span
@@ -65,6 +73,12 @@ export function ProjectCard({
             </b>
           </>
         )}
+
+        {/* CTA explícito al pasar el mouse */}
+        <span className="pointer-events-none absolute bottom-3 right-3 z-[2] inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:color-mix(in_srgb,var(--surface-1)_88%,transparent)] px-3 py-1.5 text-xs font-semibold text-[color:var(--text-strong)] opacity-0 backdrop-blur-sm transition-opacity duration-300 [box-shadow:var(--edge-hi)] group-hover:opacity-100">
+          Ver proyecto
+          <ArrowUpRight size={13} strokeWidth={1.8} />
+        </span>
       </div>
       <div className="flex flex-1 flex-col px-5 py-4.5">
         <div className="flex items-start justify-between gap-3">
