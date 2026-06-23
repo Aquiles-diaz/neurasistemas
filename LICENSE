@@ -1,0 +1,98 @@
+LICENCIA DE SOFTWARE PROPIETARIO — TODOS LOS DERECHOS RESERVADOS
+Proprietary Software License — All Rights Reserved
+
+Copyright © 2026 Neura Sistemas. Todos los derechos reservados.
+
+================================================================================
+ESPAÑOL  (versión vinculante / binding version)
+================================================================================
+
+1. TITULARIDAD
+   Este repositorio y todo su contenido —incluyendo, sin limitarse a, el código
+   fuente, el código objeto, el diseño, la interfaz de usuario, la estructura,
+   los componentes, los estilos, las animaciones, los textos, las imágenes, los
+   logotipos, las marcas, las fuentes propias, la documentación y cualquier otro
+   material (en conjunto, la "Obra")— es propiedad exclusiva de Neura Sistemas
+   (el "Titular") y está protegido por la Ley 11.723 de Propiedad Intelectual de
+   la República Argentina, por el Convenio de Berna y por los tratados
+   internacionales de derecho de autor aplicables.
+
+2. RESERVA DE DERECHOS
+   El Titular se reserva la totalidad de los derechos sobre la Obra. No se
+   concede ninguna licencia, derecho ni autorización, expresa o implícita, salvo
+   la otorgada por escrito y de forma específica por el Titular. El acceso a este
+   repositorio o a su contenido NO constituye la concesión de ningún derecho de
+   uso.
+
+3. PROHIBICIONES
+   Salvo autorización previa, expresa y por escrito del Titular, queda
+   estrictamente prohibido, en todo o en parte:
+     a) copiar, reproducir, descargar, almacenar o duplicar la Obra;
+     b) distribuir, publicar, comunicar al público, ceder, vender, alquilar,
+        prestar o poner a disposición de terceros la Obra;
+     c) modificar, adaptar, traducir, transformar o crear obras derivadas;
+     d) usar la Obra, total o parcialmente, con fines comerciales o personales,
+        en proyectos propios o de terceros;
+     e) descompilar, desensamblar o aplicar ingeniería inversa, salvo en la
+        medida en que la ley imperativamente lo permita;
+     f) eliminar, ocultar o alterar los avisos de copyright, marcas o atribución;
+     g) realizar scraping, extracción masiva o indexación no autorizada del
+        contenido publicado en el sitio web derivado de esta Obra;
+     h) utilizar la Obra, en su totalidad o en parte, para entrenar, ajustar o
+        alimentar modelos de inteligencia artificial o aprendizaje automático.
+
+4. SIN LICENCIA IMPLÍCITA
+   Ningún acto del Titular —ni la publicación del repositorio, ni el envío de
+   acceso, ni la respuesta a consultas— se interpretará como una renuncia a sus
+   derechos ni como el otorgamiento de una licencia implícita.
+
+5. MARCAS Y NOMBRE COMERCIAL
+   "Neura Sistemas", su logotipo, su monograma y los signos distintivos
+   asociados son marcas y/o nombres comerciales del Titular. Esta licencia no
+   concede ningún derecho a usarlos.
+
+6. SOFTWARE DE TERCEROS
+   La Obra puede incorporar o depender de bibliotecas de terceros (por ejemplo,
+   las declaradas en package.json), cada una sujeta a su propia licencia de
+   código abierto. Dichas licencias rigen únicamente sobre sus respectivos
+   componentes y no sobre la Obra original del Titular.
+
+7. EXENCIÓN DE GARANTÍAS
+   La Obra se provee "TAL CUAL", sin garantía de ningún tipo, expresa o
+   implícita, incluyendo —sin limitación— las de comerciabilidad, idoneidad para
+   un fin determinado y no infracción.
+
+8. LIMITACIÓN DE RESPONSABILIDAD
+   En la máxima medida permitida por la ley, el Titular no será responsable por
+   ningún daño directo, indirecto, incidental o consecuente derivado del uso o de
+   la imposibilidad de uso de la Obra.
+
+9. INCUMPLIMIENTO
+   El uso no autorizado de la Obra constituye una infracción a los derechos de
+   autor y podrá dar lugar a las acciones civiles y penales previstas en la Ley
+   11.723 y en la legislación aplicable, incluyendo el reclamo de daños y
+   perjuicios.
+
+10. LEY APLICABLE Y JURISDICCIÓN
+    Esta licencia se rige por las leyes de la República Argentina. Toda
+    controversia se someterá a los tribunales ordinarios competentes de la ciudad
+    de Rosario, Provincia de Santa Fe, Argentina.
+
+11. CONTACTO PARA LICENCIAS
+    Para solicitar permisos, licencias de uso o cualquier consulta legal:
+      Neura Sistemas — aquilesdiaz335@gmail.com
+
+================================================================================
+ENGLISH  (informational summary / non-binding translation)
+================================================================================
+
+This software and all of its contents are the exclusive, proprietary property of
+Neura Sistemas. All rights reserved. No part of this work may be copied,
+reproduced, distributed, published, modified, reverse-engineered, scraped, or
+used to train machine-learning models, for any purpose, without the prior express
+written permission of Neura Sistemas. Third-party dependencies remain governed by
+their own open-source licenses. The work is provided "AS IS", without warranty of
+any kind. This work is protected under Argentine Law 11.723, the Berne Convention,
+and applicable international copyright treaties. For licensing inquiries, contact
+aquilesdiaz335@gmail.com. In case of any discrepancy, the Spanish version above
+prevails.

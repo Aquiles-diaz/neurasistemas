@@ -1,3 +1,17 @@
+<!-- LEGAL -->
+> ## ⚖️ Software propietario — Todos los derechos reservados
+>
+> **Copyright © 2026 Neura Sistemas.** Este repositorio y todo su contenido (código,
+> diseño, textos, imágenes y marcas) son **propiedad exclusiva** de Neura Sistemas y
+> están protegidos por la Ley 11.723 (Argentina) y los tratados internacionales de
+> derecho de autor.
+>
+> Queda prohibido copiar, distribuir, modificar, reutilizar o emplear esta obra —total
+> o parcialmente— sin autorización previa y por escrito. Consultá los términos completos
+> en **[LICENSE](./LICENSE)** y los avisos de terceros en **[NOTICE](./NOTICE)**.
+>
+> Licencias y permisos: **aquilesdiaz335@gmail.com** · Seguridad: ver **[SECURITY.md](./SECURITY.md)**
+
 # Neura Sistemas — Design System
 
 Brand and product design system for **Neura Sistemas — Desarrollo Web**, a web

@@ -2,9 +2,12 @@
   "name": "neura-sistemas",
   "version": "1.0.0",
   "private": true,
+  "license": "UNLICENSED",
+  "description": "Software a medida para PyMEs — sitio de Neura Sistemas. Propietario, todos los derechos reservados.",
+  "author": "Neura Sistemas <aquilesdiaz335@gmail.com>",
   "type": "module",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

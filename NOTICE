@@ -1,0 +1,17 @@
+Neura Sistemas
+Copyright © 2026 Neura Sistemas. Todos los derechos reservados.
+
+Este producto y su código fuente son software propietario. Su uso, copia,
+distribución o modificación están sujetos a los términos del archivo LICENSE
+incluido en este repositorio. Salvo autorización escrita del Titular, todos los
+derechos quedan reservados.
+
+Componentes de terceros
+-----------------------
+Este proyecto utiliza bibliotecas de código abierto declaradas en package.json
+(por ejemplo: Next.js, React, Tailwind CSS, lucide-react, motion). Cada una de
+ellas conserva su propia licencia y sus respectivos avisos de copyright, que
+rigen exclusivamente sobre dichos componentes y no sobre la obra original de
+Neura Sistemas.
+
+Contacto: aquilesdiaz335@gmail.com
