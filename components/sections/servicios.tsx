@@ -30,7 +30,7 @@ const SERVICIOS: Servicio[] = [
   {
     Icon: Globe,
     title: "Sitio web que vende",
-    desc: "Una web rápida y clara que convierte visitas en mensajes. Horarios, ubicación y un formulario que te llega directo. Lista en 3 semanas.",
+    desc: "Una web rápida y clara que convierte visitas en mensajes. Horarios, ubicación y un formulario que te llega directo. Lista en 2-4 semanas.",
   },
   {
     Icon: CalendarCheck,
@@ -62,17 +62,18 @@ export function Servicios() {
     >
       <Container>
         <Reveal>
-          <Eyebrow>Servicios</Eyebrow>
+          <Eyebrow>Software a medida</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
-            Todo lo que hacemos por tu negocio
+            Desarrollamos el software que tu negocio necesita
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
           <p className="mt-4 max-w-[56ch] text-lg leading-[1.6] text-[color:var(--text-muted)]">
-            Automatizamos el trabajo repetitivo —de la web a la atención— para
-            que recuperes horas sin sumar gente.
+            De la web a la automatización, todo a medida para que recuperes horas
+            sin sumar gente. Nos especializamos en PyMEs y comercios, pero
+            desarrollamos para cualquier rubro que quiera crecer.
           </p>
         </Reveal>
 

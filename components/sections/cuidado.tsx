@@ -78,9 +78,10 @@ export function Cuidado() {
         </Reveal>
         <Reveal delay={d(2)}>
           <p className="mx-auto mt-4 max-w-[52ch] text-center text-[color:var(--text-muted)] leading-[1.6]">
-            Lo entregamos andando y lo mantenemos vivo: hosting, mejoras y
-            soporte todos los meses. Vos seguís con tu negocio, nosotros con que
-            todo funcione.
+            Es opcional y lo activás solo si lo querés. Si lo tomás, lo
+            entregamos andando y lo mantenemos vivo —hosting, mejoras y
+            soporte— por menos de lo que pagás de luz. Vos seguís con tu
+            negocio; nosotros, con que todo funcione.
           </p>
         </Reveal>
 

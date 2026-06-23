@@ -168,7 +168,7 @@ function PreviewArt({ project, title }: { project: Project; title: string }) {
         alt={`Vista previa de ${title}`}
         fill
         sizes="(max-width: 1200px) 100vw, 1104px"
-        className="object-cover object-top transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.02]"
+        className="object-cover object-top saturate-[0.9] brightness-[0.97] transition duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.02] group-hover:saturate-100 group-hover:brightness-100"
       />
     );
   }

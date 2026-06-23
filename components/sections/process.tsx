@@ -8,7 +8,7 @@ const STEPS: [string, LucideIcon, string, string][] = [
   ["01", MessageCircle, "Diagnóstico", "Hablamos 20 minutos. Entendemos tu negocio."],
   ["02", FileText, "Propuesta", "Te decimos exactamente qué hacemos y cuánto cuesta."],
   ["03", Wrench, "Implementación", "Construimos tu sistema sin molestarte."],
-  ["04", GraduationCap, "Capacitación + Soporte", "Te enseñamos a usarlo, y estamos cuando nos necesités."],
+  ["04", GraduationCap, "Capacitación + Soporte", "Te enseñamos a usarlo y te respondemos rápido cuando nos necesités."],
 ];
 
 export function Process() {

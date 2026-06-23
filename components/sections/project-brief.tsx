@@ -516,7 +516,7 @@ export function ProjectBrief() {
 
               <p className="flex items-center justify-center gap-1.5 text-center text-xs text-[color:var(--text-subtle)]">
                 <Lock size={12} strokeWidth={1.8} className="flex-none" />
-                Tu brief nos llega directo. Te respondemos en menos de 24 h.
+                Tu brief nos llega directo. Te respondemos en menos de 12 h.
               </p>
             </form>
           </div>
@@ -527,7 +527,7 @@ export function ProjectBrief() {
         open={sent}
         onClose={reset}
         title="¡Brief enviado!"
-        message="Recibimos tu brief. Te respondemos en menos de 24 h."
+        message="Recibimos tu brief. Te respondemos en menos de 12 h."
       />
     </section>
   );

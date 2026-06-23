@@ -28,25 +28,25 @@ const ROWS: Row[] = [
     pIcon: Phone,
     problema: "30 llamadas por día para tomar reservas",
     sIcon: CalendarCheck,
-    solucion: "Sistema de reservas automático 24/7",
+    solucion: "Las reservas entran solas, también de noche",
   },
   {
     pIcon: FileSpreadsheet,
     problema: "Hojas de Excel desactualizadas",
     sIcon: LayoutDashboard,
-    solucion: "Dashboard en tiempo real",
+    solucion: "Ves tu negocio en tiempo real, de un vistazo",
   },
   {
     pIcon: Clock,
     problema: "8 horas por semana en tareas manuales",
     sIcon: Zap,
-    solucion: "Automatización completa",
+    solucion: "Recuperás esas 8 horas cada semana",
   },
   {
     pIcon: Frown,
     problema: "Equipo estresado y desmotivado",
     sIcon: Smile,
-    solucion: "Procesos fluidos y simples",
+    solucion: "Tu equipo trabaja tranquilo y enfocado",
   },
 ];
 

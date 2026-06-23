@@ -38,8 +38,9 @@ export function Footer() {
               className="mb-4 h-12 w-auto"
             />
             <p className="text-sm leading-relaxed text-white/80">
-              Automatizamos negocios para que trabajés menos y facturés más.
-              Webs, CRM, chatbots y automatización para PyMEs y comercios.
+              Desarrollamos software a medida para que trabajés menos y facturés
+              más: webs, automatización, CRM y chatbots. Orientados a PyMEs,
+              abiertos a cualquier rubro.
             </p>
           </div>
 
@@ -84,10 +85,10 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
           <span className="text-[11px] tracking-[0.04em] text-white/60">
-            © {new Date().getFullYear()} Neura Sistemas · Rosario, Santa Fe
+            © {new Date().getFullYear()} Neura Sistemas · Todos los derechos reservados
           </span>
           <span className="text-[11px] tracking-[0.04em] text-white/60">
-            Automatización para PyMEs argentinas
+            Rosario, Santa Fe · Automatización para PyMEs argentinas
           </span>
         </div>
       </Container>

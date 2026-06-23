@@ -30,7 +30,7 @@ const PACKS: Pack[] = [
     accentText: "var(--primary)",
     name: "Arrancar",
     para: "Para comercios que recién abren",
-    titular: "Tu web lista en 3 semanas",
+    titular: "Tu web lista en 2-4 semanas",
     bullets: [
       "Sitio profesional que vende",
       "Horarios, ubicación y contacto integrados",
@@ -236,7 +236,12 @@ export function Packs() {
         {/* Footnote */}
         <Reveal delay={d(4)}>
           <p className="mt-10 text-center text-sm text-[color:var(--text-muted)]">
-            Primeros clientes: <strong className="font-semibold text-[color:var(--secondary-ink)]">30% de descuento</strong>.
+            Arrancar sale en 2-4 semanas. Crecer y Dominar los planificamos
+            según tu proyecto. Primeros clientes:{" "}
+            <strong className="font-semibold text-[color:var(--secondary-ink)]">
+              30% de descuento
+            </strong>
+            .
           </p>
         </Reveal>
       </Container>

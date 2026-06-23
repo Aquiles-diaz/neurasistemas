@@ -12,15 +12,19 @@ const FAQS = [
   },
   {
     q: "¿Cuánto tarda?",
-    a: "Entre 2 y 4 semanas. Está listo antes de lo que esperás.",
+    a: "Tu web, entre 2 y 4 semanas. Los sistemas más grandes (automatizaciones, CRM) los definimos juntos según el alcance.",
   },
   {
     q: "¿Y si después necesito cambios?",
-    a: "Tenés un plan de mantenimiento mensual ($100-200) que incluye lo que necesites.",
+    a: "Los hacemos. Si querés que nos encarguemos siempre, hay un Plan Cuidado opcional desde $29/mes, con el primer mes gratis. Lo tomás solo si lo necesitás.",
   },
   {
     q: "¿Es difícil de usar?",
     a: "No. Te enseñamos a usarlo. Cualquiera de tu equipo puede hacerlo.",
+  },
+  {
+    q: "¿Cómo es el soporte?",
+    a: "Respondemos rápido: dudas simples en menos de 1 h y temas a fondo en menos de 12 h, en horario laboral. Con Plan Cuidado monitoreamos tu sistema y tenés soporte prioritario por WhatsApp. Nada de “24/7” robótico ni tickets que nadie contesta: hablás con quien lo construyó.",
   },
   {
     q: "¿Tienen referencias?",

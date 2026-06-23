@@ -26,12 +26,12 @@ const DIFERENCIADORES: Diferenciador[] = [
   {
     Icon: Zap,
     title: "Implementación rápida",
-    line: "2-4 semanas, no meses.",
+    line: "Tu web en 2-4 semanas. Lo más grande, su tiempo justo.",
   },
   {
     Icon: MapPin,
     title: "Soporte local",
-    line: "Aquiles en Rosario, no un chat robótico.",
+    line: "Desarrolladores en Rosario, no un chat robótico.",
   },
   {
     Icon: MousePointerClick,
@@ -63,8 +63,8 @@ type Compromiso = {
 };
 
 const COMPROMISOS: Compromiso[] = [
-  { value: "2-3 sem", label: "de la idea a tu sistema andando" },
-  { value: "24/7", label: "tu negocio atendiendo sin parar" },
+  { value: "2-4 sem", label: "de la idea a tu web online" },
+  { value: "24/7", label: "tu sistema atendiendo sin parar" },
   { value: "100%", label: "en español y con soporte local" },
   { value: "0", label: "sorpresas: presupuesto cerrado" },
 ];
@@ -79,29 +79,24 @@ type CompRow = {
 
 const COMP_ROWS: CompRow[] = [
   {
-    aspecto: "Ubicación",
-    neura: "Rosario, soporte local",
-    agencias: "CABA, soporte remoto",
+    aspecto: "Inversión y sorpresas",
+    neura: "Precios cerrados y transparentes. Sabés el costo total desde el día uno.",
+    agencias: "Presupuestos “a medida” que cambian o se inflan a mitad del proyecto.",
   },
   {
-    aspecto: "Tiempo",
-    neura: "2-4 semanas",
-    agencias: "8-12 semanas",
+    aspecto: "Plazos de entrega",
+    neura: "Tu web andando en 2-4 semanas. Procesos ágiles, sin vueltas.",
+    agencias: "Desarrollo eterno: meses para ver una primera versión.",
   },
   {
-    aspecto: "Precio",
-    neura: "$450 a 2.500 USD",
-    agencias: "$1.000 a 5.000+ USD",
+    aspecto: "Cercanía y soporte",
+    neura: "Soporte local en Rosario. Desarrolladores reales que te acompañan.",
+    agencias: "Agencias masivas (CABA o exterior) con soporte remoto y por tickets.",
   },
   {
-    aspecto: "Modelo",
-    neura: "Packs claros",
-    agencias: "Presupuesto a medida",
-  },
-  {
-    aspecto: "Recurrencia",
-    neura: "Mantenimiento mensual",
-    agencias: "Proyecto y se acabó",
+    aspecto: "El día después",
+    neura: "Seguimos con vos. Mantenimiento opcional para que tu sistema no quede obsoleto.",
+    agencias: "Entregan el código, se termina el contrato y quedás solo.",
   },
 ];
 
@@ -122,14 +117,15 @@ export function WhyUs() {
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4 text-center font-[family-name:var(--font-display)] text-[clamp(1.9rem,4.2vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] text-white">
-            Lo que nos hace diferentes
+            La diferencia está en cómo trabajamos
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
           <p className="mt-4 mx-auto max-w-[54ch] text-center text-lg leading-[1.6] text-white/70">
-            No somos una agencia de Buenos Aires que te manda un PDF. Somos un
-            equipo local que entiende cómo funciona tu negocio y trabaja con vos
-            hasta que el sistema está andando.
+            Mientras otros venden proyectos, nosotros entregamos resultados. No
+            te entregamos documentos: construimos soluciones, conocemos tu
+            negocio y nos quedamos hasta que todo funcione como tiene que
+            funcionar.
           </p>
         </Reveal>
 
@@ -192,7 +188,7 @@ export function WhyUs() {
               <thead>
                 <tr className="border-b border-[color:var(--hairline)] bg-[color:var(--card)]">
                   <th className="px-5 py-3.5 text-left font-semibold text-white/70">
-                    Aspecto
+                    Lo que te preocupa
                   </th>
                   <th className="px-5 py-3.5 text-left font-semibold text-[color:var(--accent)]">
                     Neura Sistemas
@@ -215,23 +211,23 @@ export function WhyUs() {
                     <td className="px-5 py-4 font-medium text-white/80">
                       {row.aspecto}
                     </td>
-                    <td className="px-5 py-4">
-                      <span className="flex items-center gap-2 text-white">
+                    <td className="px-5 py-4 align-top">
+                      <span className="flex items-start gap-2 text-white">
                         <Check
                           size={15}
                           strokeWidth={2.5}
-                          className="shrink-0 text-[color:var(--accent)]"
+                          className="mt-1 shrink-0 text-[color:var(--accent)]"
                           aria-hidden
                         />
                         {row.neura}
                       </span>
                     </td>
-                    <td className="px-5 py-4">
-                      <span className="flex items-center gap-2 text-white/60">
+                    <td className="px-5 py-4 align-top">
+                      <span className="flex items-start gap-2 text-white/60">
                         <X
                           size={15}
                           strokeWidth={2.5}
-                          className="shrink-0"
+                          className="mt-1 shrink-0"
                           aria-hidden
                         />
                         {row.agencias}
@@ -253,11 +249,11 @@ export function WhyUs() {
                   {row.aspecto}
                 </p>
                 <div className="flex flex-col gap-2">
-                  <span className="flex items-center gap-2 text-sm text-white">
+                  <span className="flex items-start gap-2 text-sm text-white">
                     <Check
                       size={14}
                       strokeWidth={2.5}
-                      className="shrink-0 text-[color:var(--accent)]"
+                      className="mt-0.5 shrink-0 text-[color:var(--accent)]"
                       aria-hidden
                     />
                     <span>
@@ -267,11 +263,11 @@ export function WhyUs() {
                       {row.neura}
                     </span>
                   </span>
-                  <span className="flex items-center gap-2 text-sm text-white/60">
+                  <span className="flex items-start gap-2 text-sm text-white/60">
                     <X
                       size={14}
                       strokeWidth={2.5}
-                      className="shrink-0"
+                      className="mt-0.5 shrink-0"
                       aria-hidden
                     />
                     <span>

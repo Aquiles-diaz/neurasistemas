@@ -7,7 +7,7 @@ import { Container, SecondaryButton, CtaButton } from "@/components/sections/pri
 import { HeroVideoBg } from "@/components/sections/hero-video";
 
 const BENEFITS = [
-  "Listo en 2-3 semanas",
+  "Tu web lista en 2-4 semanas",
   "Soporte local en Rosario",
   "Presupuesto cerrado, sin sorpresas",
 ] as const;
@@ -27,6 +27,12 @@ export function Hero() {
 
       <Container className="relative z-[1]">
         <div className="mx-auto flex max-w-[640px] flex-col items-center text-center">
+          <p
+            data-hero
+            className="mb-5 font-[family-name:var(--font-mono)] text-[12px] font-semibold uppercase tracking-[0.22em] text-[color:var(--secondary)]"
+          >
+            Desarrollo de software a medida
+          </p>
           <h1
             data-hero
             className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white [text-wrap:balance]"
@@ -40,7 +46,7 @@ export function Hero() {
           >
             Las reservas, los pedidos y la atención de tu comercio pasan a
             funcionar solos. Vos recuperás tus horas; del trabajo repetitivo nos
-            encargamos nosotros.
+            encargamos nosotros. Desde Rosario, para PyMEs de toda Argentina.
           </p>
 
           <div data-hero className="mt-9 flex flex-wrap justify-center gap-3.5">
