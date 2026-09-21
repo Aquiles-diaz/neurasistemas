@@ -4,16 +4,15 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { Sparkles, ArrowRight, X } from "lucide-react";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { useT } from "@/lib/i18n";
 
 /* ============================================================
-   Barra de anuncio descartable (sticky bottom).
-   Reutilizable para ofertas O novedades: cambiá MESSAGE / CTA y
-   subí VERSION para que reaparezca a quien ya la había cerrado.
+   Barra de anuncio descartable (sticky bottom). El texto vive en
+   lib/i18n (`promo`); subí VERSION para que reaparezca a quien ya
+   la había cerrado.
    ============================================================ */
-const VERSION = "primeros-30off-2026-06"; // bump → se reanuncia
+const VERSION = "primeros-30off-sistemas-2026-09"; // bump → se reanuncia
 const STORAGE_KEY = "ns_promo_dismissed";
-const MESSAGE = "Primeros clientes: 30% OFF en tu primer proyecto.";
-const CTA_LABEL = "Aprovechar";
 
 function alreadyDismissed(): boolean {
   try {
@@ -24,6 +23,7 @@ function alreadyDismissed(): boolean {
 }
 
 export function PromoBanner() {
+  const t = useT();
   const [visible, setVisible] = useState(false);
   const [contactInView, setContactInView] = useState(false);
   const reduce = useReducedMotion();
@@ -57,10 +57,6 @@ export function PromoBanner() {
     setVisible(false);
   };
 
-  const onCta = () => {
-    open();
-  };
-
   const show = visible && !contactInView;
 
   return (
@@ -72,25 +68,25 @@ export function PromoBanner() {
           exit={reduce ? { opacity: 0 } : { y: "100%" }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
           role="region"
-          aria-label="Anuncio"
-          className="fixed inset-x-0 bottom-0 z-[60] border-t border-white/10 bg-[color:var(--navy)] [box-shadow:0_-12px_40px_-18px_rgba(0,0,0,0.55)]"
+          aria-label={t.promo.region}
+          className="band fixed inset-x-0 bottom-0 z-[60] border-t border-[color:var(--band-hairline)] [box-shadow:0_-12px_40px_-18px_rgba(0,0,0,0.45)]"
         >
           <div className="mx-auto flex max-w-[var(--container-lg)] items-center gap-3 px-[var(--gutter)] py-3 sm:gap-4">
             <Sparkles
               size={18}
               strokeWidth={1.9}
-              className="hidden flex-none text-[color:var(--secondary)] sm:block"
+              className="hidden flex-none sm:block"
               aria-hidden
             />
-            <p className="min-w-0 flex-1 text-sm leading-snug text-white/90">
-              <span className="font-semibold text-white">{MESSAGE}</span>
+            <p className="min-w-0 flex-1 text-sm font-semibold leading-snug">
+              {t.promo.message}
             </p>
 
             <button
-              onClick={onCta}
-              className="group inline-flex flex-none cursor-pointer items-center gap-1.5 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-4 py-2 text-sm font-semibold text-[color:var(--text-onaccent)] transition-[transform,background-color] duration-200 hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
+              onClick={open}
+              className="group inline-flex flex-none cursor-pointer items-center gap-1.5 rounded-[var(--radius-pill)] bg-[color:var(--band-fg)] px-4 py-2 text-sm font-semibold text-[color:var(--band-bg)] transition-[transform,opacity] duration-200 hover:-translate-y-px hover:opacity-90 active:translate-y-px"
             >
-              {CTA_LABEL}
+              {t.promo.cta}
               <ArrowRight
                 size={15}
                 strokeWidth={2}
@@ -100,8 +96,8 @@ export function PromoBanner() {
 
             <button
               onClick={dismiss}
-              aria-label="Cerrar anuncio"
-              className="inline-flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-[var(--radius-pill)] text-white/55 transition-colors hover:bg-white/10 hover:text-white"
+              aria-label={t.promo.close}
+              className="inline-flex h-8 w-8 flex-none cursor-pointer items-center justify-center rounded-[var(--radius-pill)] text-[color:var(--band-muted)] transition-colors hover:bg-[color:var(--band-card)] hover:text-[color:var(--band-fg)]"
             >
               <X size={16} strokeWidth={1.8} />
             </button>

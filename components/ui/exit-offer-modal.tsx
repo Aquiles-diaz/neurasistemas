@@ -4,20 +4,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
 import { Gift, X, MessageCircle, Mail } from "lucide-react";
 import { CtaButton } from "@/components/sections/primitives";
-import { EMAIL } from "@/lib/site";
-
-/* Datos de contacto — el mail sale del único lugar central (lib/site.ts). */
-const WHATSAPP_DIGITS = "5493402507879";
-const WA_TEXT =
-  "Hola Neura! Quiero el diagnóstico gratis de automatización para mi negocio.";
-const MAIL_SUBJECT = "Quiero mi diagnóstico gratis";
-const MAIL_BODY =
-  "Hola Neura, me interesa el diagnóstico gratis de automatización.\n\nMi negocio es: \nLo que más tiempo me quita es: ";
-
-const WA_HREF = `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(WA_TEXT)}`;
-const MAIL_HREF = `mailto:${EMAIL}?subject=${encodeURIComponent(
-  MAIL_SUBJECT
-)}&body=${encodeURIComponent(MAIL_BODY)}`;
+import { EMAIL, WHATSAPP_DIGITS } from "@/lib/site";
+import { useT } from "@/lib/i18n";
 
 /* Frecuencia: una vez por sesión; si lo cierran, no vuelve por COOLDOWN_DAYS;
    si convierten (clic en un CTA), no vuelve nunca ("done"). */
@@ -47,6 +35,11 @@ function markHandled(converted: boolean) {
 }
 
 export function ExitOfferModal() {
+  const t = useT();
+  const WA_HREF = `https://wa.me/${WHATSAPP_DIGITS}?text=${encodeURIComponent(t.exit.waText)}`;
+  const MAIL_HREF = `mailto:${EMAIL}?subject=${encodeURIComponent(
+    t.exit.mailSubject
+  )}&body=${encodeURIComponent(t.exit.mailBody)}`;
   const [open, setOpen] = useState(false);
   const reduce = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
@@ -62,7 +55,7 @@ export function ExitOfferModal() {
     markHandled(true);
     window.open(WA_HREF, "_blank", "noopener,noreferrer");
     setOpen(false);
-  }, []);
+  }, [WA_HREF]);
 
   // Mail: el <a href={MAIL_HREF}> navega solo; acá solo registramos y cerramos.
   const onMail = useCallback(() => {
@@ -171,7 +164,7 @@ export function ExitOfferModal() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={dismiss}
-            className="absolute inset-0 bg-[rgba(6,7,8,0.72)] [backdrop-filter:blur(12px)_saturate(140%)]"
+            className="absolute inset-0 bg-[color:var(--overlay)] [backdrop-filter:blur(12px)_saturate(140%)]"
           />
           <m.div
             ref={cardRef}
@@ -179,33 +172,31 @@ export function ExitOfferModal() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={reduce ? { opacity: 0 } : { opacity: 0, y: 12, scale: 0.97 }}
             transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full max-w-[440px] overflow-hidden rounded-[var(--radius-xl)] border border-[color:var(--border-default)] bg-[color:var(--surface-1)] p-8 text-center ring-1 ring-[color:color-mix(in_srgb,var(--secondary)_30%,transparent)] [box-shadow:var(--shadow-lg),var(--edge-hi)]"
+            className="relative w-full max-w-[440px] overflow-hidden rounded-[var(--radius-xl)] border border-[color:var(--border-strong)] bg-[color:var(--bg-base)] p-8 text-center [box-shadow:var(--shadow-lg),var(--edge-hi)]"
           >
             <button
               onClick={dismiss}
-              aria-label="Cerrar"
+              aria-label={t.exit.close}
               className="absolute right-3.5 top-3.5 inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-subtle)] text-[color:var(--text-muted)] transition-colors hover:border-[color:var(--border-default)] hover:text-[color:var(--text-strong)]"
             >
               <X size={16} strokeWidth={1.8} />
             </button>
 
-            <div className="mx-auto mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-full border border-[color:color-mix(in_srgb,var(--secondary)_40%,transparent)] bg-[color:color-mix(in_srgb,var(--secondary)_14%,transparent)] text-[color:var(--secondary-ink)]">
+            <div className="mx-auto mb-5 flex h-[60px] w-[60px] items-center justify-center rounded-full bg-[color:var(--accent)] text-[color:var(--text-onaccent)]">
               <Gift size={26} strokeWidth={1.9} />
             </div>
 
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--secondary-ink)]">
-              Diagnóstico gratis · sin compromiso
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
+              {t.exit.kicker}
             </p>
             <h3
               id="exit-offer-title"
               className="mb-2.5 font-[family-name:var(--font-display)] text-2xl font-bold leading-[1.15] text-[color:var(--text-strong)]"
             >
-              ¿Te vas con la duda?
+              {t.exit.title}
             </h3>
             <p className="mx-auto max-w-[38ch] text-sm leading-[1.6] text-[color:var(--text-muted)]">
-              Llevate un diagnóstico gratis: te decimos qué tareas de tu negocio
-              podés automatizar y cuántas horas te ahorrarías. 20 minutos, sin
-              compromiso.
+              {t.exit.body}
             </p>
 
             <div className="mt-6 flex flex-col gap-3">
@@ -215,7 +206,7 @@ export function ExitOfferModal() {
                 onClick={onWhatsApp}
               >
                 <MessageCircle size={18} strokeWidth={2} />
-                Quiero mi diagnóstico
+                {t.exit.cta}
               </CtaButton>
               <a
                 href={MAIL_HREF}
@@ -223,13 +214,13 @@ export function ExitOfferModal() {
                 className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[color:var(--text-muted)] underline-offset-4 transition-colors hover:text-[color:var(--text-strong)] hover:underline"
               >
                 <Mail size={15} strokeWidth={1.8} />
-                Prefiero por mail
+                {t.exit.mail}
               </a>
               <button
                 onClick={dismiss}
                 className="cursor-pointer text-xs text-[color:var(--text-subtle)] underline-offset-4 transition-colors hover:text-[color:var(--text-muted)] hover:underline"
               >
-                Ahora no
+                {t.exit.later}
               </button>
             </div>
           </m.div>

@@ -1,18 +1,16 @@
 "use client";
 
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { RollingText } from "@/components/ui/rolling-text";
+import { RollingWords } from "@/components/ui/rolling-words";
 import { Container, SecondaryButton, CtaButton } from "@/components/sections/primitives";
-import { HeroVideoBg } from "@/components/sections/hero-video";
-
-const BENEFITS = [
-  "Tu web lista en 2-4 semanas",
-  "Soporte local en Rosario",
-  "Presupuesto cerrado, sin sorpresas",
-] as const;
+import { HeroBg } from "@/components/sections/hero-bg";
+import { useT } from "@/lib/i18n";
 
 export function Hero() {
+  const t = useT();
   const scrollTo = useScrollTo();
   const { open } = useContactDrawer();
 
@@ -23,64 +21,68 @@ export function Hero() {
       id="top"
       className="relative flex min-h-[88dvh] items-center overflow-hidden pb-[var(--section-y)] pt-[clamp(104px,13vh,150px)]"
     >
-      <HeroVideoBg />
+      <HeroBg />
 
       <Container className="relative z-[1]">
-        <div className="mx-auto flex max-w-[640px] flex-col items-center text-center">
+        <div className="mx-auto flex max-w-[880px] flex-col items-center text-center">
           <p
             data-hero
-            className="mb-5 font-[family-name:var(--font-mono)] text-[12px] font-semibold uppercase tracking-[0.22em] text-[color:var(--secondary)]"
+            className="mb-5 font-[family-name:var(--font-mono)] text-[12px] font-semibold uppercase tracking-[0.22em] text-[color:var(--text-muted)]"
           >
-            Desarrollo de software a medida
+            {t.hero.eyebrow}
           </p>
           <h1
             data-hero
-            className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.5vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.02em] text-white [text-wrap:balance]"
+            className="font-[family-name:var(--font-display)] text-[clamp(2.2rem,5.6vw,4.2rem)] font-bold leading-[1.08] tracking-[-0.025em] text-[color:var(--text-strong)] [text-wrap:balance]"
           >
-            Recuperá tu tiempo y hacé crecer tu negocio sin sumar empleados.
+            {/* Fixed line structure so the rolling word never re-wraps the
+                heading: "Sistemas [word]" on one line (the word gets its own
+                line on phones), then the rest. */}
+            {t.hero.titlePre}
+            <br className="sm:hidden" />{" "}
+            {/* Keyed by language so a switch remounts the slot instead of
+                rolling the old word out (and so no Spanish word rolls out on
+                first paint for visitors who stored the English mode). */}
+            <RollingWords
+              key={t.hero.words.join("|")}
+              words={t.hero.words}
+              className="brand-text text-[color:var(--text-strong)]"
+            />
+            <br />{" "}
+            {t.hero.titlePost}
           </h1>
 
           <p
             data-hero
-            className="mt-6 max-w-[50ch] text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.65] text-slate-200"
+            className="mt-6 max-w-[56ch] text-[clamp(1rem,1.6vw,1.2rem)] leading-[1.65] text-[color:var(--text-muted)]"
           >
-            Las reservas, los pedidos y la atención de tu comercio pasan a
-            funcionar solos. Vos recuperás tus horas; del trabajo repetitivo nos
-            encargamos nosotros. Desde Rosario, para PyMEs de toda Argentina.
+            {t.hero.subtitle}
           </p>
 
           <div data-hero className="mt-9 flex flex-wrap justify-center gap-3.5">
-            <CtaButton
-              size="lg"
-              onClick={() => scrollTo("solucion")}
-            >
-              Ver cómo funciona
+            <CtaButton size="lg" onClick={() => scrollTo("sistemas")}>
+              <RollingText text={t.hero.ctaPrimary} />
               <ArrowRight size={18} strokeWidth={1.8} />
             </CtaButton>
 
-            <SecondaryButton
-              size="lg"
-              onClick={open}
-              className="border-white/30 bg-white/10 text-white hover:bg-white/20"
-            >
-              Agendá una llamada
+            <SecondaryButton size="lg" onClick={open}>
+              <RollingText text={t.hero.ctaSecondary} />
             </SecondaryButton>
           </div>
 
           <ul
             data-hero
             className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-3"
-            aria-label="Beneficios principales"
           >
-            {BENEFITS.map((item) => (
+            {t.hero.benefits.map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2 text-sm font-medium text-slate-100"
+                className="flex items-center gap-2 text-sm font-medium text-[color:var(--text-body)]"
               >
-                <CheckCircle2
+                <ShieldCheck
                   size={17}
                   strokeWidth={2}
-                  className="shrink-0 text-[color:var(--secondary)]"
+                  className="shrink-0 text-[color:var(--text-strong)]"
                   aria-hidden
                 />
                 {item}

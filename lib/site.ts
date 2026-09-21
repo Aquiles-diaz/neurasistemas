@@ -2,4 +2,6 @@
 export const SITE_URL = "https://neurasistemas.com.ar";
 export const EMAIL = "neurasistemas@gmail.com";
 export const PHONE_DISPLAY = "+54 9 3402 507879";
-export const WHATSAPP = "https://wa.me/5493402507879";
+export const PHONE_TEL = "+5493402507879";
+export const WHATSAPP_DIGITS = "5493402507879";
+export const WHATSAPP = `https://wa.me/${WHATSAPP_DIGITS}`;

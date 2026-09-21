@@ -1,107 +1,40 @@
 "use client";
 
-import { Rocket, TrendingUp, Crown, Check, type LucideIcon } from "lucide-react";
+import { Globe, Boxes, Layers3, Check, type LucideIcon } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow, CtaButton } from "@/components/sections/primitives";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { useT } from "@/lib/i18n";
 
-interface Pack {
-  id: string;
-  icon: LucideIcon;
-  accent: string;
-  /** AA-safe variant of `accent` for small text on white (the saturated
-   *  `accent` is for decorative icons/rings only). */
-  accentText: string;
-  name: string;
-  para: string;
-  titular: string;
-  bullets: string[];
-  /** Monto sin decoración — "Desde" y "USD" se renderizan aparte. */
-  precio: string;
-  cta: string;
-  featured: boolean;
-}
-
-const PACKS: Pack[] = [
-  {
-    id: "arrancar",
-    icon: Rocket,
-    accent: "var(--primary)",
-    accentText: "var(--primary)",
-    name: "Arrancar",
-    para: "Para comercios que recién abren",
-    titular: "Tu web lista en 2-4 semanas",
-    bullets: [
-      "Sitio profesional que vende",
-      "Horarios, ubicación y contacto integrados",
-      "Formulario para que te contacten directo",
-    ],
-    precio: "$450",
-    cta: "Quiero arrancar",
-    featured: false,
-  },
-  {
-    id: "crecer",
-    icon: TrendingUp,
-    accent: "var(--secondary)",
-    accentText: "var(--secondary-ink)",
-    name: "Crecer",
-    para: "Para negocios con procesos para optimizar",
-    titular: "Automatizamos lo que te quita tiempo",
-    bullets: [
-      "Reservas/pedidos online automáticos",
-      "Chatbot que atiende mientras dormís",
-      "Dashboard para ver qué pasa en tu negocio",
-    ],
-    precio: "$900",
-    cta: "Quiero crecer",
-    featured: true,
-  },
-  {
-    id: "dominar",
-    icon: Crown,
-    accent: "var(--accent-cta)",
-    accentText: "var(--accent-cta)",
-    name: "Dominar",
-    para: "Para negocios estructurados",
-    titular: "Sistema completo integrado",
-    bullets: [
-      "Web + CRM + Automatización",
-      "Reportes y métricas automáticas",
-      "Capacitación de tu equipo incluida",
-    ],
-    precio: "$1800",
-    cta: "Lo quiero todo",
-    featured: false,
-  },
-];
+/* Icons follow the order of `packs.items` in the dictionaries. */
+const ICONS: LucideIcon[] = [Globe, Boxes, Layers3];
 
 export function Packs() {
+  const t = useT();
   const { open } = useContactDrawer();
 
   return (
-    <section id="packs" className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]">
+    <section id="packs" className="relative py-[var(--section-y)]">
       <Container>
         <Reveal>
-          <Eyebrow center>Planes</Eyebrow>
+          <Eyebrow center>{t.packs.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-center text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
-            Elegí cómo querés crecer
+            {t.packs.title}
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
-          <p className="mx-auto mt-4 max-w-[48ch] text-center text-[color:var(--text-muted)] leading-[1.6]">
-            Precios cerrados, sin letra chica. Empezás por donde estás hoy y
-            sumás funciones cuando las necesites.
+          <p className="mx-auto mt-4 max-w-[52ch] text-center leading-[1.6] text-[color:var(--text-muted)]">
+            {t.packs.subtitle}
           </p>
         </Reveal>
 
-        {/* items-stretch keeps equal heights; the featured card lifts via a
-            constant translate (lg+) so its hover only touches the shadow. */}
+        {/* The featured card is painted in the inverse colours (a mini band)
+            and lifted on lg+; its hover only touches the shadow. */}
         <div className="mt-14 grid grid-cols-1 items-stretch gap-6 md:grid-cols-3">
-          {PACKS.map((pack, i) => {
-            const Icon = pack.icon;
+          {t.packs.items.map((pack, i) => {
+            const Icon = ICONS[i] ?? Boxes;
             const { featured } = pack;
             return (
               <Reveal key={pack.id} delay={d(i + 1)} className="h-full">
@@ -109,121 +42,72 @@ export function Packs() {
                   className={[
                     "group relative flex h-full flex-col rounded-[var(--radius-lg)] p-7 transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
                     featured
-                      ? "bg-[color:var(--card-hover)] text-white ring-1 ring-[color:var(--accent)]/40 [box-shadow:0_30px_70px_-24px_rgba(182,255,0,0.3)] hover:[box-shadow:0_40px_90px_-24px_rgba(182,255,0,0.42)] lg:-translate-y-4"
+                      ? "band [box-shadow:var(--shadow-lg)] lg:-translate-y-4"
                       : "border border-[color:var(--border-subtle)] bg-[color:var(--card)] [box-shadow:var(--shadow-md)] hover:-translate-y-1.5 hover:[box-shadow:var(--shadow-lg)]",
                   ].join(" ")}
                 >
-                  {/* "Más elegido" badge — only on the featured card */}
                   {featured && (
                     <span
-                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] bg-[color:var(--secondary)] px-3.5 py-1 text-xs font-semibold text-[color:var(--navy)] [box-shadow:var(--shadow-sm)]"
-                      aria-label="Plan más elegido"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] border border-[color:var(--band-hairline)] bg-[color:var(--band-bg)] px-3.5 py-1 text-xs font-semibold text-[color:var(--band-fg)]"
+                      aria-label={t.packs.popularAria}
                     >
-                      Más elegido
+                      {t.packs.popular}
                     </span>
                   )}
 
-                  {/* Icon */}
                   <div
-                    className="mb-5 flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]"
-                    style={
+                    className={[
+                      "mb-5 flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]",
                       featured
-                        ? { backgroundColor: "var(--secondary)", color: "var(--navy)" }
-                        : {
-                            backgroundColor: `color-mix(in srgb, ${pack.accent} 12%, transparent)`,
-                            color: pack.accent,
-                          }
-                    }
+                        ? "bg-[color:var(--band-fg)] text-[color:var(--band-bg)]"
+                        : "bg-[color:var(--accent-soft)] text-[color:var(--text-strong)]",
+                    ].join(" ")}
                   >
                     <Icon size={24} strokeWidth={1.8} aria-hidden />
                   </div>
 
-                  {/* Pack name + subtitle */}
-                  <p
-                    className="mb-1 text-xs font-semibold uppercase tracking-widest"
-                    style={{ color: featured ? "var(--secondary)" : pack.accentText }}
-                  >
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[color:var(--text-strong)]">
                     {pack.name}
                   </p>
-                  <p
-                    className={
-                      featured
-                        ? "mb-3 text-sm text-white/70"
-                        : "mb-3 text-sm text-[color:var(--text-muted)]"
-                    }
-                  >
-                    {pack.para}
-                  </p>
+                  <p className="mb-3 text-sm text-[color:var(--text-muted)]">{pack.para}</p>
 
-                  {/* Titular */}
-                  <h3
-                    className={[
-                      "mb-5 text-xl font-bold leading-snug",
-                      featured ? "text-white" : "text-[color:var(--text-strong)]",
-                    ].join(" ")}
-                  >
-                    {pack.titular}
+                  <h3 className="mb-5 text-xl font-bold leading-snug text-[color:var(--text-strong)]">
+                    {pack.headline}
                   </h3>
 
-                  {/* Benefit bullets */}
                   <ul className="mb-7 flex flex-col gap-2.5" role="list">
                     {pack.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-2.5">
                         <Check
                           size={16}
                           strokeWidth={2.5}
-                          className="mt-0.5 shrink-0"
-                          style={{ color: featured ? "var(--secondary)" : pack.accent }}
+                          className="mt-0.5 shrink-0 text-[color:var(--text-strong)]"
                           aria-hidden
                         />
-                        <span
-                          className={[
-                            "text-sm leading-snug",
-                            featured ? "text-white/85" : "text-[color:var(--text-body)]",
-                          ].join(" ")}
-                        >
+                        <span className="text-sm leading-snug text-[color:var(--text-body)]">
                           {bullet}
                         </span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Spacer to push price + CTA to the bottom */}
                   <div className="mt-auto">
-                    {/* Price — "Desde" + monto grande + "USD" para dar jerarquía */}
                     <p className="mb-5 flex items-baseline gap-1.5">
-                      <span
-                        className={
-                          featured ? "text-sm text-white/55" : "text-sm text-[color:var(--text-subtle)]"
-                        }
-                      >
-                        Desde
-                      </span>
+                      <span className="text-sm text-[color:var(--text-subtle)]">{t.packs.from}</span>
                       <span
                         className={[
-                          "font-[family-name:var(--font-display)] font-bold tracking-[-0.02em]",
-                          featured ? "text-[2.6rem] leading-none text-white" : "text-[2.1rem] leading-none text-[color:var(--text-strong)]",
+                          "font-[family-name:var(--font-display)] font-bold leading-none tracking-[-0.02em] text-[color:var(--text-strong)]",
+                          featured ? "text-[2.6rem]" : "text-[2.1rem]",
                         ].join(" ")}
                       >
-                        {pack.precio}
+                        {pack.price}
                       </span>
-                      <span
-                        className={
-                          featured
-                            ? "text-sm font-medium text-white/55"
-                            : "text-sm font-medium text-[color:var(--text-subtle)]"
-                        }
-                      >
-                        USD
+                      <span className="text-sm font-medium text-[color:var(--text-subtle)]">
+                        {t.packs.currency}
                       </span>
                     </p>
 
-                    {/* CTA */}
-                    <CtaButton
-                      size="md"
-                      className="w-full justify-center"
-                      onClick={open}
-                    >
+                    <CtaButton size="md" className="w-full justify-center" onClick={open}>
                       {pack.cta}
                     </CtaButton>
                   </div>
@@ -233,15 +117,13 @@ export function Packs() {
           })}
         </div>
 
-        {/* Footnote */}
         <Reveal delay={d(4)}>
           <p className="mt-10 text-center text-sm text-[color:var(--text-muted)]">
-            Arrancar sale en 2-4 semanas. Crecer y Dominar los planificamos
-            según tu proyecto. Primeros clientes:{" "}
-            <strong className="font-semibold text-[color:var(--secondary-ink)]">
-              30% de descuento
+            {t.packs.footnotePre}
+            <strong className="font-semibold text-[color:var(--text-strong)]">
+              {t.packs.footnoteStrong}
             </strong>
-            .
+            {t.packs.footnotePost}
           </p>
         </Reveal>
       </Container>

@@ -1,80 +1,86 @@
-import Image from "next/image";
-import { Mail, MessageCircle, MapPin } from "lucide-react";
-import { Container } from "@/components/sections/primitives";
-import { FooterNav } from "@/components/ui/footer-nav";
-import { EMAIL } from "@/lib/site";
+"use client";
 
-const CONTACT_ITEMS: { icon: typeof Mail; label: string; href: string }[] = [
-  {
-    icon: Mail,
-    label: EMAIL,
-    href: `mailto:${EMAIL}`,
-  },
-  {
-    icon: MessageCircle,
-    label: "+54 9 3402507879",
-    href: "https://wa.me/5493402507879",
-  },
-  {
-    icon: MapPin,
-    label: "Rosario, Santa Fe",
-    href: "#",
-  },
-];
+import { Mail, MessageCircle, MapPin, type LucideIcon } from "lucide-react";
+import { Container } from "@/components/sections/primitives";
+import { Logo } from "@/components/ui/logo";
+import { RollingText } from "@/components/ui/rolling-text";
+import { ThemeLangToggle } from "@/components/ui/theme-lang-toggle";
+import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { EMAIL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
+import { useT } from "@/lib/i18n";
+
+const linkClass =
+  "roll-trigger text-sm text-[color:var(--text-muted)] transition-colors duration-150 hover:text-[color:var(--text-strong)]";
 
 export function Footer() {
+  const t = useT();
+  const { open } = useContactDrawer();
+
+  const CONTACT_ITEMS: { icon: LucideIcon; label: string; href?: string }[] = [
+    { icon: Mail, label: EMAIL, href: `mailto:${EMAIL}` },
+    { icon: MessageCircle, label: PHONE_DISPLAY, href: WHATSAPP },
+    { icon: MapPin, label: t.footer.location },
+  ];
+
   return (
-    <footer className="bg-[color:var(--navy)] pt-14 pb-8">
+    <footer className="border-t border-[color:var(--border-subtle)] bg-[color:var(--bg-base)] pb-8 pt-14">
       <Container>
-        {/* Top grid: brand / nav / contact */}
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {/* Brand */}
-          <div className="max-w-[28ch]">
-            <Image
-              src="/logo/logoneurasistemas-white.png"
-              alt="Neura Sistemas"
-              width={1755}
-              height={649}
-              className="mb-4 h-12 w-auto"
-            />
-            <p className="text-sm leading-relaxed text-white/80">
-              Desarrollamos software a medida para que trabajés menos y facturés
-              más: webs, automatización, CRM y chatbots. Orientados a PyMEs,
-              abiertos a cualquier rubro.
+          <div className="max-w-[30ch]">
+            <Logo alt="Neura Sistemas" className="mb-4 h-10" />
+            <p className="text-sm leading-relaxed text-[color:var(--text-muted)]">
+              {t.footer.blurb}
             </p>
+            <div className="mt-6">
+              <ThemeLangToggle />
+            </div>
           </div>
 
           {/* Nav */}
           <div>
-            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
-              Navegación
+            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--text-subtle)]">
+              {t.footer.navTitle}
             </h5>
-            <FooterNav />
+            <ul className="space-y-2.5">
+              {t.footer.links.map(({ label, href }) => (
+                <li key={href}>
+                  <a href={href} className={linkClass}>
+                    <RollingText text={label} />
+                  </a>
+                </li>
+              ))}
+              <li>
+                <button type="button" onClick={open} className={`${linkClass} cursor-pointer`}>
+                  <RollingText text={t.footer.contactLink} />
+                </button>
+              </li>
+            </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/55">
-              Contacto
+            <h5 className="mb-4 text-[11px] font-semibold uppercase tracking-[0.14em] text-[color:var(--text-subtle)]">
+              {t.footer.contactTitle}
             </h5>
             <ul className="space-y-3">
               {CONTACT_ITEMS.map(({ icon: Icon, label, href }) => (
                 <li key={label}>
-                  {href === "#" ? (
-                    <span className="inline-flex items-center gap-2.5 text-sm text-white/80">
-                      <Icon size={15} className="shrink-0 text-white/50" aria-hidden />
-                      {label}
-                    </span>
-                  ) : (
+                  {href ? (
                     <a
                       href={href}
                       target={href.startsWith("http") ? "_blank" : undefined}
                       rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center gap-2.5 text-sm text-white/80 transition-colors duration-150 hover:text-[color:var(--accent-cta)]"
+                      className="inline-flex items-center gap-2.5 text-sm text-[color:var(--text-muted)] transition-colors duration-150 hover:text-[color:var(--text-strong)]"
                     >
-                      <Icon size={15} className="shrink-0 text-white/50" aria-hidden />
+                      <Icon size={15} className="shrink-0 text-[color:var(--text-subtle)]" aria-hidden />
                       {label}
                     </a>
+                  ) : (
+                    <span className="inline-flex items-center gap-2.5 text-sm text-[color:var(--text-muted)]">
+                      <Icon size={15} className="shrink-0 text-[color:var(--text-subtle)]" aria-hidden />
+                      {label}
+                    </span>
                   )}
                 </li>
               ))}
@@ -82,13 +88,12 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-white/10 pt-6">
-          <span className="text-[11px] tracking-[0.04em] text-white/60">
-            © {new Date().getFullYear()} Neura Sistemas · Todos los derechos reservados
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-[color:var(--border-subtle)] pt-6">
+          <span className="text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
+            © {new Date().getFullYear()} Neura Sistemas · {t.footer.rights}
           </span>
-          <span className="text-[11px] tracking-[0.04em] text-white/60">
-            Rosario, Santa Fe · Automatización para PyMEs argentinas
+          <span className="text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
+            {t.footer.tagline}
           </span>
         </div>
       </Container>

@@ -6,10 +6,12 @@ import { Reveal } from "@/components/ui/reveal";
 import { Container } from "@/components/sections/primitives";
 import { ProjectCard } from "@/components/sections/project-card";
 import { PROJECTS, FILTERS } from "@/components/sections/projects-data";
+import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 /** Full, filterable project grid — lives on the dedicated /proyectos page. */
 export function Projects() {
+  const t = useT();
   const [active, setActive] = useState("all");
   const shown = PROJECTS.filter((p) => active === "all" || p.cat === active);
 
@@ -23,7 +25,7 @@ export function Projects() {
     <section className="pb-[var(--section-y)]">
       <Container>
         <Reveal className="flex flex-wrap gap-2.5">
-          {filters.map(([id, label]) => (
+          {filters.map(([id]) => (
             <button
               key={id}
               onClick={() => setActive(id)}
@@ -34,7 +36,7 @@ export function Projects() {
                   : "border-[color:var(--border-default)] bg-transparent text-[color:var(--text-muted)] hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-strong)]"
               )}
             >
-              {label}
+              {t.projectsPage.filters[id]}
             </button>
           ))}
         </Reveal>

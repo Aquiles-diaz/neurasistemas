@@ -16,9 +16,15 @@
 
 # Neura Sistemas — Sitio web
 
-Landing y sitio institucional de **Neura Sistemas**, un estudio que desarrolla
-**software a medida para PyMEs y comercios**: webs, automatización, CRM y chatbots.
-El sitio está pensado para transmitir confianza y convertir visitas en consultas.
+Landing y sitio institucional de **Neura Sistemas**, un estudio de Rosario que
+desarrolla **sistemas a medida para empresas**: aplicaciones de escritorio,
+plataformas web y apps móviles, con **ciberseguridad desde el diseño**. El sitio
+está pensado para transmitir confianza y convertir visitas en consultas.
+
+Es **bilingüe y bimodal**: un solo botón en la barra cambia a la vez el tema y el
+idioma (oscuro = español, claro = inglés), con un barrido circular vía View
+Transitions. Todo el copy vive en `lib/i18n/` (`es.ts` y `en.ts`, tipados contra
+`types.ts`).
 
 🌐 **En vivo:** [neurasistemas.com.ar](https://neurasistemas.com.ar)
 
@@ -98,7 +104,7 @@ Tenés un **`.env.example`** en el repo con las claves vacías como plantilla.
 ```
 neurasistemas/
 ├── app/                      # App Router de Next.js (cada carpeta = una ruta)
-│   ├── layout.tsx            # Layout raíz: SEO, metadata, fuentes, providers
+│   ├── layout.tsx            # Layout raíz: SEO, metadata, fuentes, providers, script de modo
 │   ├── page.tsx              # Home — arma todas las secciones en orden
 │   ├── iniciar-proyecto/     # /iniciar-proyecto — formulario de brief
 │   ├── proyectos/            # /proyectos — portafolio
@@ -109,10 +115,12 @@ neurasistemas/
 │   └── globals.css           # Estilos globales + tokens de Tailwind
 │
 ├── components/
-│   ├── sections/             # Cada bloque grande del sitio (hero, servicios, etc.)
-│   └── ui/                   # Piezas reutilizables (drawer, modales, banner...)
+│   ├── site-mode.tsx         # Provider tema + idioma (dark/es ↔ light/en) con View Transitions
+│   ├── sections/             # Cada bloque grande del sitio (hero, plataformas, seguridad...)
+│   └── ui/                   # Piezas reutilizables (toggle, rolling text, drawer, modales...)
 │
 ├── lib/                      # Lógica compartida
+│   ├── i18n/                 # Copy del sitio: es.ts, en.ts y el tipo Dict que ambos respetan
 │   ├── site.ts               # Datos del sitio (URL, email, teléfono, WhatsApp)
 │   ├── email.ts              # Envío de formularios vía EmailJS
 │   ├── github.ts             # Helpers de GitHub
@@ -129,20 +137,21 @@ neurasistemas/
 
 La página principal ([`app/page.tsx`](app/page.tsx)) compone los bloques **en este orden**:
 
-1. **Nav** — barra de navegación pegajosa.
-2. **Hero** — primer impacto: propuesta de valor + CTA.
-3. **Solution** — qué problema resolvemos.
-4. **TechStack** — con qué tecnologías trabajamos (Odoo, n8n, Make...).
-5. **Servicios** — webs, automatización, CRM, chatbots.
-6. **WhyUs** — por qué elegirnos.
-7. **Process** — el proceso de trabajo, claro y sin sorpresas.
-8. **CasosReales** — casos de trabajo reales.
-9. **Testimonials** — testimonios (linkeados, reales).
-10. **Packs** — paquetes / planes.
-11. **Cuidado** — mantenimiento (opcional).
-12. **Faq** — preguntas frecuentes.
-13. **Contact** — formulario de contacto.
-14. **Footer** + **PromoBanner** + **ExitOfferModal** (modal de salida).
+1. **Nav** — barra flotante con links de *rolling text* y el toggle tema/idioma.
+2. **Hero** — propuesta de valor con palabra rotativa (escritorio / web / celulares / seguros) + CTA.
+3. **Platforms** — qué construimos: sistemas de escritorio, plataformas web, apps móviles.
+4. **Servicios** — gestión a medida, escritorio, web, móvil, integraciones, ciberseguridad.
+5. **Security** — prácticas de seguridad y garantías por contrato (banda invertida).
+6. **TechStack** — marquee monocromo de tecnologías.
+7. **WhyUs** — diferenciadores, compromisos y tabla comparativa.
+8. **Process** — diagnóstico, propuesta, desarrollo y pruebas, entrega y soporte.
+9. **CasosReales** — proyectos reales en producción.
+10. **Testimonials** — testimonios (linkeados, reales).
+11. **Packs** — planes: Presencia, Sistema, Integral.
+12. **Cuidado** — mantenimiento y monitoreo (opcional).
+13. **Faq** — preguntas frecuentes.
+14. **Contact** — formulario de contacto.
+15. **Footer** + **PromoBanner** + **ExitOfferModal** (modal de salida).
 
 ---
 
@@ -175,14 +184,16 @@ npm run build && npm run start
 
 ## 🎨 Lenguaje visual
 
-- **Estética:** oscura, metálica, premium y técnica. Plata/platino sobre carbón, con un
-  acento azul acero usado con cuentagotas.
+- **Estética:** monocromo puro, blanco y negro. Sin color de acento: el "acento" es
+  siempre el inverso del fondo (botones negros sobre blanco, blancos sobre negro).
+  Dos modos con los mismos tokens (`app/globals.css`): oscuro por defecto y claro.
+  Una sección (Seguridad) y las tarjetas destacadas van en banda invertida.
 - **Tipografías:** Montserrat para títulos, Inter para el cuerpo.
 - **Movimiento:** las secciones **aparecen al entrar** en pantalla (suben + aparecen) y
   se desvanecen al alejarte. Suave y con confianza, nunca rebotón. Se respeta
   `prefers-reduced-motion`.
-- **Voz:** español **rioplatense (voseo)** —"trabajás menos, facturás más"—, cálido y
-  preciso. **Sin métricas inventadas**: la prueba es real (casos, testimonios, stack).
+- **Voz:** español **rioplatense (voseo)**, sobrio y preciso; inglés neutro en modo
+  claro. **Sin métricas inventadas**: la prueba es real (casos, testimonios, stack).
 
 ---
 

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/components/motion-provider";
+import { SiteModeProvider, SITE_MODE_SCRIPT } from "@/components/site-mode";
 import { ContactDrawerProvider } from "@/components/ui/contact-drawer";
 import { SITE_URL } from "@/lib/site";
 
@@ -23,20 +24,20 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Neura Sistemas: Software a medida para PyMEs",
+    default: "Neura Sistemas: Sistemas a medida y ciberseguridad",
     template: "%s · Neura Sistemas",
   },
   description:
-    "Desarrollamos software a medida para PyMEs y comercios: webs, automatización, CRM y chatbots. Orientados a PyMEs, abiertos a cualquier rubro. Trabajás menos, facturás más.",
+    "Desarrollamos sistemas a medida para empresas: aplicaciones de escritorio, plataformas web y apps móviles, con ciberseguridad desde el diseño. Código propio, presupuesto cerrado y soporte real desde Rosario.",
   keywords: [
-    "desarrollo de software",
+    "desarrollo de sistemas",
     "software a medida",
-    "automatización",
-    "chatbots",
-    "CRM",
+    "sistemas de gestión",
+    "aplicaciones de escritorio",
     "desarrollo web",
-    "PyMEs",
-    "comercios",
+    "apps móviles",
+    "ciberseguridad",
+    "auditoría de seguridad",
     "Rosario",
     "Neura Sistemas",
   ],
@@ -50,11 +51,12 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "es_AR",
+    alternateLocale: ["en_US"],
     url: SITE_URL,
     siteName: "Neura Sistemas",
-    title: "Neura Sistemas: Software a medida para PyMEs",
+    title: "Neura Sistemas: Sistemas a medida y ciberseguridad",
     description:
-      "Desarrollamos software a medida: webs, automatización, CRM y chatbots. Orientados a PyMEs y comercios, abiertos a cualquier rubro que quiera crecer.",
+      "Sistemas de escritorio, web y móviles para empresas que no pueden fallar. Seguridad desde el diseño, código propio y presupuesto cerrado.",
     images: [
       {
         url: "/logo/logoneurasistemas.png",
@@ -66,8 +68,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Neura Sistemas: Software a medida para PyMEs",
-    description: "Desarrollamos software a medida. Trabajás menos, facturás más.",
+    title: "Neura Sistemas: Sistemas a medida y ciberseguridad",
+    description:
+      "Sistemas de escritorio, web y móviles. Seguridad desde el diseño.",
     images: ["/logo/logoneurasistemas.png"],
   },
   icons: {
@@ -82,7 +85,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#141414",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0a0a0a" },
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
@@ -93,14 +99,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
+    // `dark` + `lang="es"` are the SSR defaults; the inline script below
+    // swaps them to `light` + `en` before paint when that's what the visitor
+    // chose last time. suppressHydrationWarning covers that intentional diff.
     <html
       lang="es"
-      className={`${inter.variable} ${montserrat.variable}`}
+      className={`dark ${inter.variable} ${montserrat.variable}`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SITE_MODE_SCRIPT }} />
+      </head>
       <body>
-        <MotionProvider>
-          <ContactDrawerProvider>{children}</ContactDrawerProvider>
-        </MotionProvider>
+        <SiteModeProvider>
+          <MotionProvider>
+            <ContactDrawerProvider>{children}</ContactDrawerProvider>
+          </MotionProvider>
+        </SiteModeProvider>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import { m } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { SpotlightGlow, trackSpotlight } from "@/components/ui/spotlight";
 import type { Project } from "@/components/sections/projects-data";
+import { useT } from "@/lib/i18n";
 
 /** Reusable portfolio card — used in both the landing preview and /proyectos. */
 export function ProjectCard({
@@ -15,6 +16,7 @@ export function ProjectCard({
   project: Project;
   showTags?: boolean;
 }) {
+  const t = useT();
   const { name, slug, type, initials, desc, tags, image } = project;
 
   return (
@@ -32,7 +34,7 @@ export function ProjectCard({
       {/* Stretched link: the whole card navigates to the detail page. */}
       <Link
         href={`/proyectos/${slug}`}
-        aria-label={`Ver proyecto ${name}`}
+        aria-label={`${t.cases.viewAria} ${name}`}
         className="absolute inset-0 z-[1]"
       />
       <div className="relative flex aspect-[16/10] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]">
@@ -40,7 +42,7 @@ export function ProjectCard({
           <>
             <Image
               src={image}
-              alt={`Vista previa de ${name}`}
+              alt={`${t.cases.preview} ${name}`}
               fill
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
               className="object-cover object-top saturate-[0.85] transition duration-500 ease-[var(--ease-out-soft)] group-hover:scale-[1.05] group-hover:saturate-100"
@@ -49,16 +51,11 @@ export function ProjectCard({
                 revelar el sitio a todo color ("ir a ver la otra mitad"). */}
             <span
               aria-hidden
-              className="absolute inset-0 bg-gradient-to-t from-[color:var(--ink)]/88 via-[color:var(--ink)]/55 to-[color:var(--ink)]/35 transition-opacity duration-500 ease-[var(--ease-out-soft)] group-hover:opacity-0"
+              className="absolute inset-0 bg-gradient-to-t from-[color:var(--bg-base)]/88 via-[color:var(--bg-base)]/55 to-[color:var(--bg-base)]/35 transition-opacity duration-500 ease-[var(--ease-out-soft)] group-hover:opacity-0"
             />
           </>
         ) : (
           <>
-            <span
-              aria-hidden
-              className="absolute inset-0 opacity-40"
-              style={{ background: "var(--metal-edge)" }}
-            />
             {/* accent wash that blooms on hover */}
             <span
               aria-hidden
@@ -76,7 +73,7 @@ export function ProjectCard({
 
         {/* CTA explícito al pasar el mouse */}
         <span className="pointer-events-none absolute bottom-3 right-3 z-[2] inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:color-mix(in_srgb,var(--surface-1)_88%,transparent)] px-3 py-1.5 text-xs font-semibold text-[color:var(--text-strong)] opacity-0 backdrop-blur-sm transition-opacity duration-300 [box-shadow:var(--edge-hi)] group-hover:opacity-100">
-          Ver proyecto
+          {t.cases.view}
           <ArrowUpRight size={13} strokeWidth={1.8} />
         </span>
       </div>
@@ -90,7 +87,7 @@ export function ProjectCard({
               {type}
             </p>
           </div>
-          <span className="text-[color:var(--text-subtle)] transition-[transform,color] duration-300 ease-[var(--ease-out-soft)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--accent-300)]">
+          <span className="text-[color:var(--text-subtle)] transition-[transform,color] duration-300 ease-[var(--ease-out-soft)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[color:var(--text-strong)]">
             <ArrowUpRight size={22} strokeWidth={1.6} />
           </span>
         </div>

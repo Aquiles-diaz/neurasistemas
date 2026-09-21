@@ -38,7 +38,7 @@ export function Eyebrow({
   );
 }
 
-/** Status badge — pill with optional pulsing accent dot. */
+/** Status badge — pill with optional pulsing dot. */
 export function Badge({
   children,
   dot,
@@ -57,14 +57,20 @@ export function Badge({
     >
       {dot && (
         <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--accent-400)] opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent-500)]" />
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--accent)] opacity-60" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
         </span>
       )}
       {children}
     </span>
   );
 }
+
+const SIZES = {
+  sm: "h-9 px-4 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-[52px] px-7 text-base",
+} as const;
 
 /** Secondary / outline button — hairline border, lifts on hover. */
 export function SecondaryButton({
@@ -75,16 +81,11 @@ export function SecondaryButton({
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: "sm" | "md" | "lg";
 }) {
-  const sizes = {
-    sm: "h-9 px-4 text-sm",
-    md: "h-11 px-5 text-sm",
-    lg: "h-[52px] px-6 text-base",
-  };
   return (
     <button
       className={cn(
-        "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] bg-[color:var(--surface-2)] font-semibold text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)] transition-[transform,border-color,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:border-[color:var(--border-strong)] hover:bg-[color:var(--surface-3)] hover:[box-shadow:var(--glow-silver),var(--edge-hi)] active:translate-y-px active:scale-[0.985]",
-        sizes[size],
+        "roll-trigger group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] bg-transparent font-semibold text-[color:var(--text-strong)] transition-[transform,border-color,background-color] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:border-[color:var(--text-muted)] hover:bg-[color:var(--accent-soft)] active:translate-y-px active:scale-[0.985]",
+        SIZES[size],
         className
       )}
       {...props}
@@ -94,7 +95,7 @@ export function SecondaryButton({
   );
 }
 
-/** Primary CTA — solid orange, white text, lifts on hover. */
+/** Primary CTA — solid, the inverse of the ground (black on white / white on black). */
 export function CtaButton({
   children,
   size = "md",
@@ -103,16 +104,11 @@ export function CtaButton({
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: "sm" | "md" | "lg";
 }) {
-  const sizes = {
-    sm: "h-9 px-4 text-sm",
-    md: "h-11 px-5 text-sm",
-    lg: "h-[52px] px-7 text-base",
-  };
   return (
     <button
       className={cn(
-        "group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px active:scale-[0.985]",
-        sizes[size],
+        "roll-trigger group inline-flex cursor-pointer items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent)] font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-hover)] active:translate-y-px active:scale-[0.985]",
+        SIZES[size],
         className
       )}
       {...props}
