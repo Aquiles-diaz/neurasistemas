@@ -8,6 +8,7 @@ import { TiltScroll } from "@/components/ui/tilt-scroll";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import type { Project } from "@/components/sections/projects-data";
 import type { ProjectContent } from "@/lib/github";
+import { useT } from "@/lib/i18n";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -25,6 +26,7 @@ export function ProjectDetail({
   project: Project;
   content: ProjectContent;
 }) {
+  const t = useT();
   const { title, desc, repoUrl } = content;
   const displayUrl = project.url?.replace(/^https?:\/\//, "").replace(/\/$/, "");
 
@@ -40,7 +42,7 @@ export function ProjectDetail({
             strokeWidth={1.8}
             className="transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover:-translate-x-0.5"
           />
-          Volver a proyectos
+          {t.projectsPage.back}
         </Link>
       </m.div>
 
@@ -80,9 +82,9 @@ export function ProjectDetail({
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent-cta)] px-7 text-base font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-cta-hover)] active:translate-y-px"
+              className="inline-flex h-[52px] items-center justify-center gap-2 rounded-[var(--radius-pill)] bg-[color:var(--accent)] px-7 text-base font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-hover)] active:translate-y-px"
             >
-              Visitar sitio
+              {t.projectsPage.live}
               <ArrowUpRight size={18} strokeWidth={1.8} />
             </a>
           )}
@@ -91,10 +93,10 @@ export function ProjectDetail({
               href={repoUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-[52px] items-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] bg-[color:var(--surface-2)] px-6 text-base font-semibold text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--surface-3)] hover:[box-shadow:var(--glow-silver),var(--edge-hi)]"
+              className="inline-flex h-[52px] items-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] px-6 text-base font-semibold text-[color:var(--text-strong)] transition-[transform,background-color] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-soft)] active:translate-y-px"
             >
               <Github size={18} strokeWidth={1.6} />
-              Ver repositorio
+              {t.projectsPage.repo}
             </a>
           )}
         </m.div>
@@ -135,12 +137,12 @@ export function ProjectDetail({
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Visitar ${title}`}
+              aria-label={`${t.projectsPage.live}: ${title}`}
               className="group relative flex aspect-[16/9] items-center justify-center overflow-hidden [background:linear-gradient(155deg,var(--surface-2),var(--surface-3))]"
             >
               <PreviewArt project={project} title={title} />
               <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-1.5 text-xs font-semibold text-[color:var(--text-strong)] opacity-0 [box-shadow:var(--edge-hi)] transition-opacity duration-300 group-hover:opacity-100">
-                Abrir sitio
+                {t.projectsPage.live}
                 <ArrowUpRight size={13} strokeWidth={1.8} />
               </span>
             </a>
@@ -160,12 +162,13 @@ export function ProjectDetail({
 }
 
 function PreviewArt({ project, title }: { project: Project; title: string }) {
+  const t = useT();
   // Real screenshot of the live site when available; initials art otherwise.
   if (project.image) {
     return (
       <Image
         src={project.image}
-        alt={`Vista previa de ${title}`}
+        alt={`${t.cases.preview} ${title}`}
         fill
         sizes="(max-width: 1200px) 100vw, 1104px"
         className="object-cover object-top saturate-[0.9] brightness-[0.97] transition duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.02] group-hover:saturate-100 group-hover:brightness-100"
@@ -174,11 +177,6 @@ function PreviewArt({ project, title }: { project: Project; title: string }) {
   }
   return (
     <>
-      <span
-        aria-hidden
-        className="absolute inset-0 opacity-40"
-        style={{ background: "var(--metal-edge)" }}
-      />
       <span
         aria-hidden
         className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"

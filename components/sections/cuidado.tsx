@@ -4,90 +4,38 @@ import { ShieldCheck, Gauge, Check, type LucideIcon } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow, CtaButton } from "@/components/sections/primitives";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { useT } from "@/lib/i18n";
 
-interface Plan {
-  id: string;
-  icon: LucideIcon;
-  /** Acento decorativo (icono/anillo). */
-  accent: string;
-  /** Variante AA-safe del acento para texto chico sobre blanco. */
-  accentText: string;
-  name: string;
-  para: string;
-  /** Monto sin decoración — "USD/mes" se renderiza aparte. */
-  precio: string;
-  bullets: string[];
-  cta: string;
-  featured: boolean;
-}
-
-const PLANS: Plan[] = [
-  {
-    id: "cuidado-web",
-    icon: ShieldCheck,
-    accent: "var(--primary)",
-    accentText: "var(--primary)",
-    name: "Cuidado Web",
-    para: "Para tu web y automatizaciones de Arrancar o Crecer",
-    precio: "$29",
-    bullets: [
-      "Hosting, dominio y SSL gestionados",
-      "Backups automáticos + monitoreo de uptime",
-      "1 cambio chico por mes (textos, fotos, precios)",
-      "Soporte por WhatsApp",
-    ],
-    cta: "Quiero el cuidado",
-    featured: false,
-  },
-  {
-    id: "cuidado-sistema",
-    icon: Gauge,
-    accent: "var(--secondary)",
-    accentText: "var(--secondary-ink)",
-    name: "Cuidado Sistema",
-    para: "Para tu sistema completo de Dominar",
-    precio: "$99",
-    bullets: [
-      "Todo lo de Cuidado Web",
-      "Automatizaciones y chatbot siempre al día",
-      "CRM y flujos actualizados",
-      "Reporte mensual de métricas",
-      "Soporte prioritario",
-    ],
-    cta: "Quiero el cuidado completo",
-    featured: true,
-  },
-];
+/* Icons follow the order of `care.items` in the dictionaries. */
+const ICONS: LucideIcon[] = [ShieldCheck, Gauge];
 
 export function Cuidado() {
+  const t = useT();
   const { open } = useContactDrawer();
 
   return (
     <section
       id="cuidado"
-      className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]"
+      className="relative bg-[color:var(--surface-1)] py-[var(--section-y)]"
     >
       <Container>
         <Reveal>
-          <Eyebrow center>Plan Cuidado</Eyebrow>
+          <Eyebrow center>{t.care.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4.5 text-center text-[clamp(2rem,4.4vw,3rem)] font-bold leading-[1.05] tracking-[-0.015em] text-[color:var(--text-strong)]">
-            Tu sistema no se queda solo
+            {t.care.title}
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
-          <p className="mx-auto mt-4 max-w-[52ch] text-center text-[color:var(--text-muted)] leading-[1.6]">
-            Es opcional y lo activás solo si lo querés. Si lo tomás, lo
-            entregamos andando y lo mantenemos vivo —hosting, mejoras y
-            soporte— por menos de lo que pagás de luz. Vos seguís con tu
-            negocio; nosotros, con que todo funcione.
+          <p className="mx-auto mt-4 max-w-[52ch] text-center leading-[1.6] text-[color:var(--text-muted)]">
+            {t.care.subtitle}
           </p>
         </Reveal>
 
         <div className="mx-auto mt-14 grid max-w-4xl grid-cols-1 items-stretch gap-6 md:grid-cols-2">
-          {PLANS.map((plan, i) => {
-            const Icon = plan.icon;
+          {t.care.items.map((plan, i) => {
+            const Icon = ICONS[i] ?? ShieldCheck;
             const { featured } = plan;
             return (
               <Reveal key={plan.id} delay={d(i + 1)} className="h-full">
@@ -95,48 +43,34 @@ export function Cuidado() {
                   className={[
                     "group relative flex h-full flex-col rounded-[var(--radius-lg)] p-7 transition-[transform,box-shadow] duration-300 ease-[var(--ease-out-soft)]",
                     featured
-                      ? "bg-[color:var(--card-hover)] text-white ring-1 ring-[color:var(--accent)]/40 [box-shadow:0_30px_70px_-24px_rgba(182,255,0,0.3)] hover:[box-shadow:0_40px_90px_-24px_rgba(182,255,0,0.42)]"
+                      ? "band [box-shadow:var(--shadow-lg)]"
                       : "border border-[color:var(--border-subtle)] bg-[color:var(--card)] [box-shadow:var(--shadow-md)] hover:-translate-y-1.5 hover:[box-shadow:var(--shadow-lg)]",
                   ].join(" ")}
                 >
                   {featured && (
                     <span
-                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] bg-[color:var(--secondary)] px-3.5 py-1 text-xs font-semibold text-[color:var(--navy)] [box-shadow:var(--shadow-sm)]"
-                      aria-label="Plan recomendado"
+                      className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-[var(--radius-pill)] border border-[color:var(--band-hairline)] bg-[color:var(--band-bg)] px-3.5 py-1 text-xs font-semibold text-[color:var(--band-fg)]"
+                      aria-label={t.care.recommendedAria}
                     >
-                      Recomendado
+                      {t.care.recommended}
                     </span>
                   )}
 
                   <div
-                    className="mb-5 flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]"
-                    style={
+                    className={[
+                      "mb-5 flex h-12 w-12 items-center justify-center rounded-[var(--radius-md)]",
                       featured
-                        ? { backgroundColor: "var(--secondary)", color: "var(--navy)" }
-                        : {
-                            backgroundColor: `color-mix(in srgb, ${plan.accent} 12%, transparent)`,
-                            color: plan.accent,
-                          }
-                    }
+                        ? "bg-[color:var(--band-fg)] text-[color:var(--band-bg)]"
+                        : "bg-[color:var(--accent-soft)] text-[color:var(--text-strong)]",
+                    ].join(" ")}
                   >
                     <Icon size={24} strokeWidth={1.8} aria-hidden />
                   </div>
 
-                  <p
-                    className="mb-1 text-xs font-semibold uppercase tracking-widest"
-                    style={{ color: featured ? "var(--secondary)" : plan.accentText }}
-                  >
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-[color:var(--text-strong)]">
                     {plan.name}
                   </p>
-                  <p
-                    className={
-                      featured
-                        ? "mb-5 text-sm text-white/70"
-                        : "mb-5 text-sm text-[color:var(--text-muted)]"
-                    }
-                  >
-                    {plan.para}
-                  </p>
+                  <p className="mb-5 text-sm text-[color:var(--text-muted)]">{plan.para}</p>
 
                   <ul className="mb-7 flex flex-col gap-2.5" role="list">
                     {plan.bullets.map((bullet) => (
@@ -144,16 +78,10 @@ export function Cuidado() {
                         <Check
                           size={16}
                           strokeWidth={2.5}
-                          className="mt-0.5 shrink-0"
-                          style={{ color: featured ? "var(--secondary)" : plan.accent }}
+                          className="mt-0.5 shrink-0 text-[color:var(--text-strong)]"
                           aria-hidden
                         />
-                        <span
-                          className={[
-                            "text-sm leading-snug",
-                            featured ? "text-white/85" : "text-[color:var(--text-body)]",
-                          ].join(" ")}
-                        >
+                        <span className="text-sm leading-snug text-[color:var(--text-body)]">
                           {bullet}
                         </span>
                       </li>
@@ -164,30 +92,18 @@ export function Cuidado() {
                     <p className="mb-5 flex items-baseline gap-1.5">
                       <span
                         className={[
-                          "font-[family-name:var(--font-display)] font-bold tracking-[-0.02em]",
-                          featured
-                            ? "text-[2.6rem] leading-none text-white"
-                            : "text-[2.1rem] leading-none text-[color:var(--text-strong)]",
+                          "font-[family-name:var(--font-display)] font-bold leading-none tracking-[-0.02em] text-[color:var(--text-strong)]",
+                          featured ? "text-[2.6rem]" : "text-[2.1rem]",
                         ].join(" ")}
                       >
-                        {plan.precio}
+                        {plan.price}
                       </span>
-                      <span
-                        className={
-                          featured
-                            ? "text-sm font-medium text-white/55"
-                            : "text-sm font-medium text-[color:var(--text-subtle)]"
-                        }
-                      >
-                        USD/mes
+                      <span className="text-sm font-medium text-[color:var(--text-subtle)]">
+                        {t.care.perMonth}
                       </span>
                     </p>
 
-                    <CtaButton
-                      size="md"
-                      className="w-full justify-center"
-                      onClick={open}
-                    >
+                    <CtaButton size="md" className="w-full justify-center" onClick={open}>
                       {plan.cta}
                     </CtaButton>
                   </div>
@@ -199,12 +115,11 @@ export function Cuidado() {
 
         <Reveal delay={d(3)}>
           <p className="mx-auto mt-10 max-w-[60ch] text-center text-sm text-[color:var(--text-muted)]">
-            Con cualquier pack:{" "}
-            <strong className="font-semibold text-[color:var(--secondary-ink)]">
-              1er mes gratis y meses 2 y 3 al 50%
+            {t.care.footnotePre}
+            <strong className="font-semibold text-[color:var(--text-strong)]">
+              {t.care.footnoteStrong}
             </strong>
-            . Cobro mensual por MercadoPago o tarjeta. Cancelás cuando quieras,
-            sin vueltas.
+            {t.care.footnotePost}
           </p>
         </Reveal>
       </Container>

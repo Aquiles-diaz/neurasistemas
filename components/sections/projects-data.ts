@@ -67,9 +67,10 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const FILTERS: [string, string][] = [
+/** Filter ids; their labels live in the dictionaries (`projectsPage.filters`). */
+export const FILTERS: [Project["cat"] | "all", string][] = [
   ["all", "Todo"],
   ["web", "Web"],
-  ["apps", "Apps"],
+  ["apps", "Sistemas"],
   ["ecommerce", "E-commerce"],
 ];

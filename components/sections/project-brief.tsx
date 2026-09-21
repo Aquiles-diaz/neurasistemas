@@ -27,16 +27,18 @@ import { cn } from "@/lib/utils";
 const LEAD_DAYS = 10;
 
 const TIPOS = [
+  "Sistema de gestión",
+  "App de escritorio",
+  "Plataforma web",
+  "App móvil",
   "Sitio web",
-  "Aplicación web",
-  "E-commerce",
-  "Rediseño",
+  "Ciberseguridad",
   "Otro",
 ];
 const PRESUPUESTOS = ["Aún no lo sé", "Hasta US$1.5k", "US$1.5k-4k", "US$4k+"];
 
 const inputBase =
-  "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3 text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--accent-500)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
+  "w-full rounded-[var(--radius-md)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-3 text-[color:var(--text-strong)] placeholder:text-[color:var(--text-subtle)] transition-[border-color,box-shadow] duration-200 outline-none focus:border-[color:var(--text-strong)] focus:[box-shadow:0_0_0_3px_var(--accent-glow)]";
 
 // ── date helpers (day granularity, local time) ──────────────────────────────
 const startOfDay = (d: Date) => {
@@ -120,7 +122,7 @@ function ChipGroup({
               className={cn(
                 "cursor-pointer rounded-[var(--radius-pill)] border px-3.5 py-1.5 text-sm transition-[border-color,background-color,color,box-shadow] duration-200 ease-[var(--ease-out-soft)]",
                 active
-                  ? "border-[color:var(--accent-500)] bg-[color:var(--accent-glow)] text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)]"
+                  ? "border-[color:var(--text-strong)] bg-[color:var(--accent-soft)] text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)]"
                   : "border-[color:var(--border-default)] bg-[color:var(--surface-2)] text-[color:var(--text-muted)] hover:border-[color:var(--border-strong)] hover:text-[color:var(--text-body)]"
               )}
             >
@@ -225,7 +227,7 @@ function Calendar({
                   !selected &&
                   "cursor-pointer text-[color:var(--text-body)] hover:bg-[color:var(--surface-3)] hover:text-[color:var(--text-strong)]",
                 selected &&
-                  "cursor-pointer border border-[color:var(--accent-500)] bg-[color:var(--accent-glow)] font-semibold text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)]"
+                  "cursor-pointer border border-[color:var(--text-strong)] bg-[color:var(--accent-soft)] font-semibold text-[color:var(--text-strong)] [box-shadow:var(--edge-hi)]"
               )}
             >
               {day.getDate()}
@@ -474,7 +476,7 @@ export function ProjectBrief() {
                     <textarea
                       rows={4}
                       className={cn(inputBase, "resize-y leading-[1.6]")}
-                      placeholder="Objetivo, público, webs de referencia, funciones que no pueden faltar…"
+                      placeholder="Objetivo, usuarios, sistemas que ya usás, funciones que no pueden faltar…"
                       value={form.mensaje}
                       onChange={set("mensaje")}
                     />
@@ -499,14 +501,14 @@ export function ProjectBrief() {
                         href={WHATSAPP}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-semibold text-[color:var(--accent-cta)] underline underline-offset-2"
+                        className="font-semibold text-[color:var(--text-strong)] underline underline-offset-2"
                       >
                         WhatsApp
                       </a>{" "}
                       o a{" "}
                       <a
                         href={`mailto:${EMAIL}`}
-                        className="font-semibold text-[color:var(--accent-cta)] underline underline-offset-2"
+                        className="font-semibold text-[color:var(--text-strong)] underline underline-offset-2"
                       >
                         {EMAIL}
                       </a>

@@ -16,3 +16,5 @@ skills.md
 *.skill
 skills-lock.json
 .vercel
+.firebase/
+firebase-debug.log

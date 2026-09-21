@@ -3,125 +3,85 @@
 import { Star, ArrowUpRight } from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
+import { useT } from "@/lib/i18n";
 
-/* Dorado de las estrellas */
-const GOLD = "#fbbc04";
-
-type Review = {
-  quote: string;
-  autor: string;
-  negocio: string;
-  zona: string;
-  fecha: string;
-  initial: string;
-  avatar: string;
-  /** Sitio/proyecto en vivo — hace el testimonio comprobable. */
-  href?: string;
-};
-
-const REVIEWS: Review[] = [
-  {
-    quote:
-      "Pensé que era imposible: un generador 3D donde el cliente arma su mueble, lo ve en realidad virtual y recibe la cotización en tiempo real. Le salvó la vida a la empresa.",
-    autor: "Pablo B. Arcadigni",
-    negocio: "Reno Amoblamientos",
-    zona: "Piñero, Santa Fe",
-    fecha: "hace 1 mes",
-    initial: "P",
-    avatar: "#7c3aed",
-    href: "https://renovision-nu.vercel.app",
-  },
-  {
-    quote:
-      "Montamos un portal de empleo donde cada persona sube su CV y un video de un minuto presentándose. Revolucionó la búsqueda: hoy damos trabajo en toda la provincia de Santa Fe.",
-    autor: "Sergio Ducca",
-    negocio: "Human Power",
-    zona: "Rosario, Santa Fe",
-    fecha: "hace 2 meses",
-    initial: "S",
-    avatar: "#0ea5e9",
-    href: "https://human-power-rrhh.vercel.app",
-  },
-];
-
-function Stars({ size = 16 }: { size?: number }) {
+function Stars({ size = 16, label }: { size?: number; label: string }) {
   return (
-    <div className="flex items-center gap-0.5" aria-label="5 de 5 estrellas">
+    <div className="flex items-center gap-0.5" aria-label={label}>
       {Array.from({ length: 5 }).map((_, i) => (
-        <Star key={i} size={size} style={{ fill: GOLD, color: GOLD }} aria-hidden />
+        <Star
+          key={i}
+          size={size}
+          strokeWidth={1.5}
+          className="fill-[color:var(--text-strong)] text-[color:var(--text-strong)]"
+          aria-hidden
+        />
       ))}
     </div>
   );
 }
 
 export function Testimonials() {
+  const t = useT();
+
   return (
     <section
       id="opiniones"
-      className="relative py-[var(--section-y)] bg-[color:var(--surface-1)]"
+      className="relative bg-[color:var(--surface-1)] py-[var(--section-y)]"
     >
       <Container>
-        {/* Encabezado */}
         <Reveal>
-          <Eyebrow center>Opiniones</Eyebrow>
+          <Eyebrow center>{t.testimonials.eyebrow}</Eyebrow>
         </Reveal>
         <Reveal delay={d(1)}>
           <h2 className="mt-4 text-center text-[clamp(1.75rem,4vw,2.75rem)] font-bold leading-[1.1] tracking-[-0.015em] text-[color:var(--text-strong)] [font-family:var(--font-display)]">
-            Lo que dicen nuestros clientes
+            {t.testimonials.title}
           </h2>
         </Reveal>
         <Reveal delay={d(2)}>
           <div className="mt-5 flex justify-center">
-            <Stars size={20} />
+            <Stars size={20} label={t.testimonials.stars} />
           </div>
         </Reveal>
 
-        {/* Opiniones */}
         <div className="mx-auto mt-12 grid max-w-[920px] grid-cols-1 gap-6 md:grid-cols-2">
-          {REVIEWS.map((r, i) => (
-            <Reveal key={r.autor} delay={d(i + 1)} className="h-full">
+          {t.testimonials.items.map((r, i) => (
+            <Reveal key={r.author} delay={d(i + 1)} className="h-full">
               <article className="flex h-full flex-col gap-4 rounded-[var(--radius-lg)] border border-[color:var(--border-subtle)] bg-[color:var(--card)] p-6 [box-shadow:var(--shadow-md),var(--edge-hi)]">
-                {/* Autor */}
                 <div className="flex items-center gap-3">
                   <span
-                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-base font-bold text-white"
-                    style={{ backgroundColor: r.avatar }}
+                    className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[color:var(--accent)] text-base font-bold text-[color:var(--text-onaccent)]"
                     aria-hidden
                   >
-                    {r.initial}
+                    {r.author.charAt(0)}
                   </span>
                   <div className="min-w-0">
                     <p className="truncate font-semibold leading-tight text-[color:var(--text-strong)]">
-                      {r.autor}
+                      {r.author}
                     </p>
                     <p className="mt-0.5 truncate text-xs text-[color:var(--text-subtle)]">
-                      {r.negocio} &middot; {r.zona}
+                      {r.business} &middot; {r.place}
                     </p>
                   </div>
                 </div>
 
-                {/* Estrellas + fecha */}
                 <div className="flex items-center gap-2">
-                  <Stars />
-                  <span className="text-xs text-[color:var(--text-subtle)]">
-                    {r.fecha}
-                  </span>
+                  <Stars label={t.testimonials.stars} />
+                  <span className="text-xs text-[color:var(--text-subtle)]">{r.when}</span>
                 </div>
 
-                {/* Texto */}
                 <blockquote className="text-[15px] leading-[1.7] text-[color:var(--text-body)]">
                   {r.quote}
                 </blockquote>
 
-                {/* Prueba verificable: link al proyecto en vivo */}
                 {r.href && (
                   <a
                     href={r.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-auto inline-flex items-center gap-1 self-start text-sm font-semibold text-[color:var(--primary)] underline-offset-2 hover:underline"
+                    className="mt-auto inline-flex items-center gap-1 self-start text-sm font-semibold text-[color:var(--text-strong)] underline-offset-4 hover:underline"
                   >
-                    Ver el proyecto en vivo
+                    {t.testimonials.viewLive}
                     <ArrowUpRight size={15} strokeWidth={2} aria-hidden />
                   </a>
                 )}
