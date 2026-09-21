@@ -1,0 +1,70 @@
+# Deploy a Firebase Hosting.
+#   - push a `main`        → canal `live` (producción, neurasistemas.com.ar)
+#   - pull request a `main` → canal de preview temporal (URL en el PR, 7 días)
+#
+# Secrets necesarios (Settings → Secrets and variables → Actions):
+#   FIREBASE_SERVICE_ACCOUNT        JSON de la cuenta de servicio (lo genera
+#                                   `firebase init hosting:github` o la consola)
+#   FIREBASE_PROJECT_ID             ID del proyecto en Firebase
+#   NEXT_PUBLIC_EMAILJS_SERVICE_ID  } mismas variables que en Vercel; si faltan
+#   NEXT_PUBLIC_EMAILJS_TEMPLATE_ID } los formularios caen a mailto:
+#   NEXT_PUBLIC_EMAILJS_PUBLIC_KEY  }
+#   NEXT_PUBLIC_GA_ID               ID de Google Analytics 4 (G-XXXXXXXXXX)
+#   NEXT_PUBLIC_SENTRY_DSN          DSN del proyecto en Sentry
+name: Deploy a Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+concurrency:
+  group: firebase-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (export estático a /out)
+        run: npm run build
+        env:
+          NEXT_PUBLIC_EMAILJS_SERVICE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_SERVICE_ID }}
+          NEXT_PUBLIC_EMAILJS_TEMPLATE_ID: ${{ secrets.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID }}
+          NEXT_PUBLIC_EMAILJS_PUBLIC_KEY: ${{ secrets.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY }}
+          NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          NEXT_PUBLIC_RELEASE: ${{ github.sha }}
+
+      - name: Deploy (producción)
+        if: github.event_name == 'push'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          channelId: live
+
+      - name: Deploy (preview del PR)
+        if: github.event_name == 'pull_request'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          expires: 7d

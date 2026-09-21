@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import { Container } from "@/components/sections/primitives";
+import { reportError } from "@/components/sentry-init";
 
 /**
  * Route-level safety net: a client-side throw renders this instead of blanking
- * the whole page. Keeps the site usable even if a visual effect fails.
+ * the whole page. Keeps the site usable even if a visual effect fails, and
+ * reports the error to Sentry (no-op without DSN).
  */
 export default function Error({
   error,
@@ -17,6 +19,7 @@ export default function Error({
 }) {
   useEffect(() => {
     console.error(error);
+    reportError(error, { digest: error.digest });
   }, [error]);
 
   return (

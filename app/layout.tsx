@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Montserrat } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/analytics";
 import { MotionProvider } from "@/components/motion-provider";
+import { SentryInit } from "@/components/sentry-init";
 import { SiteModeProvider, SITE_MODE_SCRIPT } from "@/components/site-mode";
 import { ContactDrawerProvider } from "@/components/ui/contact-drawer";
 import { SITE_URL } from "@/lib/site";
@@ -116,6 +118,9 @@ export default function RootLayout({
             <ContactDrawerProvider>{children}</ContactDrawerProvider>
           </MotionProvider>
         </SiteModeProvider>
+        {/* Observabilidad: ambos son no-op si falta su variable de entorno. */}
+        <SentryInit />
+        <Analytics />
       </body>
     </html>
   );

@@ -42,7 +42,9 @@ Transitions. Todo el copy vive en `lib/i18n/` (`es.ts` y `en.ts`, tipados contra
 | Íconos | **lucide-react** | Set de íconos de trazo |
 | Formularios | **EmailJS** | Envío de mails sin backend (del lado del cliente) |
 | Tipografías | **Montserrat** (títulos) + **Inter** (texto) | Vía `next/font` |
-| Deploy | **Vercel** | Hosting + deploy automático |
+| Deploy | **Vercel** y **Firebase Hosting** | Vercel deploya solo desde `main`; Firebase vía GitHub Actions (ver abajo) |
+| Tráfico | **Google Analytics 4** + **Vercel Analytics** | GA4 con `@next/third-parties`; Vercel Analytics solo cuando el build corre en Vercel |
+| Errores | **Sentry** (`@sentry/browser`) | Errores del navegador, cargado después del primer pintado |
 
 > **¿Por qué "static export"?** El sitio no necesita servidor: se compila a archivos
 > estáticos y se sirve como una web ultra rápida. Eso lo hace barato de hostear,
@@ -88,6 +90,10 @@ Creá un archivo **`.env.local`** (ya está en `.gitignore`, nunca se sube) con:
 NEXT_PUBLIC_EMAILJS_SERVICE_ID=tu_service_id
 NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=tu_template_id
 NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=tu_public_key
+
+# Observabilidad (opcionales: sin valor, no se carga nada)
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX        # Google Analytics 4 → Admin → Flujos de datos → Web
+NEXT_PUBLIC_SENTRY_DSN=https://...    # Sentry → Settings → Projects → Client Keys
 ```
 
 > ⚠️ **Importante para el deploy:** estas variables tenés que cargarlas **también en
@@ -168,11 +174,48 @@ npm run lint     # Corre ESLint
 
 ## 🌍 Build y deploy
 
-El sitio se hostea en **Vercel** y se **deploya solo** cada vez que pusheás a `main`.
+Hoy el sitio se hostea en **Vercel** y se **deploya solo** cada vez que pusheás a `main`.
+El repo ya trae todo para hostearlo también (o en su lugar) en **Firebase Hosting**, de
+Google: mismo build estático, otro CDN.
 
-- Vercel corre `npm run build`, que por el `output: "export"` genera el sitio estático.
+- Ambos corren `npm run build`, que por el `output: "export"` genera el sitio en `/out`.
 - El dominio canónico es **neurasistemas.com.ar**.
-- Acordate de tener las **variables de entorno cargadas en Vercel** (sección de arriba).
+- Las variables de entorno se cargan donde se hace el build: en Vercel (Settings →
+  Environment Variables) o en GitHub (Settings → Secrets) para Firebase.
+
+### Firebase Hosting (Google)
+
+`firebase.json` sirve `/out` con cache larga para `/_next/static` y cabeceras de
+seguridad. El workflow [`.github/workflows/deploy-firebase.yml`](.github/workflows/deploy-firebase.yml)
+publica en producción con cada push a `main` y arma un **preview temporal** por cada PR.
+
+Setup, una sola vez, desde tu cuenta de Google:
+
+1. Creá el proyecto en [console.firebase.google.com](https://console.firebase.google.com)
+   y activá **Hosting**. Poné el ID del proyecto en `.firebaserc`.
+2. Generá la cuenta de servicio para GitHub: `npx firebase-tools init hosting:github`
+   (o desde la consola: Configuración → Cuentas de servicio → Generar clave). Guardá el
+   JSON en el secret **`FIREBASE_SERVICE_ACCOUNT`** y el ID en **`FIREBASE_PROJECT_ID`**.
+3. Cargá en GitHub los mismos secrets `NEXT_PUBLIC_*` que tenés en Vercel.
+4. Dominio propio: Hosting → Agregar dominio personalizado → seguí las instrucciones de
+   DNS para `neurasistemas.com.ar`. Cuando el certificado esté listo, apuntá el DNS a
+   Firebase y podés pausar Vercel.
+
+Deploy manual desde tu máquina, si hace falta: `npm run build && npx firebase-tools deploy --only hosting`.
+
+### Tráfico y errores
+
+- **Google Analytics 4**: creá una propiedad en [analytics.google.com](https://analytics.google.com),
+  copiá el ID de medición (`G-…`) en `NEXT_PUBLIC_GA_ID`. Se carga con `@next/third-parties`
+  después de que la página es interactiva.
+- **Vercel Analytics**: se activa solo cuando el build corre en Vercel (Analytics → Enable
+  en el proyecto). En Firebase no se monta.
+- **Sentry**: creá un proyecto *Browser JavaScript* en [sentry.io](https://sentry.io) y
+  pegá el DSN en `NEXT_PUBLIC_SENTRY_DSN`. El SDK se carga con un import dinámico después
+  del montaje; el error boundary (`app/error.tsx`) reporta lo que atrapa. `NEXT_PUBLIC_RELEASE`
+  agrupa los errores por versión (en GitHub Actions es el SHA del commit).
+
+Nada de esto corre sin su variable: en desarrollo y en previews sin claves no se envía dato alguno.
 
 Para probar el build de producción en tu máquina:
 
