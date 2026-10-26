@@ -16,8 +16,6 @@ skills.md
 *.skill
 skills-lock.json
 .vercel
-.firebase/
-firebase-debug.log
 
 # GSD / planning tooling (lo recrea el plugin; no es parte del sitio)
 .planning/

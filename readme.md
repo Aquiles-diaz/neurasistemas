@@ -42,7 +42,7 @@ Transitions. Todo el copy vive en `lib/i18n/` (`es.ts` y `en.ts`, tipados contra
 | Íconos | **lucide-react** | Set de íconos de trazo |
 | Formularios | **EmailJS** | Envío de mails sin backend (del lado del cliente) |
 | Tipografías | **Montserrat** (títulos) + **Inter** (texto) | Vía `next/font` |
-| Deploy | **Vercel** y **Firebase Hosting** | Vercel deploya solo desde `main`; Firebase vía GitHub Actions (ver abajo) |
+| Deploy | **Vercel** | Deploya solo con cada push a `main` |
 | Tráfico | **Google Analytics 4** + **Vercel Analytics** | GA4 con `@next/third-parties`; Vercel Analytics solo cuando el build corre en Vercel |
 | Errores | **Sentry** (`@sentry/browser`) | Errores del navegador, cargado después del primer pintado |
 
@@ -158,9 +158,8 @@ neurasistemas/
 │   ├── projects/             # Capturas de los proyectos
 │   └── site.webmanifest      # Manifest PWA
 │
-├── .github/workflows/        # Deploy a Firebase Hosting (se salta si faltan secrets)
-├── firebase.json · .firebaserc   # Hosting: carpeta `out`, cache y headers de seguridad
 ├── next.config.mjs           # `output: "export"` (sitio estático)
+├── vercel.json               # Cabeceras de seguridad y cache en Vercel
 ├── eslint.config.mjs · postcss.config.mjs · tsconfig.json
 ├── .env.example              # Variables de entorno documentadas (copiar a .env.local)
 ├── LICENSE · NOTICE          # Licencia propietaria + avisos de terceros
@@ -211,34 +210,12 @@ npm run lint     # Corre ESLint
 
 ## 🌍 Build y deploy
 
-Hoy el sitio se hostea en **Vercel** y se **deploya solo** cada vez que pusheás a `main`.
-El repo ya trae todo para hostearlo también (o en su lugar) en **Firebase Hosting**, de
-Google: mismo build estático, otro CDN.
+El sitio se hostea en **Vercel** y se **deploya solo** cada vez que pusheás a `main`.
 
-- Ambos corren `npm run build`, que por el `output: "export"` genera el sitio en `/out`.
+- Vercel corre `npm run build`, que por el `output: "export"` genera el sitio estático en `/out`.
 - El dominio canónico es **neurasistemas.com.ar**.
-- Las variables de entorno se cargan donde se hace el build: en Vercel (Settings →
-  Environment Variables) o en GitHub (Settings → Secrets) para Firebase.
-
-### Firebase Hosting (Google)
-
-`firebase.json` sirve `/out` con cache larga para `/_next/static` y cabeceras de
-seguridad. El workflow [`.github/workflows/deploy-firebase.yml`](.github/workflows/deploy-firebase.yml)
-publica en producción con cada push a `main` y arma un **preview temporal** por cada PR.
-
-Setup, una sola vez, desde tu cuenta de Google:
-
-1. Creá el proyecto en [console.firebase.google.com](https://console.firebase.google.com)
-   y activá **Hosting**. Poné el ID del proyecto en `.firebaserc`.
-2. Generá la cuenta de servicio para GitHub: `npx firebase-tools init hosting:github`
-   (o desde la consola: Configuración → Cuentas de servicio → Generar clave). Guardá el
-   JSON en el secret **`FIREBASE_SERVICE_ACCOUNT`** y el ID en **`FIREBASE_PROJECT_ID`**.
-3. Cargá en GitHub los mismos secrets `NEXT_PUBLIC_*` que tenés en Vercel.
-4. Dominio propio: Hosting → Agregar dominio personalizado → seguí las instrucciones de
-   DNS para `neurasistemas.com.ar`. Cuando el certificado esté listo, apuntá el DNS a
-   Firebase y podés pausar Vercel.
-
-Deploy manual desde tu máquina, si hace falta: `npm run build && npx firebase-tools deploy --only hosting`.
+- Las variables de entorno se cargan en Vercel (Project → Settings → Environment Variables).
+- Las cabeceras de seguridad y la cache de `/_next/static` las define `vercel.json`.
 
 ### Tráfico y errores
 
@@ -246,11 +223,11 @@ Deploy manual desde tu máquina, si hace falta: `npm run build && npx firebase-t
   copiá el ID de medición (`G-…`) en `NEXT_PUBLIC_GA_ID`. Se carga con `@next/third-parties`
   después de que la página es interactiva.
 - **Vercel Analytics**: se activa solo cuando el build corre en Vercel (Analytics → Enable
-  en el proyecto). En Firebase no se monta.
+  en el proyecto).
 - **Sentry**: creá un proyecto *Browser JavaScript* en [sentry.io](https://sentry.io) y
   pegá el DSN en `NEXT_PUBLIC_SENTRY_DSN`. El SDK se carga con un import dinámico después
   del montaje; el error boundary (`app/error.tsx`) reporta lo que atrapa. `NEXT_PUBLIC_RELEASE`
-  agrupa los errores por versión (en GitHub Actions es el SHA del commit).
+  agrupa los errores por versión (Vercel lo completa solo con el SHA del commit).
 
 Nada de esto corre sin su variable: en desarrollo y en previews sin claves no se envía dato alguno.
 

@@ -11,7 +11,9 @@ import { useEffect } from "react";
  * sin servidor que instrumentar, y así evitamos el plugin de build.
  */
 const DSN = process.env.NEXT_PUBLIC_SENTRY_DSN;
-const RELEASE = process.env.NEXT_PUBLIC_RELEASE;
+// Vercel expone el SHA del commit en NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA.
+const RELEASE =
+  process.env.NEXT_PUBLIC_RELEASE || process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA;
 
 export function SentryInit() {
   useEffect(() => {
