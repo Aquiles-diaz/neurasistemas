@@ -353,11 +353,6 @@ body {
   transform: translateY(-100%);
 }
 
-/* Carrusel infinito. La pista se duplica en el markup,
-   así que -50% reinicia el loop sin saltos. */
-@keyframes ns-marquee {
-  to { transform: translateX(-50%); }
-}
 
 /* ---- Hero entrance (pure CSS, zero JS) ---- */
 @keyframes hero-in {

@@ -60,7 +60,7 @@ export const PROJECTS: Project[] = [
     cat: "apps",
     initials: "HP",
     desc: "Portal de empleo para una consultora de RRHH: cada candidato sube su CV y un video de presentación de un minuto. Conecta talento con empresas en toda la provincia de Santa Fe.",
-    tags: [],
+    tags: ["Next.js", "Video CV", "Postulaciones", "Panel RRHH"],
     featured: true,
     url: "https://human-power-rrhh.vercel.app",
     image: "/projects/human-power.jpg",
@@ -68,9 +68,4 @@ export const PROJECTS: Project[] = [
 ];
 
 /** Filter ids; their labels live in the dictionaries (`projectsPage.filters`). */
-export const FILTERS: [Project["cat"] | "all", string][] = [
-  ["all", "Todo"],
-  ["web", "Web"],
-  ["apps", "Sistemas"],
-  ["ecommerce", "E-commerce"],
-];
+export const FILTERS: (Project["cat"] | "all")[] = ["all", "web", "apps", "ecommerce"];

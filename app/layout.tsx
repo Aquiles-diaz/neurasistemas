@@ -6,7 +6,26 @@ import { MotionProvider } from "@/components/motion-provider";
 import { SentryInit } from "@/components/sentry-init";
 import { SiteModeProvider, SITE_MODE_SCRIPT } from "@/components/site-mode";
 import { ContactDrawerProvider } from "@/components/ui/contact-drawer";
-import { SITE_URL } from "@/lib/site";
+import { EMAIL, INSTAGRAM_URL, PHONE_TEL, SITE_URL } from "@/lib/site";
+
+/** Datos estructurados: Google asocia el Instagram y el teléfono al negocio. */
+const ORG_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Neura Sistemas",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo/logoneurasistemas.png`,
+  email: EMAIL,
+  telephone: PHONE_TEL,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Rosario",
+    addressRegion: "Santa Fe",
+    addressCountry: "AR",
+  },
+  areaServed: "AR",
+  sameAs: [INSTAGRAM_URL],
+};
 
 // Two voices only: Montserrat (display headings) + Inter for everything else.
 const inter = Inter({
@@ -111,6 +130,10 @@ export default function RootLayout({
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: SITE_MODE_SCRIPT }} />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_JSONLD) }}
+        />
       </head>
       <body>
         <SiteModeProvider>

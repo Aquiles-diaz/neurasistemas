@@ -92,19 +92,29 @@ export function Packs() {
                   </ul>
 
                   <div className="mt-auto">
+                    {/* Con precio numérico ("$900") mostramos "Desde … USD"; con un
+                        texto ("Consultar") solo la palabra, sin asustar con cifras. */}
                     <p className="mb-5 flex items-baseline gap-1.5">
-                      <span className="text-sm text-[color:var(--text-subtle)]">{t.packs.from}</span>
+                      {pack.price.startsWith("$") && (
+                        <span className="text-sm text-[color:var(--text-subtle)]">{t.packs.from}</span>
+                      )}
                       <span
                         className={[
                           "font-[family-name:var(--font-display)] font-bold leading-none tracking-[-0.02em] text-[color:var(--text-strong)]",
-                          featured ? "text-[2.6rem]" : "text-[2.1rem]",
+                          pack.price.startsWith("$")
+                            ? featured
+                              ? "text-[2.6rem]"
+                              : "text-[2.1rem]"
+                            : "text-[1.5rem]",
                         ].join(" ")}
                       >
                         {pack.price}
                       </span>
-                      <span className="text-sm font-medium text-[color:var(--text-subtle)]">
-                        {t.packs.currency}
-                      </span>
+                      {pack.price.startsWith("$") && (
+                        <span className="text-sm font-medium text-[color:var(--text-subtle)]">
+                          {t.packs.currency}
+                        </span>
+                      )}
                     </p>
 
                     <CtaButton size="md" className="w-full justify-center" onClick={open}>

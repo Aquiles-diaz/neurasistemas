@@ -38,34 +38,6 @@ export function Eyebrow({
   );
 }
 
-/** Status badge — pill with optional pulsing dot. */
-export function Badge({
-  children,
-  dot,
-  className,
-}: {
-  children: ReactNode;
-  dot?: boolean;
-  className?: string;
-}) {
-  return (
-    <span
-      className={cn(
-        "inline-flex items-center gap-2 rounded-[var(--radius-pill)] border border-[color:var(--border-default)] bg-[color:var(--surface-2)] px-3.5 py-1.5 text-xs font-medium text-[color:var(--text-body)] [box-shadow:var(--edge-hi)]",
-        className
-      )}
-    >
-      {dot && (
-        <span className="relative flex h-1.5 w-1.5">
-          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[color:var(--accent)] opacity-60" />
-          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[color:var(--accent)]" />
-        </span>
-      )}
-      {children}
-    </span>
-  );
-}
-
 const SIZES = {
   sm: "h-9 px-4 text-sm",
   md: "h-11 px-5 text-sm",

@@ -1,6 +1,15 @@
 "use client";
 
-import { Monitor, Globe, Smartphone, Check, type LucideIcon } from "lucide-react";
+import {
+  Monitor,
+  Globe,
+  Smartphone,
+  Check,
+  Boxes,
+  Plug,
+  ShieldCheck,
+  type LucideIcon,
+} from "lucide-react";
 import { Reveal, d } from "@/components/ui/reveal";
 import { Container, Eyebrow } from "@/components/sections/primitives";
 import { useT } from "@/lib/i18n";
@@ -12,7 +21,13 @@ const ICONS: Record<PlatformItem["key"], LucideIcon> = {
   mobile: Smartphone,
 };
 
-/** "Qué construimos": the three platforms, one card each. */
+/* Icons in the same order as `services.items` in the dictionaries. */
+const SERVICE_ICONS: LucideIcon[] = [Boxes, Plug, ShieldCheck];
+
+/**
+ * "Qué construimos": the three platforms, one card each, plus the former
+ * Servicios section folded in as a compact strip (one block, less scrolling).
+ */
 export function Platforms() {
   const t = useT();
 
@@ -79,6 +94,43 @@ export function Platforms() {
               </Reveal>
             );
           })}
+        </div>
+
+        {/* Servicios, fusionados: una fila de tres, sin párrafo introductorio largo. */}
+        <div id="servicios" className="mt-14 scroll-mt-28">
+          <Reveal>
+            <h3 className="text-[clamp(1.3rem,2.6vw,1.7rem)] font-bold leading-snug tracking-[-0.01em] text-[color:var(--text-strong)]">
+              {t.services.title}
+              <span className="ml-2 font-normal text-[color:var(--text-muted)]">
+                {t.services.subtitle}
+              </span>
+            </h3>
+          </Reveal>
+          <div className="mt-6 grid grid-cols-1 gap-px overflow-hidden rounded-[var(--radius-xl)] border border-[color:var(--border-subtle)] bg-[color:var(--border-subtle)] md:grid-cols-3">
+            {t.services.items.map(({ title, desc }, i) => {
+              const Icon = SERVICE_ICONS[i] ?? Boxes;
+              return (
+                <Reveal key={title} delay={d(i + 1)} className="h-full">
+                  <div className="flex h-full gap-4 bg-[color:var(--card)] p-5">
+                    <Icon
+                      size={20}
+                      strokeWidth={1.8}
+                      className="mt-0.5 shrink-0 text-[color:var(--text-strong)]"
+                      aria-hidden
+                    />
+                    <div>
+                      <h4 className="font-semibold leading-snug text-[color:var(--text-strong)]">
+                        {title}
+                      </h4>
+                      <p className="mt-1 text-sm leading-[1.55] text-[color:var(--text-muted)]">
+                        {desc}
+                      </p>
+                    </div>
+                  </div>
+                </Reveal>
+              );
+            })}
+          </div>
         </div>
       </Container>
     </section>

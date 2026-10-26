@@ -103,6 +103,11 @@ NEXT_PUBLIC_SENTRY_DSN=https://...    # Sentry → Settings → Projects → Cli
 
 Tenés un **`.env.example`** en el repo con las claves vacías como plantilla.
 
+> 🔁 **Si el formulario devuelve "No se pudo enviar":** EmailJS manda por tu Gmail con un
+> permiso OAuth que Google vence cada tanto. En el panel de EmailJS → *Email Services* →
+> tu servicio Gmail → **Reconnect**. El error que devuelve la API en ese caso es
+> `Gmail_API: Invalid grant` (HTTP 412). Probalo mandándote un mensaje desde el sitio.
+
 ---
 
 ## 📁 Estructura del proyecto
@@ -121,21 +126,49 @@ neurasistemas/
 │   └── globals.css           # Estilos globales + tokens de Tailwind
 │
 ├── components/
+│   ├── analytics.tsx         # GA4 + Vercel Analytics (no-op sin NEXT_PUBLIC_GA_ID)
+│   ├── sentry-init.tsx       # Sentry del navegador (no-op sin DSN)
+│   ├── motion-provider.tsx   # LazyMotion de `motion` (carga solo las features usadas)
 │   ├── site-mode.tsx         # Provider tema + idioma (dark/es ↔ light/en) con View Transitions
-│   ├── sections/             # Cada bloque grande del sitio (hero, plataformas, seguridad...)
-│   └── ui/                   # Piezas reutilizables (toggle, rolling text, drawer, modales...)
+│   ├── scroll/use-scroll-to.ts   # Scroll suave a una sección por id
+│   ├── sections/             # Cada bloque grande del sitio (ver "Las secciones de la home")
+│   │   ├── primitives.tsx    # Container, Eyebrow, CtaButton, SecondaryButton
+│   │   ├── projects-data.ts  # Los proyectos del portafolio (datos, no copy)
+│   │   └── project-*.tsx     # Card, detalle y brief de proyectos
+│   └── ui/                   # Piezas reutilizables
+│       ├── brand-icons.tsx   # Logos oficiales de WhatsApp, Instagram y Gmail (monocromos)
+│       ├── instagram-embed.tsx   # Último post de Instagram, cargado al acercarse
+│       ├── contact-drawer.tsx    # Panel "Hablemos" (todos los CTA de contacto abren esto)
+│       ├── exit-offer-modal.tsx  # Modal de salida (exit-intent desktop / scroll en táctil)
+│       ├── promo-banner.tsx      # Barra fija inferior (30% OFF), descartable
+│       ├── theme-lang-toggle.tsx # Botón que cambia tema + idioma a la vez
+│       ├── reveal.tsx · rolling-text.tsx · rolling-words.tsx   # Animaciones de entrada y texto
+│       ├── logo.tsx · sent-modal.tsx · not-found-body.tsx
+│       └── hero-bg · spotlight · tilt-scroll · dither-background   # Fondos decorativos
 │
 ├── lib/                      # Lógica compartida
 │   ├── i18n/                 # Copy del sitio: es.ts, en.ts y el tipo Dict que ambos respetan
-│   ├── site.ts               # Datos del sitio (URL, email, teléfono, WhatsApp)
+│   ├── site.ts               # Datos del sitio (URL, email, teléfono, WhatsApp, Instagram)
 │   ├── email.ts              # Envío de formularios vía EmailJS
-│   ├── github.ts             # Helpers de GitHub
-│   └── utils.ts              # Utilidades varias (cn, etc.)
+│   ├── github.ts             # Lee el README de los repos de proyectos en build
+│   └── utils.ts              # `cn()` para combinar clases
 │
-├── public/                   # Archivos estáticos (logos, imágenes de proyectos, hero)
+├── public/
+│   ├── logo/                 # Favicons, PWA icons y el logo (OG image)
+│   ├── projects/             # Capturas de los proyectos
+│   └── site.webmanifest      # Manifest PWA
+│
+├── .github/workflows/        # Deploy a Firebase Hosting (se salta si faltan secrets)
+├── firebase.json · .firebaserc   # Hosting: carpeta `out`, cache y headers de seguridad
+├── next.config.mjs           # `output: "export"` (sitio estático)
+├── eslint.config.mjs · postcss.config.mjs · tsconfig.json
+├── .env.example              # Variables de entorno documentadas (copiar a .env.local)
 ├── LICENSE · NOTICE          # Licencia propietaria + avisos de terceros
 └── SECURITY.md               # Política de seguridad
 ```
+
+> Todo lo que está en el repo cumple una función. No hay carpetas de planificación,
+> specs viejas ni assets huérfanos: si un archivo no aparece acá, no debería existir.
 
 ---
 
@@ -143,21 +176,25 @@ neurasistemas/
 
 La página principal ([`app/page.tsx`](app/page.tsx)) compone los bloques **en este orden**:
 
-1. **Nav** — barra flotante con links de *rolling text* y el toggle tema/idioma.
-2. **Hero** — propuesta de valor con palabra rotativa (escritorio / web / celulares / seguros) + CTA.
-3. **Platforms** — qué construimos: sistemas de escritorio, plataformas web, apps móviles.
-4. **Servicios** — gestión a medida, escritorio, web, móvil, integraciones, ciberseguridad.
-5. **Security** — prácticas de seguridad y garantías por contrato (banda invertida).
-6. **TechStack** — marquee monocromo de tecnologías.
-7. **WhyUs** — diferenciadores, compromisos y tabla comparativa.
+El orden está pensado para quien escanea desde el celular: promesa → prueba →
+qué hacemos → garantías → cómo → planes → dudas → contacto.
+
+1. **Nav** — barra flotante con links de *rolling text* y el toggle tema/idioma. "Contacto" abre el panel.
+2. **Hero** — propuesta de valor con palabra rotativa + CTA principal a WhatsApp/canales.
+3. **Instagram** — el último video del estudio embebido (`lib/site.ts` → `INSTAGRAM_LATEST_POST`) + seguir.
+4. **CasosReales** — proyectos reales en producción.
+5. **Testimonials** — testimonios (linkeados, reales).
+6. **Platforms** — qué construimos (escritorio, web, móvil) + la fila de servicios (gestión, integraciones, ciberseguridad).
+7. **Security** — banda invertida de garantías: 4 números, 4 garantías por contrato y la seguridad como chips.
 8. **Process** — diagnóstico, propuesta, desarrollo y pruebas, entrega y soporte.
-9. **CasosReales** — proyectos reales en producción.
-10. **Testimonials** — testimonios (linkeados, reales).
-11. **Packs** — planes: Presencia, Sistema, Integral.
-12. **Cuidado** — mantenimiento y monitoreo (opcional).
-13. **Faq** — preguntas frecuentes.
-14. **Contact** — formulario de contacto.
-15. **Footer** + **PromoBanner** + **ExitOfferModal** (modal de salida).
+9. **Packs** — planes Presencia, Sistema, Integral. Precio "Consultar" (si ponés `"$900"` vuelve a mostrar "Desde … USD").
+10. **Cuidado** — mantenimiento y monitoreo mensual (opcional). Misma regla de precio.
+11. **Faq** — 4 preguntas.
+12. **Contact** — WhatsApp + Instagram + mail con logos originales, y formulario.
+13. **Footer** + **PromoBanner** + **ExitOfferModal** (modal de salida).
+
+Para cambiar el video de Instagram: editá `INSTAGRAM_LATEST_POST` en `lib/site.ts` con el
+código que aparece en la URL del post (`instagram.com/p/<código>/`).
 
 ---
 

@@ -93,14 +93,20 @@ export function Cuidado() {
                       <span
                         className={[
                           "font-[family-name:var(--font-display)] font-bold leading-none tracking-[-0.02em] text-[color:var(--text-strong)]",
-                          featured ? "text-[2.6rem]" : "text-[2.1rem]",
+                          plan.price.startsWith("$")
+                            ? featured
+                              ? "text-[2.6rem]"
+                              : "text-[2.1rem]"
+                            : "text-[1.5rem]",
                         ].join(" ")}
                       >
                         {plan.price}
                       </span>
-                      <span className="text-sm font-medium text-[color:var(--text-subtle)]">
-                        {t.care.perMonth}
-                      </span>
+                      {plan.price.startsWith("$") && (
+                        <span className="text-sm font-medium text-[color:var(--text-subtle)]">
+                          {t.care.perMonth}
+                        </span>
+                      )}
                     </p>
 
                     <CtaButton size="md" className="w-full justify-center" onClick={open}>

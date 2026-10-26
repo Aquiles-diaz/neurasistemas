@@ -9,11 +9,11 @@ export const es: Dict = {
 
   nav: {
     links: [
-      { label: "Qué construimos", id: "sistemas" },
-      { label: "Servicios", id: "servicios" },
-      { label: "Seguridad", id: "seguridad" },
-      { label: "Proceso", id: "proceso" },
       { label: "Proyectos", id: "casos" },
+      { label: "Qué construimos", id: "sistemas" },
+      { label: "Garantías", id: "seguridad" },
+      { label: "Proceso", id: "proceso" },
+      { label: "Planes", id: "packs" },
       { label: "Contacto", id: "contacto" },
     ],
     cta: "Hablemos",
@@ -28,7 +28,7 @@ export const es: Dict = {
     words: ["de escritorio", "web", "para celulares", "seguros"],
     titlePost: "para empresas que no pueden fallar.",
     subtitle:
-      "Diseñamos, construimos y protegemos software a medida: aplicaciones de escritorio, plataformas web y apps móviles. Código propio, seguridad desde el primer día y un equipo que responde.",
+      "Software a medida para tu empresa: escritorio, web y celular. El código es tuyo y el precio se cierra antes de empezar.",
     ctaPrimary: "Ver qué construimos",
     ctaSecondary: "Hablar con un desarrollador",
     benefits: [
@@ -38,45 +38,12 @@ export const es: Dict = {
     ],
   },
 
-  gap: {
-    eyebrow: "El problema",
-    title: "Toda esta gente busca en el celular. ¿Encuentra tu negocio?",
-    subtitle:
-      "Muchísimas empresas todavía funcionan con WhatsApp, papel y una planilla. Sin web, no te encuentran. Sin sistema, la operación depende de la memoria de una persona. Un sistema propio le cambia la vida a tu negocio y a tu equipo.",
-    points: [
-      {
-        title: "Sin web",
-        desc: "Te buscan en Google, no aparecés, y el cliente se va con quien sí está.",
-      },
-      {
-        title: "Sin sistema",
-        desc: "Pedidos en cuadernos, stock a ojo, cobros que se pierden. Todo vive en la cabeza de alguien.",
-      },
-      {
-        title: "Sin seguridad",
-        desc: "Contraseñas compartidas y sin backups. Un solo incidente puede frenar la empresa.",
-      },
-    ],
-    cta: "Quiero estar en internet",
-    ctaSecondary: "Ver planes",
-    sectorsLabel: "Trabajamos con",
-    sectors: [
-      "Comercios",
-      "Talleres",
-      "Distribuidoras",
-      "Estudios contables",
-      "Clínicas y consultorios",
-      "Constructoras",
-      "Agro",
-      "Logística",
-    ],
-  },
 
   platforms: {
     eyebrow: "Qué construimos",
     title: "Un sistema para cada lugar donde trabaja tu empresa",
     subtitle:
-      "No hacemos bots ni plantillas. Construimos el sistema que tu operación necesita, en la plataforma donde lo vas a usar.",
+      "El sistema que tu operación necesita, en la plataforma donde lo vas a usar.",
     idealFor: "Ideal para",
     items: [
       {
@@ -117,9 +84,8 @@ export const es: Dict = {
 
   services: {
     eyebrow: "Servicios",
-    title: "Lo que rodea al sistema también lo hacemos nosotros",
-    subtitle:
-      "La plataforma es la mitad. La otra mitad es la lógica de tu negocio, las conexiones con lo que ya usás y la seguridad. Un solo equipo, responsable de punta a punta.",
+    title: "Y todo lo que rodea al sistema",
+    subtitle: "Un solo equipo, responsable de punta a punta.",
     items: [
       {
         title: "Sistemas de gestión a medida",
@@ -138,10 +104,9 @@ export const es: Dict = {
   },
 
   security: {
-    eyebrow: "Seguridad y confianza",
-    title: "La seguridad no es un módulo aparte",
-    subtitle:
-      "Cada sistema sale con las protecciones que una empresa necesita, desde el diseño. No se agregan después, cuando ya pasó algo.",
+    eyebrow: "Garantías",
+    title: "Lo que te garantizamos por contrato",
+    subtitle: "Por escrito, no de palabra. Y la seguridad va incluida desde el diseño.",
     practices: [
       {
         title: "Acceso controlado",
@@ -187,70 +152,15 @@ export const es: Dict = {
         desc: "Hablás con quien construye tu sistema. Sin tickets a la nada ni soporte tercerizado.",
       },
     ],
-  },
-
-  stack: {
-    eyebrow: "Tecnología",
-    title: "Tecnología probada, no experimentos",
-    subtitle:
-      "Elegimos herramientas con años de uso en producción y comunidades grandes. Que dentro de cinco años haya quien las mantenga.",
-    items: [
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Node.js",
-      "NestJS",
-      "PostgreSQL",
-      "React Native",
-      "Electron",
-      ".NET",
-      "Python",
-      "Docker",
-      "Mercado Pago",
-      "Stripe",
-      "AFIP",
-    ],
-  },
-
-  whyUs: {
-    eyebrow: "Por qué nosotros",
-    title: "La diferencia está en cómo trabajamos",
-    subtitle:
-      "No vendemos horas ni entregamos documentos. Construimos sistemas, conocemos tu operación y nos quedamos hasta que todo funcione como tiene que funcionar.",
-    commitments: [
-      { value: "100%", label: "código fuente entregado" },
+    numbers: [
+      { value: "100%", label: "del código fuente, tuyo" },
       { value: "0", label: "sorpresas en la factura" },
       { value: "< 12 h", label: "para responderte" },
       { value: "24/7", label: "monitoreo con Plan Cuidado" },
     ],
-    tableTitle: "Neura Sistemas vs. lo habitual",
-    tableSubtitle: "Lo que te preocupa, comparado con franqueza.",
-    cols: ["Lo que te preocupa", "Neura Sistemas", "Agencias y freelancers"],
-    shortNeura: "Neura",
-    shortOthers: "Otros",
-    rows: [
-      {
-        aspect: "Inversión y sorpresas",
-        neura: "Precio cerrado por escrito. Sabés el costo total desde el día uno.",
-        others: "Presupuestos que se inflan a mitad de proyecto o se cobran por hora sin tope.",
-      },
-      {
-        aspect: "Plazos",
-        neura: "Entregas por etapas con fechas. Ves el sistema andando desde las primeras semanas.",
-        others: "Meses sin ver nada funcionando y una entrega final que no coincide con lo pedido.",
-      },
-      {
-        aspect: "Seguridad",
-        neura: "Incluida desde el diseño: accesos, cifrado, backups y pruebas antes de salir.",
-        others: "Se piensa después, si se piensa. Contraseñas en texto plano no son raras.",
-      },
-      {
-        aspect: "El día después",
-        neura: "Seguimos con vos. Plan Cuidado opcional para que el sistema no quede obsoleto.",
-        others: "Entregan y desaparecen. Cada cambio es empezar de cero con alguien nuevo.",
-      },
-    ],
   },
+
+
 
   process: {
     eyebrow: "Proceso",
@@ -321,7 +231,7 @@ export const es: Dict = {
     eyebrow: "Planes",
     title: "Elegí por dónde empezar",
     subtitle:
-      "Precios de referencia, cerrados por escrito antes de arrancar. Empezás por lo que necesitás hoy y sumás módulos después.",
+      "Empezás por lo que necesitás hoy y sumás módulos después. El precio se cierra por escrito antes de arrancar.",
     from: "Desde",
     currency: "USD",
     popular: "Más elegido",
@@ -337,7 +247,7 @@ export const es: Dict = {
           "Formulario, mapa y WhatsApp integrados",
           "Hosting seguro con SSL y backups",
         ],
-        price: "$450",
+        price: "Consultar",
         cta: "Quiero mi web",
       },
       {
@@ -350,7 +260,7 @@ export const es: Dict = {
           "Módulos a medida: stock, ventas, clientes",
           "Reportes y panel de control",
         ],
-        price: "$900",
+        price: "Consultar",
         cta: "Quiero mi sistema",
         featured: true,
       },
@@ -364,20 +274,20 @@ export const es: Dict = {
           "App iOS y Android conectada",
           "Pruebas de intrusión y plan de backups",
         ],
-        price: "$1800",
+        price: "Consultar",
         cta: "Quiero todo",
       },
     ],
-    footnotePre: "Presencia sale en 2-4 semanas. Sistema e Integral se planifican por etapas según tu proyecto. Primeros clientes: ",
+    footnotePre: "Primeros clientes: ",
     footnoteStrong: "30% de descuento",
-    footnotePost: ".",
+    footnotePost: " en tu primer sistema. Te pasamos el presupuesto cerrado después de una charla de 30 minutos.",
   },
 
   care: {
     eyebrow: "Plan Cuidado",
     title: "Tu sistema no se queda solo",
     subtitle:
-      "Es opcional y lo activás solo si lo querés. Si lo tomás, nosotros nos ocupamos de que siga seguro, actualizado y andando. Vos seguís con tu empresa.",
+      "Opcional. Nosotros lo mantenemos seguro, actualizado y andando; vos seguís con tu empresa.",
     recommended: "Recomendado",
     recommendedAria: "Plan recomendado",
     perMonth: "USD/mes",
@@ -386,7 +296,7 @@ export const es: Dict = {
         id: "cuidado-web",
         name: "Cuidado Web",
         para: "Para tu sitio o plataforma web",
-        price: "$29",
+        price: "Consultar",
         bullets: [
           "Hosting, dominio y SSL gestionados",
           "Backups automáticos y monitoreo de disponibilidad",
@@ -400,7 +310,7 @@ export const es: Dict = {
         id: "cuidado-sistema",
         name: "Cuidado Sistema",
         para: "Para tu sistema de gestión o app",
-        price: "$99",
+        price: "Consultar",
         bullets: [
           "Todo lo de Cuidado Web",
           "Monitoreo 24/7 con alertas",
@@ -414,7 +324,7 @@ export const es: Dict = {
     ],
     footnotePre: "Con cualquier plan: ",
     footnoteStrong: "1er mes gratis y meses 2 y 3 al 50%",
-    footnotePost: ". Cobro mensual por Mercado Pago o tarjeta. Cancelás cuando quieras.",
+    footnotePost: ". Cobro mensual. Cancelás cuando quieras.",
   },
 
   faq: {
@@ -422,46 +332,44 @@ export const es: Dict = {
     items: [
       {
         q: "¿Cuánto cuesta un sistema a medida?",
-        a: "Depende del alcance. Los planes arrancan en US$450 para una web y US$900 para un sistema de gestión. Siempre con presupuesto cerrado por escrito antes de empezar.",
-      },
-      {
-        q: "¿Escritorio, web o celular? ¿Qué me conviene?",
-        a: "Depende de dónde se usa. Si la operación no puede parar por internet, escritorio. Si lo usan desde varios lugares, web. Si el equipo está en la calle o querés estar en el celular de tus clientes, móvil. Muchas veces es una combinación y lo definimos juntos en el diagnóstico.",
-      },
-      {
-        q: "¿El código es mío?",
-        a: "Sí. Entregamos el código fuente completo, documentado, y los accesos a todo. No hay licencias por usuario ni dependencia de nosotros.",
-      },
-      {
-        q: "¿Qué pasa con la seguridad de mis datos?",
-        a: "Cada sistema sale con accesos por rol, cifrado, backups automáticos y pruebas de intrusión antes de producción. Si ya tenés un sistema, podemos auditarlo. Firmamos acuerdo de confidencialidad si lo necesitás.",
+        a: "Depende del alcance. Después de una charla de 30 minutos te pasamos un presupuesto cerrado por escrito. Lo que cambia se acuerda; no aparece en la factura.",
       },
       {
         q: "¿Cuánto tarda?",
-        a: "Una web, entre 2 y 4 semanas. Un sistema de gestión se entrega por etapas: la primera versión usable suele estar en 6 a 10 semanas, y desde ahí sumamos módulos.",
+        a: "Una web, entre 2 y 4 semanas. Un sistema de gestión se entrega por etapas: la primera versión usable suele estar en 6 a 10 semanas.",
       },
       {
-        q: "¿Y si después necesito cambios?",
-        a: "Los hacemos. Si querés que nos ocupemos siempre, hay un Plan Cuidado opcional desde US$29 por mes, con el primer mes gratis.",
+        q: "¿El código es mío?",
+        a: "Sí. Código fuente completo, documentado y con los accesos a todo. Sin licencias por usuario ni dependencia de nosotros.",
       },
       {
-        q: "¿Cómo es el soporte?",
-        a: "Respondemos rápido: dudas simples en menos de una hora y temas a fondo en menos de 12, en horario laboral. Hablás con quien construyó tu sistema, no con un ticket.",
+        q: "¿Y después de la entrega?",
+        a: "Seguimos cerca. Los cambios los hacemos; y si querés que nos ocupemos siempre, está el Plan Cuidado opcional. Respondemos en menos de 12 h, y hablás con quien construyó tu sistema.",
       },
     ],
+  },
+
+  social: {
+    eyebrow: "Instagram",
+    title: "Mirá cómo trabajamos",
+    subtitle:
+      "Un minuto de video dice más que una página de texto. Mostramos lo que construimos, sin vueltas.",
+    ctaWhatsapp: "Escribinos por WhatsApp",
+    follow: "Seguir",
+    open: "Ver en Instagram",
+    loading: "Cargando video…",
   },
 
   contact: {
     title: "¿Hablamos de tu sistema?",
     subtitle:
-      "Agendá una llamada sin compromiso y contanos qué necesitás. En 30 minutos sabemos si podemos ayudarte y por dónde empezar.",
-    cta: "Agendá una llamada sin compromiso",
+      "Contanos qué necesitás. Te respondemos en menos de 12 h, sin compromiso.",
+    cta: "Hablar por WhatsApp",
     location: "Rosario, Santa Fe",
+    instagram: "Instagram",
     trust: [
-      "Respondemos rápido: preguntas simples en menos de 1 hora; algo más a fondo, en menos de 12.",
-      "Tu mensaje nos llega directo, sin pasar por terceros.",
-      "Tu información es privada: no la compartimos ni te mandamos spam.",
-      "Sin compromiso ni costos ocultos. Hablás con quien construye tu sistema.",
+      "Respondemos rápido: lo simple en menos de 1 h, lo complejo en menos de 12.",
+      "Hablás con quien construye tu sistema. Sin spam ni costos ocultos.",
     ],
     fields: {
       name: "Nombre",
@@ -484,6 +392,8 @@ export const es: Dict = {
     privacy: "Tus datos están seguros. Solo los usamos para responderte.",
     subjectPrefix: "Contacto",
     sentMessage: "Recibimos tu mensaje. Te respondemos en menos de 12 h.",
+    sentMailtoMessage:
+      "Se abrió tu correo con el mensaje listo. Enviálo y te respondemos en menos de 12 h. Si no se abrió, escribinos por WhatsApp.",
     labels: {
       name: "Nombre",
       email: "Correo",
@@ -498,6 +408,7 @@ export const es: Dict = {
       "Construimos sistemas a medida para empresas: aplicaciones de escritorio, plataformas web y apps móviles, con la seguridad como parte del diseño. Desde Rosario, para toda Argentina.",
     navTitle: "Navegación",
     contactTitle: "Contacto",
+    followTitle: "Seguinos",
     location: "Rosario, Santa Fe",
     rights: "Todos los derechos reservados",
     tagline: "Rosario, Santa Fe · Sistemas a medida y ciberseguridad",
@@ -521,6 +432,7 @@ export const es: Dict = {
       whatsapp: "WhatsApp directo",
       call: "Llamar ahora",
       mail: "Escribir un mail",
+      instagram: "Mensaje por Instagram",
     },
     foot: "Rosario · Preguntas rápidas en menos de 1 h. Algo más a fondo, en menos de 12 h.",
     waText: "Hola Neura! Quiero coordinar una llamada para hablar de un sistema para mi empresa.",
@@ -537,7 +449,7 @@ export const es: Dict = {
   exit: {
     kicker: "Auditoría express · gratis",
     title: "¿Te vas con la duda?",
-    body: "Llevate una auditoría express gratis: revisamos tu sistema actual o tu idea y te decimos por dónde empezar y qué riesgos tiene. 30 minutos, sin compromiso.",
+    body: "30 minutos gratis: revisamos tu sistema actual o tu idea y te decimos por dónde empezar.",
     cta: "Quiero mi auditoría",
     mail: "Prefiero por mail",
     later: "Ahora no",

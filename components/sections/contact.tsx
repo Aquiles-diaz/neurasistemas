@@ -14,12 +14,14 @@ import {
   User,
   type LucideIcon,
 } from "lucide-react";
+import type { ComponentType } from "react";
 import { SentModal } from "@/components/ui/sent-modal";
 import { Reveal, d } from "@/components/ui/reveal";
 import { RollingText } from "@/components/ui/rolling-text";
+import { GmailIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/brand-icons";
 import { Container } from "@/components/sections/primitives";
 import { sendEmail, emailConfigured } from "@/lib/email";
-import { EMAIL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
+import { EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
 import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
@@ -69,9 +71,15 @@ export function Contact() {
     mensaje: "",
   });
 
-  const CONTACTS: { Icon: LucideIcon; text: string; href?: string }[] = [
-    { Icon: Mail, text: EMAIL, href: `mailto:${EMAIL}` },
-    { Icon: Phone, text: PHONE_DISPLAY, href: WHATSAPP },
+  // Logos reales de cada app: la persona reconoce el canal antes de leer.
+  const CONTACTS: {
+    Icon: ComponentType<{ size?: number; strokeWidth?: number }>;
+    text: string;
+    href?: string;
+  }[] = [
+    { Icon: WhatsAppIcon, text: PHONE_DISPLAY, href: WHATSAPP },
+    { Icon: InstagramIcon, text: `@${INSTAGRAM_HANDLE}`, href: INSTAGRAM_URL },
+    { Icon: GmailIcon, text: EMAIL, href: `mailto:${EMAIL}` },
     { Icon: MapPin, text: t.contact.location },
   ];
 
@@ -166,6 +174,7 @@ export function Contact() {
                 rel="noreferrer"
                 className="roll-trigger group inline-flex h-[52px] cursor-pointer items-center justify-center gap-3 rounded-[var(--radius-pill)] bg-[color:var(--accent)] px-7 text-base font-semibold text-[color:var(--text-onaccent)] shadow-[var(--shadow-md)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-out-soft)] hover:-translate-y-px hover:bg-[color:var(--accent-hover)] active:translate-y-px"
               >
+                <WhatsAppIcon size={18} />
                 <RollingText text={t.contact.cta} />
                 <ArrowRight size={18} strokeWidth={2} />
               </a>
@@ -381,7 +390,7 @@ export function Contact() {
           setStatus("idle");
           setSent(false);
         }}
-        message={t.contact.sentMessage}
+        message={emailConfigured ? t.contact.sentMessage : t.contact.sentMailtoMessage}
       />
 
       {/* Animaciones de entrada y focus. prefers-reduced-motion seguro. */}

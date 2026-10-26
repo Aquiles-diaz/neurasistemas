@@ -9,11 +9,11 @@ export const en: Dict = {
 
   nav: {
     links: [
-      { label: "What we build", id: "sistemas" },
-      { label: "Services", id: "servicios" },
-      { label: "Security", id: "seguridad" },
-      { label: "Process", id: "proceso" },
       { label: "Projects", id: "casos" },
+      { label: "What we build", id: "sistemas" },
+      { label: "Guarantees", id: "seguridad" },
+      { label: "Process", id: "proceso" },
+      { label: "Plans", id: "packs" },
       { label: "Contact", id: "contacto" },
     ],
     cta: "Let's talk",
@@ -28,7 +28,7 @@ export const en: Dict = {
     words: ["for desktop", "for the web", "for mobile", "built secure"],
     titlePost: "for companies that can't afford to fail.",
     subtitle:
-      "We design, build and protect custom software: desktop applications, web platforms and mobile apps. Code you own, security from day one, and a team that answers.",
+      "Custom software for your company: desktop, web and mobile. You own the code, and the price is fixed before we start.",
     ctaPrimary: "See what we build",
     ctaSecondary: "Talk to a developer",
     benefits: [
@@ -38,45 +38,12 @@ export const en: Dict = {
     ],
   },
 
-  gap: {
-    eyebrow: "The problem",
-    title: "All these people search on their phones. Do they find your business?",
-    subtitle:
-      "A huge number of companies still run on WhatsApp, paper and a spreadsheet. With no website, nobody finds you. With no system, the operation depends on one person's memory. A system of your own changes daily life for your business and your team.",
-    points: [
-      {
-        title: "No website",
-        desc: "People search on Google, you don't show up, and the customer goes to whoever does.",
-      },
-      {
-        title: "No system",
-        desc: "Orders in notebooks, stock by eye, payments that slip away. Everything lives in someone's head.",
-      },
-      {
-        title: "No security",
-        desc: "Shared passwords and no backups. A single incident can bring the company to a halt.",
-      },
-    ],
-    cta: "I want to be online",
-    ctaSecondary: "See plans",
-    sectorsLabel: "We work with",
-    sectors: [
-      "Retail",
-      "Workshops",
-      "Distributors",
-      "Accounting firms",
-      "Clinics and practices",
-      "Construction",
-      "Agriculture",
-      "Logistics",
-    ],
-  },
 
   platforms: {
     eyebrow: "What we build",
     title: "A system for every place your company works",
     subtitle:
-      "No bots, no templates. We build the system your operation needs, on the platform where you'll actually use it.",
+      "The system your operation needs, on the platform where you'll actually use it.",
     idealFor: "Ideal for",
     items: [
       {
@@ -117,9 +84,8 @@ export const en: Dict = {
 
   services: {
     eyebrow: "Services",
-    title: "Everything around the system, we build too",
-    subtitle:
-      "The platform is half of it. The other half is your business logic, the connections to what you already use, and security. One team, accountable end to end.",
+    title: "And everything around the system",
+    subtitle: "One team, accountable end to end.",
     items: [
       {
         title: "Custom management systems",
@@ -138,10 +104,9 @@ export const en: Dict = {
   },
 
   security: {
-    eyebrow: "Security and trust",
-    title: "Security isn't a separate module",
-    subtitle:
-      "Every system ships with the protections a company needs, from the design stage. Not bolted on later, after something already happened.",
+    eyebrow: "Guarantees",
+    title: "What we guarantee in the contract",
+    subtitle: "In writing, not just words. And security is built in from the design stage.",
     practices: [
       {
         title: "Controlled access",
@@ -187,70 +152,15 @@ export const en: Dict = {
         desc: "You talk to whoever builds your system. No tickets into the void, no outsourced support.",
       },
     ],
-  },
-
-  stack: {
-    eyebrow: "Technology",
-    title: "Proven technology, not experiments",
-    subtitle:
-      "We pick tools with years in production and large communities, so that five years from now someone can still maintain them.",
-    items: [
-      "TypeScript",
-      "React",
-      "Next.js",
-      "Node.js",
-      "NestJS",
-      "PostgreSQL",
-      "React Native",
-      "Electron",
-      ".NET",
-      "Python",
-      "Docker",
-      "Mercado Pago",
-      "Stripe",
-      "AFIP",
-    ],
-  },
-
-  whyUs: {
-    eyebrow: "Why us",
-    title: "The difference is how we work",
-    subtitle:
-      "We don't sell hours or deliver documents. We build systems, learn your operation and stay until everything works the way it should.",
-    commitments: [
-      { value: "100%", label: "source code handed over" },
+    numbers: [
+      { value: "100%", label: "of the source code is yours" },
       { value: "0", label: "surprises on the invoice" },
       { value: "< 12 h", label: "to get back to you" },
       { value: "24/7", label: "monitoring with the Care plan" },
     ],
-    tableTitle: "Neura Sistemas vs. the usual",
-    tableSubtitle: "What worries you, compared honestly.",
-    cols: ["What worries you", "Neura Sistemas", "Agencies and freelancers"],
-    shortNeura: "Neura",
-    shortOthers: "Others",
-    rows: [
-      {
-        aspect: "Cost and surprises",
-        neura: "Fixed price in writing. You know the total cost from day one.",
-        others: "Quotes that balloon mid-project, or hourly billing with no cap.",
-      },
-      {
-        aspect: "Timelines",
-        neura: "Staged deliveries with dates. You see the system running within the first weeks.",
-        others: "Months without anything working, then a final delivery that doesn't match the brief.",
-      },
-      {
-        aspect: "Security",
-        neura: "Built in from the design: access control, encryption, backups and testing before launch.",
-        others: "Thought about later, if at all. Plaintext passwords are not unusual.",
-      },
-      {
-        aspect: "The day after",
-        neura: "We stay with you. Optional Care plan so the system never goes stale.",
-        others: "Deliver and vanish. Every change means starting over with someone new.",
-      },
-    ],
   },
+
+
 
   process: {
     eyebrow: "Process",
@@ -321,7 +231,7 @@ export const en: Dict = {
     eyebrow: "Plans",
     title: "Choose where to start",
     subtitle:
-      "Reference prices, fixed in writing before we begin. Start with what you need today and add modules later.",
+      "Start with what you need today and add modules later. The price is fixed in writing before we begin.",
     from: "From",
     currency: "USD",
     popular: "Most popular",
@@ -337,7 +247,7 @@ export const en: Dict = {
           "Contact form, map and WhatsApp built in",
           "Secure hosting with SSL and backups",
         ],
-        price: "$450",
+        price: "Ask us",
         cta: "I want my website",
       },
       {
@@ -350,7 +260,7 @@ export const en: Dict = {
           "Custom modules: inventory, sales, customers",
           "Reports and dashboard",
         ],
-        price: "$900",
+        price: "Ask us",
         cta: "I want my system",
         featured: true,
       },
@@ -364,20 +274,20 @@ export const en: Dict = {
           "Connected iOS and Android app",
           "Penetration testing and backup plan",
         ],
-        price: "$1800",
+        price: "Ask us",
         cta: "I want it all",
       },
     ],
-    footnotePre: "Presence ships in 2-4 weeks. System and Complete are planned in stages around your project. First clients: ",
+    footnotePre: "First clients: ",
     footnoteStrong: "30% off",
-    footnotePost: ".",
+    footnotePost: " your first system. You get a fixed quote after a 30-minute chat.",
   },
 
   care: {
     eyebrow: "Care plan",
     title: "Your system is never left alone",
     subtitle:
-      "It's optional and you only turn it on if you want it. If you do, we keep the system secure, updated and running. You get on with your business.",
+      "Optional. We keep the system secure, updated and running; you get on with your business.",
     recommended: "Recommended",
     recommendedAria: "Recommended plan",
     perMonth: "USD/month",
@@ -386,7 +296,7 @@ export const en: Dict = {
         id: "cuidado-web",
         name: "Web Care",
         para: "For your website or web platform",
-        price: "$29",
+        price: "Ask us",
         bullets: [
           "Managed hosting, domain and SSL",
           "Automatic backups and uptime monitoring",
@@ -400,7 +310,7 @@ export const en: Dict = {
         id: "cuidado-sistema",
         name: "System Care",
         para: "For your management system or app",
-        price: "$99",
+        price: "Ask us",
         bullets: [
           "Everything in Web Care",
           "24/7 monitoring with alerts",
@@ -414,7 +324,7 @@ export const en: Dict = {
     ],
     footnotePre: "With any plan: ",
     footnoteStrong: "first month free, months 2 and 3 at 50%",
-    footnotePost: ". Billed monthly via Mercado Pago or card. Cancel whenever you want.",
+    footnotePost: ". Billed monthly. Cancel whenever you want.",
   },
 
   faq: {
@@ -422,46 +332,44 @@ export const en: Dict = {
     items: [
       {
         q: "How much does a custom system cost?",
-        a: "It depends on the scope. Plans start at US$450 for a website and US$900 for a management system. Always with a fixed price in writing before we start.",
-      },
-      {
-        q: "Desktop, web or mobile? Which one do I need?",
-        a: "It depends on where it's used. If the operation can't stop when the internet does, desktop. If people use it from several places, web. If your team is in the field or you want to be on your customers' phones, mobile. It's often a combination, and we define it together in the diagnosis.",
-      },
-      {
-        q: "Do I own the code?",
-        a: "Yes. We hand over the full, documented source code and access to everything. No per-seat licences and no dependence on us.",
-      },
-      {
-        q: "What about the security of my data?",
-        a: "Every system ships with role-based access, encryption, automatic backups and penetration testing before going live. If you already have a system, we can audit it. We sign an NDA if you need one.",
+        a: "It depends on the scope. After a 30-minute chat we send you a fixed quote in writing. Changes are agreed, never discovered on the invoice.",
       },
       {
         q: "How long does it take?",
-        a: "A website, 2 to 4 weeks. A management system is delivered in stages: the first usable version is usually ready in 6 to 10 weeks, and we add modules from there.",
+        a: "A website, 2 to 4 weeks. A management system is delivered in stages: the first usable version is usually ready in 6 to 10 weeks.",
       },
       {
-        q: "What if I need changes later?",
-        a: "We make them. If you'd rather we always take care of it, there's an optional Care plan from US$29 a month, first month free.",
+        q: "Do I own the code?",
+        a: "Yes. Full, documented source code and access to everything. No per-seat licences and no dependence on us.",
       },
       {
-        q: "What's support like?",
-        a: "We answer fast: simple questions within an hour and deeper issues within 12, during business hours. You talk to whoever built your system, not a ticket.",
+        q: "What happens after delivery?",
+        a: "We stay close. We make the changes; and if you'd rather we always take care of it, there's the optional Care plan. We reply within 12 h, and you talk to whoever built your system.",
       },
     ],
+  },
+
+  social: {
+    eyebrow: "Instagram",
+    title: "See how we work",
+    subtitle:
+      "One minute of video says more than a page of text. We show what we build, no fluff.",
+    ctaWhatsapp: "Message us on WhatsApp",
+    follow: "Follow",
+    open: "View on Instagram",
+    loading: "Loading video…",
   },
 
   contact: {
     title: "Shall we talk about your system?",
     subtitle:
-      "Book a no-obligation call and tell us what you need. In 30 minutes we'll know whether we can help and where to start.",
-    cta: "Book a no-obligation call",
+      "Tell us what you need. We reply within 12 h, no obligation.",
+    cta: "Chat on WhatsApp",
     location: "Rosario, Santa Fe",
+    instagram: "Instagram",
     trust: [
-      "We answer fast: simple questions within 1 hour; deeper ones within 12.",
-      "Your message reaches us directly, no third parties in between.",
-      "Your information is private: we don't share it and we don't spam.",
-      "No obligation, no hidden costs. You talk to whoever builds your system.",
+      "We answer fast: simple things within 1 h, complex ones within 12.",
+      "You talk to whoever builds your system. No spam, no hidden costs.",
     ],
     fields: {
       name: "Name",
@@ -484,6 +392,8 @@ export const en: Dict = {
     privacy: "Your data is safe. We only use it to reply to you.",
     subjectPrefix: "Contact",
     sentMessage: "We got your message. We'll reply within 12 h.",
+    sentMailtoMessage:
+      "Your email app opened with the message ready. Send it and we'll reply within 12 h. If it didn't open, message us on WhatsApp.",
     labels: {
       name: "Name",
       email: "Email",
@@ -498,6 +408,7 @@ export const en: Dict = {
       "We build custom systems for companies: desktop applications, web platforms and mobile apps, with security as part of the design. From Rosario, for all of Argentina.",
     navTitle: "Navigation",
     contactTitle: "Contact",
+    followTitle: "Follow us",
     location: "Rosario, Santa Fe",
     rights: "All rights reserved",
     tagline: "Rosario, Santa Fe · Custom systems and cybersecurity",
@@ -521,6 +432,7 @@ export const en: Dict = {
       whatsapp: "WhatsApp directly",
       call: "Call now",
       mail: "Send an email",
+      instagram: "Message on Instagram",
     },
     foot: "Rosario · Quick questions within 1 h. Deeper ones within 12 h.",
     waText: "Hi Neura! I'd like to schedule a call about a system for my company.",
@@ -537,7 +449,7 @@ export const en: Dict = {
   exit: {
     kicker: "Express audit · free",
     title: "Leaving with a doubt?",
-    body: "Take a free express audit: we review your current system or your idea and tell you where to start and what the risks are. 30 minutes, no obligation.",
+    body: "30 free minutes: we review your current system or your idea and tell you where to start.",
     cta: "I want my audit",
     mail: "I'd rather email",
     later: "Not now",

@@ -67,8 +67,10 @@ export function RollingWords({
         className
       )}
       style={width ? { width } : undefined}
-      aria-live="polite"
+      // Sin aria-live: anunciar una palabra nueva cada 2 s dentro del h1 hacía
+      // que el lector de pantalla no parara. La frase completa queda en sr-only.
     >
+      <span className="sr-only">{words.join(", ")}</span>
       {/* Invisible copies reserve the height and are measured for the width. */}
       {words.map((w, i) => (
         <span

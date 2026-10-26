@@ -1,12 +1,14 @@
 "use client";
 
-import { Mail, MessageCircle, MapPin, type LucideIcon } from "lucide-react";
+import type { ComponentType } from "react";
+import { MapPin } from "lucide-react";
 import { Container } from "@/components/sections/primitives";
 import { Logo } from "@/components/ui/logo";
+import { GmailIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/brand-icons";
 import { RollingText } from "@/components/ui/rolling-text";
 import { ThemeLangToggle } from "@/components/ui/theme-lang-toggle";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
-import { EMAIL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
+import { EMAIL, INSTAGRAM_HANDLE, INSTAGRAM_URL, PHONE_DISPLAY, WHATSAPP } from "@/lib/site";
 import { useT } from "@/lib/i18n";
 
 const linkClass =
@@ -16,9 +18,14 @@ export function Footer() {
   const t = useT();
   const { open } = useContactDrawer();
 
-  const CONTACT_ITEMS: { icon: LucideIcon; label: string; href?: string }[] = [
-    { icon: Mail, label: EMAIL, href: `mailto:${EMAIL}` },
-    { icon: MessageCircle, label: PHONE_DISPLAY, href: WHATSAPP },
+  const CONTACT_ITEMS: {
+    icon: ComponentType<{ size?: number; className?: string }>;
+    label: string;
+    href?: string;
+  }[] = [
+    { icon: WhatsAppIcon, label: PHONE_DISPLAY, href: WHATSAPP },
+    { icon: InstagramIcon, label: `@${INSTAGRAM_HANDLE}`, href: INSTAGRAM_URL },
+    { icon: GmailIcon, label: EMAIL, href: `mailto:${EMAIL}` },
     { icon: MapPin, label: t.footer.location },
   ];
 
@@ -32,8 +39,26 @@ export function Footer() {
             <p className="text-sm leading-relaxed text-[color:var(--text-muted)]">
               {t.footer.blurb}
             </p>
-            <div className="mt-6">
+            <div className="mt-6 flex items-center gap-3">
               <ThemeLangToggle />
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${t.footer.followTitle}: Instagram @${INSTAGRAM_HANDLE}`}
+                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] text-[color:var(--text-strong)] transition-colors hover:bg-[color:var(--accent-soft)]"
+              >
+                <InstagramIcon size={18} />
+              </a>
+              <a
+                href={WHATSAPP}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-[var(--radius-pill)] border border-[color:var(--border-strong)] text-[color:var(--text-strong)] transition-colors hover:bg-[color:var(--accent-soft)]"
+              >
+                <WhatsAppIcon size={18} />
+              </a>
             </div>
           </div>
 
@@ -92,9 +117,14 @@ export function Footer() {
           <span className="text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
             © {new Date().getFullYear()} Neura Sistemas · {t.footer.rights}
           </span>
-          <span className="text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)]">
-            {t.footer.tagline}
-          </span>
+          <a
+            href={INSTAGRAM_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[11px] tracking-[0.04em] text-[color:var(--text-subtle)] transition-colors hover:text-[color:var(--text-strong)]"
+          >
+            <InstagramIcon size={12} />@{INSTAGRAM_HANDLE} · {t.footer.tagline}
+          </a>
         </div>
       </Container>
     </footer>

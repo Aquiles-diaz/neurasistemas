@@ -2,7 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
-import { Gift, X, MessageCircle, Mail } from "lucide-react";
+import { Gift, X } from "lucide-react";
+import { GmailIcon, WhatsAppIcon } from "@/components/ui/brand-icons";
 import { CtaButton } from "@/components/sections/primitives";
 import { EMAIL, WHATSAPP_DIGITS } from "@/lib/site";
 import { useT } from "@/lib/i18n";
@@ -91,15 +92,17 @@ export function ExitOfferModal() {
     const onMouseOut = (e: MouseEvent) => {
       if (e.clientY <= 0 && !e.relatedTarget) trigger();
     };
-    // Mobile/touch: respaldo por scroll-depth (no hay exit-intent).
+    // Mobile/touch: respaldo por scroll-depth y timer (no hay exit-intent).
+    // Solo en pantallas táctiles: en desktop interrumpía la lectura a mitad de página.
+    const touch = window.matchMedia("(pointer: coarse)").matches;
     const onScroll = () => {
       const max = document.body.scrollHeight - window.innerHeight;
       if (max > 0 && window.scrollY / max >= SCROLL_TRIGGER) trigger();
     };
-    const timer = window.setTimeout(trigger, MOBILE_DELAY_MS);
+    const timer = touch ? window.setTimeout(trigger, MOBILE_DELAY_MS) : 0;
 
     document.addEventListener("mouseout", onMouseOut);
-    window.addEventListener("scroll", onScroll, { passive: true });
+    if (touch) window.addEventListener("scroll", onScroll, { passive: true });
 
     function cleanup() {
       document.removeEventListener("mouseout", onMouseOut);
@@ -113,6 +116,7 @@ export function ExitOfferModal() {
   /* ── Accesibilidad: focus-trap + Esc + lock de scroll ─────────── */
   useEffect(() => {
     if (!open) return;
+    const prevFocus = document.activeElement as HTMLElement | null;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
 
@@ -146,6 +150,7 @@ export function ExitOfferModal() {
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
+      prevFocus?.focus();
     };
   }, [open, dismiss]);
 
@@ -205,7 +210,7 @@ export function ExitOfferModal() {
                 className="w-full justify-center"
                 onClick={onWhatsApp}
               >
-                <MessageCircle size={18} strokeWidth={2} />
+                <WhatsAppIcon size={18} />
                 {t.exit.cta}
               </CtaButton>
               <a
@@ -213,7 +218,7 @@ export function ExitOfferModal() {
                 onClick={onMail}
                 className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[color:var(--text-muted)] underline-offset-4 transition-colors hover:text-[color:var(--text-strong)] hover:underline"
               >
-                <Mail size={15} strokeWidth={1.8} />
+                <GmailIcon size={15} />
                 {t.exit.mail}
               </a>
               <button

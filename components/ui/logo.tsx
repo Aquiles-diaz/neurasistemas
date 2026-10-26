@@ -11,10 +11,13 @@ export function Logo({
   className,
   alt = "",
   on = "page",
+  priority = false,
 }: {
   className?: string;
   alt?: string;
   on?: "page" | "band";
+  /** Solo la instancia del nav (la primera en pantalla) debe precargarse. */
+  priority?: boolean;
 }) {
   return (
     <Image
@@ -27,7 +30,7 @@ export function Logo({
         on === "page" ? "light:invert" : "dark:invert",
         className
       )}
-      priority
+      priority={priority}
     />
   );
 }

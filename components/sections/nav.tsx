@@ -98,7 +98,7 @@ export function Nav() {
           }}
           aria-label={t.nav.home}
         >
-          <Logo className="opacity-95" />
+          <Logo className="opacity-95" priority />
           <span className="block text-left">
             <b className="block font-[family-name:var(--font-display)] text-[15px] font-bold leading-[1.15] tracking-[0.01em] text-[color:var(--text-strong)]">
               Neura Sistemas

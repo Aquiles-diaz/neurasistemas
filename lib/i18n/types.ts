@@ -26,11 +26,6 @@ export interface Commitment {
   label: string;
 }
 
-export interface CompareRow {
-  aspect: string;
-  neura: string;
-  others: string;
-}
 
 export interface Step {
   n: string;
@@ -100,17 +95,6 @@ export interface Dict {
     benefits: string[];
   };
 
-  /** "The problem": businesses with no digital presence, over the crowd canvas. */
-  gap: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    points: TitledItem[];
-    cta: string;
-    ctaSecondary: string;
-    sectorsLabel: string;
-    sectors: string[];
-  };
 
   platforms: {
     eyebrow: string;
@@ -131,30 +115,15 @@ export interface Dict {
     eyebrow: string;
     title: string;
     subtitle: string;
+    /** Rendered as chips (titles only) — the long descs stay for the FAQ/EN parity. */
     practices: TitledItem[];
     trustTitle: string;
     trust: TitledItem[];
+    /** Big scannable numbers (ex whyUs.commitments). */
+    numbers: Commitment[];
   };
 
-  stack: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    items: string[];
-  };
 
-  whyUs: {
-    eyebrow: string;
-    title: string;
-    subtitle: string;
-    commitments: Commitment[];
-    tableTitle: string;
-    tableSubtitle: string;
-    cols: [string, string, string];
-    shortNeura: string;
-    shortOthers: string;
-    rows: CompareRow[];
-  };
 
   process: {
     eyebrow: string;
@@ -212,11 +181,23 @@ export interface Dict {
     items: FaqItem[];
   };
 
+  /** Último video de Instagram, debajo del hero. */
+  social: {
+    eyebrow: string;
+    title: string;
+    subtitle: string;
+    ctaWhatsapp: string;
+    follow: string;
+    open: string;
+    loading: string;
+  };
+
   contact: {
     title: string;
     subtitle: string;
     cta: string;
     location: string;
+    instagram: string;
     trust: string[];
     fields: {
       name: string;
@@ -238,6 +219,8 @@ export interface Dict {
     privacy: string;
     subjectPrefix: string;
     sentMessage: string;
+    /** Fallback sin EmailJS: solo se abrió el cliente de correo del visitante. */
+    sentMailtoMessage: string;
     labels: {
       name: string;
       email: string;
@@ -251,6 +234,7 @@ export interface Dict {
     blurb: string;
     navTitle: string;
     contactTitle: string;
+    followTitle: string;
     location: string;
     rights: string;
     tagline: string;
@@ -263,7 +247,7 @@ export interface Dict {
     close: string;
     introStrong: string;
     intro: string;
-    channels: { whatsapp: string; call: string; mail: string };
+    channels: { whatsapp: string; call: string; mail: string; instagram: string };
     foot: string;
     waText: string;
     mailSubject: string;

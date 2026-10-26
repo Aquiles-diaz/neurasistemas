@@ -3,8 +3,14 @@ import next from "eslint-config-next";
 const eslintConfig = [
   ...next,
   {
-    // Vendored cult.ui primitives + build output are not ours to lint.
-    ignores: ["node_modules/**", ".next/**", "out/**", "components/ui/**"],
+    ignores: ["node_modules/**", ".next/**", "out/**"],
+  },
+  {
+    rules: {
+      // Patrón "mounted" post-hidratación (export estático): un setState en el
+      // primer efecto es intencional. Queda como aviso, no como error.
+      "react-hooks/set-state-in-effect": "warn",
+    },
   },
 ];
 

@@ -10,9 +10,11 @@ import {
   type ReactNode,
 } from "react";
 import { AnimatePresence, m, useReducedMotion } from "motion/react";
-import { Clock, Mail, MessageCircle, Phone, X, type LucideIcon } from "lucide-react";
+import { Clock, Phone, X } from "lucide-react";
+import type { ComponentType } from "react";
 import { Logo } from "@/components/ui/logo";
-import { EMAIL, PHONE_TEL, WHATSAPP_DIGITS } from "@/lib/site";
+import { GmailIcon, InstagramIcon, WhatsAppIcon } from "@/components/ui/brand-icons";
+import { EMAIL, INSTAGRAM_URL, PHONE_TEL, WHATSAPP_DIGITS } from "@/lib/site";
 import { useT } from "@/lib/i18n";
 
 /* ── Contexto global ──────────────────────────────────────────── */
@@ -51,15 +53,16 @@ function ContactDrawer({ open, onClose }: { open: boolean; onClose: () => void }
   const TEL_HREF = `tel:${PHONE_TEL}`;
 
   const CHANNELS: {
-    Icon: LucideIcon;
+    Icon: ComponentType<{ size?: number; strokeWidth?: number }>;
     label: string;
     href: string;
     external?: boolean;
     primary?: boolean;
   }[] = [
-    { Icon: MessageCircle, label: t.drawer.channels.whatsapp, href: WA_HREF, external: true, primary: true },
+    { Icon: WhatsAppIcon, label: t.drawer.channels.whatsapp, href: WA_HREF, external: true, primary: true },
+    { Icon: InstagramIcon, label: t.drawer.channels.instagram, href: INSTAGRAM_URL, external: true },
     { Icon: Phone, label: t.drawer.channels.call, href: TEL_HREF },
-    { Icon: Mail, label: t.drawer.channels.mail, href: MAIL_HREF },
+    { Icon: GmailIcon, label: t.drawer.channels.mail, href: MAIL_HREF },
   ];
 
   // Accesibilidad: focus-trap + Esc + lock de scroll + foco devuelto al cerrar.

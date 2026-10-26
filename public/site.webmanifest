@@ -1,6 +1,10 @@
 {
   "name": "Neura Sistemas",
   "short_name": "Neura",
+  "description": "Sistemas a medida y ciberseguridad para empresas. Rosario, Argentina.",
+  "lang": "es-AR",
+  "start_url": "/",
+  "scope": "/",
   "icons": [
     {
       "src": "/logo/android-chrome-192x192.png",
@@ -13,7 +17,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#141414",
-  "background_color": "#141414",
+  "theme_color": "#0a0a0a",
+  "background_color": "#0a0a0a",
   "display": "standalone"
 }

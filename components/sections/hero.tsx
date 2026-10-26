@@ -3,6 +3,7 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import { useScrollTo } from "@/components/scroll/use-scroll-to";
 import { useContactDrawer } from "@/components/ui/contact-drawer";
+import { WhatsAppIcon } from "@/components/ui/brand-icons";
 import { RollingText } from "@/components/ui/rolling-text";
 import { RollingWords } from "@/components/ui/rolling-words";
 import { Container, SecondaryButton, CtaButton } from "@/components/sections/primitives";
@@ -59,14 +60,20 @@ export function Hero() {
             {t.hero.subtitle}
           </p>
 
-          <div data-hero className="mt-9 flex flex-wrap justify-center gap-3.5">
-            <CtaButton size="lg" onClick={() => scrollTo("sistemas")}>
-              <RollingText text={t.hero.ctaPrimary} />
-              <ArrowRight size={18} strokeWidth={1.8} />
+          {/* El botón fuerte convierte (abre WhatsApp/canales); el de leer más
+              pasa a secundario. En mobile ocupan todo el ancho, uno bajo otro. */}
+          <div
+            data-hero
+            className="mt-9 flex w-full flex-col items-stretch justify-center gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center"
+          >
+            <CtaButton size="lg" onClick={open}>
+              <WhatsAppIcon size={18} />
+              <RollingText text={t.hero.ctaSecondary} />
             </CtaButton>
 
-            <SecondaryButton size="lg" onClick={open}>
-              <RollingText text={t.hero.ctaSecondary} />
+            <SecondaryButton size="lg" onClick={() => scrollTo("sistemas")}>
+              <RollingText text={t.hero.ctaPrimary} />
+              <ArrowRight size={18} strokeWidth={1.8} />
             </SecondaryButton>
           </div>
 
